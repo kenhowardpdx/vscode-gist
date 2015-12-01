@@ -1,0 +1,49 @@
+{
+  "name": "vscode-gist",
+  "displayName": "Gist Extension",
+  "description": "Quick gists from your code",
+  "version": "0.1.0",
+  "publisher": "dbankier",
+  "licence": "MIT",
+  "homepage": "https://github.com/dbankier/vscode-gist/blob/master/README.md",
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/ziyasal/vscode-gist.git"
+  },
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.privateGist",
+    "onCommand:extension.publicGist",
+    "onCommand:extension.anonymousGist"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.privateGist",
+        "title": "Gist: create new PRIVATE gist"
+      },
+      {
+        "command": "extension.anonymousGist",
+        "title": "Gist: create new ANONYMOUS gist"
+      },
+      {
+        "command": "extension.publicGist",
+        "title": "Gist: create new PUBLIC gist"
+      }
+    ]
+  },
+  "devDependencies": {
+    "vscode": "0.10.x"
+  },
+  "dependencies": {
+    "bluebird": "^3.0.6",
+    "request": "^2.67.0",
+    "shelljs": "^0.5.3"
+  }
+}
