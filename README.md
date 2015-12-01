@@ -4,8 +4,6 @@
 
 ## Installation
 
-*This is pending the ms marketplace validation.*
-
 Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pick `Extensions: Install Extension`.
 Select the `Gist Extension` extension from the list
 
