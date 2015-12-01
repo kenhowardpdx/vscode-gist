@@ -45,3 +45,4 @@ Other gist functions: list, view, edit, import, etc.
 ## License
 
 MIT © [David Bankier @dbankier](https://github.com/dbankier)
+[@davidbankier](https://twitter.com/davidbankier)

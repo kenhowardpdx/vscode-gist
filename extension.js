@@ -4,6 +4,7 @@ var Promise = require('bluebird');
 var request = Promise.promisify(require("request"));
 var open = require('open');
 var window = vscode.window;
+var path = require("path");
 
 var PRIVATE = 0;
 var PUBLIC = 1;
@@ -86,7 +87,7 @@ function createGist(type) {
           files: {}
         }
       };
-      options.body.files[editor.document.fileName || "untitled.txt"] = {
+      options.body.files[path.basename(editor.document.fileName || "untitled.txt")] = {
         content: text_content
       }
       if (type !== ANONYMOUS) {
