@@ -2,6 +2,8 @@
 
 > Extension for Visual Studio Code to create gists. They can be anonoymous, private or public and can be created from selection or full file.
 
+![screencast](./vscode-gist.gif)
+
 ## Installation
 
 Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pick `Extensions: Install Extension`.
