@@ -35,10 +35,10 @@ The plugin supports both username/password and token based authentication.
 To generate a token use the following command:
 
 ~~~
-curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"VSCode-Gist-Extension\"], \"note\": \"SublimeText 2/3 Gist plugin\"}"
-~~~ 
+curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"], \"note\": \"VSCode-Gist-Extension\"}"
+~~~
 
-Take the token value and set the following in your `User Settings`: 
+Take the token value and set the following in your `User Settings`:
 
 ~~~
 	"gist.oauth_token": "YOUR_TOKEN"
