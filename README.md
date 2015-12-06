@@ -1,6 +1,6 @@
 # vscode-gist
 
-> Extension for Visual Studio Code to create gists. They can be anonoymous, private or public and can be created from selection or full file.
+> Extension for Visual Studio Code to create gists. They can be anonymous, private or public and can be created from a selection or full file.
 
 ![screencast](./vscode-gist.gif)
 
@@ -9,23 +9,43 @@
 Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pick `Extensions: Install Extension`.
 Select the `Gist Extension` extension from the list
 
-##Install Manual
+## Manual Install
 
 **Mac & Linux**
 ```sh
 cd $HOME/.vscode/extensions
+```
+**Windows**
+```sh
+cd %USERPROFILE%\.vscode\extensions
+```
+
+**All Platforms**
+```
 git clone https://github.com/dbankier/vscode-gist.git
 cd vscode-gist
 npm install
 ```
 
-**Windows**
-```
-cd %USERPROFILE%\.vscode\extensions
-git clone https://github.com/dbankier/vscode-gist.git
-cd vscode-gist
-npm install
-```
+
+## Github Authentication
+
+The plugin supports both username/password and token based authentication.
+
+To generate a token use the following command:
+
+~~~
+curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"VSCode-Gist-Extension\"], \"note\": \"SublimeText 2/3 Gist plugin\"}"
+~~~ 
+
+Take the token value and set the following in your `User Settings`: 
+
+~~~
+	"gist.oauth_token": "YOUR_TOKEN"
+~~~
+
+If value is not set, you will prompted for your password.
+
 
 ## Usage
 
