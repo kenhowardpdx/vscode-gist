@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gist Extension",
   "description": "Create, open and edit Gists",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "publisher": "dbankier",
   "licence": "MIT",
   "homepage": "https://github.com/dbank5ier/vscode-gist/blob/master/README.md",
@@ -20,7 +20,8 @@
     "onCommand:extension.privateGist",
     "onCommand:extension.publicGist",
     "onCommand:extension.anonymousGist",
-    "onCommand:extension.openGist"
+    "onCommand:extension.openGist",
+    "onCommand:extension.openStarredGist"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -39,7 +40,11 @@
       },
       {
         "command": "extension.openGist",
-        "title": "Gist: open a personal gist"
+        "title": "Gist: open a PERSONAL gist"
+      },
+      {
+        "command": "extension.openStarredGist",
+        "title": "Gist: open a STARRED gist"
       }
     ],
     "configuration": {

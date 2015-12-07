@@ -33,12 +33,11 @@ function openGistFile(dir, filename, content) {
   return vscode.workspace.openTextDocument(file)
   .then((doc:vscode.TextDocument) => vscode.window.showTextDocument(doc) );
 }
-export function openGist() {
-  let gists;
-  let selected;
-  let file_names;
 
-  return Gist.list()
+function openFromList(list_promise, tmp_dir_prefix) {
+  let gists;
+
+  return list_promise
   .then(res => {
     gists = res.body;
     return vscode.window.showQuickPick(gists.map(a => a.description ))
@@ -48,7 +47,7 @@ export function openGist() {
   })
   .then(res => {
     var selected = res.body;
-    var tmpdir = tmp.dirSync({ prefix: 'vscode_gist_' + selected.id + "_" });
+    var tmpdir = tmp.dirSync({ prefix: tmp_dir_prefix + selected.id + "_" });
     var promise;
     if(vscode.window.activeTextEditor) {
       promise = vscode.commands.executeCommand("workbench.action.closeOtherEditors");
@@ -65,6 +64,14 @@ export function openGist() {
     })
     return promise;
   });
+}
+
+export function openGist() {
+  return openFromList(Gist.list(), 'vscode_gist_');
+}
+
+export function openStarredGist() {
+  return openFromList(Gist.listStarred(), 'vscode_starredgist_');
 }
 
 export function onSave(doc:vscode.TextDocument) {

@@ -8,6 +8,7 @@ function activate(context) {
   context.subscriptions.push(vscode.commands.registerCommand('extension.publicGist', commands.createGist.bind(undefined, Gist.Type.PUBLIC)));
   context.subscriptions.push(vscode.commands.registerCommand('extension.anonymousGist', commands.createGist.bind(undefined, Gist.Type.ANONYMOUS)));
   context.subscriptions.push(vscode.commands.registerCommand('extension.openGist', commands.openGist));
+  context.subscriptions.push(vscode.commands.registerCommand('extension.openStarredGist', commands.openStarredGist));
   vscode.workspace.onDidSaveTextDocument(commands.onSave)
 }
 

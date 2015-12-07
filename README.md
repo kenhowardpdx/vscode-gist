@@ -64,20 +64,26 @@ You will be prompted a gist description.
 
 ### Open/Edit Gists
 
-Press <kbd>F1</kbd> and enter select: `Gist: open a personal gist`.
+Press <kbd>F1</kbd> and enter one fo the following:
+
+~~~
+Gist: open a PERSONAL gist
+Gist: open a STARRED gist
+~~~
 
 * All files associated with the gist will be opened in splits.
-* Saving the gist will commit a new revision.
+* Saving a **personal** gist will commit a new revision.
 
 ## Keybord Shortcut
 
 The following are the commands that you can assign shortcuts to:
 
 ~~~
-extension.privateGist"
-extension.publicGist"
-extension.anonymousGist"
+extension.privateGist
+extension.publicGist
+extension.anonymousGist
 extension.openGist
+extension.openStarredGist
 ~~~
 
 None at this stage - but you can define your own.
