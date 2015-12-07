@@ -3,7 +3,7 @@
 > Extension for Visual Studio Code to create, open and modify gists.
 They can be anonymous, private or public and can be created from a selection or full file.
 
-![screencast](./vscode-gist.gif)
+![screencast](./vscode-gist-open-and-save.gif)
 
 ## Installation
 
