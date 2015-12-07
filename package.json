@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gist Extension",
   "description": "Create, open and edit Gists",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "publisher": "dbankier",
   "licence": "MIT",
   "homepage": "https://github.com/dbank5ier/vscode-gist/blob/master/README.md",
@@ -21,7 +21,12 @@
     "onCommand:extension.publicGist",
     "onCommand:extension.anonymousGist",
     "onCommand:extension.openGist",
-    "onCommand:extension.openStarredGist"
+    "onCommand:extension.openStarredGist",
+    "onCommand:extension.deleteCurrentGist",
+    "onCommand:extension.removeFileFromGist",
+    "onCommand:extension.addNewFileToGist",
+    "onCommand:extension.changeGistDescription",
+    "onCommand:extension.openGistInBrowser"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -45,6 +50,26 @@
       {
         "command": "extension.openStarredGist",
         "title": "Gist: open a STARRED gist"
+      },
+      {
+        "command": "extension.deleteCurrentGist",
+        "title": "Gist: delete current gist"
+      },
+      {
+        "command": "extension.removeFileFromGist",
+        "title": "Gist: remove file from current gist"
+      },
+      {
+        "command": "extension.addNewFileToGist",
+        "title": "Gist: add file to current gist"
+      },
+      {
+        "command": "extension.changeGistDescription",
+        "title": "Gist: change the current gist's description"
+      },
+      {
+        "command": "extension.openGistInBrowser",
+        "title": "Gist: open the current gist in a browser"
       }
     ],
     "configuration": {

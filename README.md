@@ -78,10 +78,22 @@ Gist: open a PERSONAL gist
 Gist: open a STARRED gist
 ~~~
 
-* All files associated with the gist will be opened in splits.
-* Saving a **personal** gist will commit a new revision.
+All files associated with the gist will be opened in splits.
+
+Once you have opened a **personal** gist saving it will commit a new revision.
+You can also use the following commands:
+
+~~~
+Gist: delete current gist
+Gist: remove file from current gist
+Gist: add file to current gist
+Gist: change the current gist's description
+Gist: open the current gist in a browser
+~~~
 
 ## Keybord Shortcut
+
+None at this stage - but you can define your own.
 
 The following are the commands that you can assign shortcuts to:
 
@@ -91,20 +103,18 @@ extension.publicGist
 extension.anonymousGist
 extension.openGist
 extension.openStarredGist
+extension.deleteCurrentGist
+extension.removeFileFromGist
+extension.addNewFileToGist
+extension.changeGistDescription
+extension.openGistInBrowser
 ~~~
 
-None at this stage - but you can define your own.
-
 ## Future
-To Do:
-
-  * Add/Remove files from a gist.
-  * Update gist description
-
-  * Open gist revision?
+To Do (maybe):
   * View commits?
-  * Open gist in browser?
-
+  * Open gist revision?
+  
 ## License
 
 MIT © [David Bankier @dbankier](https://github.com/dbankier)
