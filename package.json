@@ -1,11 +1,11 @@
 {
   "name": "vscode-gist",
   "displayName": "Gist Extension",
-  "description": "Quick gists from your code",
-  "version": "0.2.1",
+  "description": "Create, open and edit Gists",
+  "version": "0.3.0",
   "publisher": "dbankier",
   "licence": "MIT",
-  "homepage": "https://github.com/dbankier/vscode-gist/blob/master/README.md",
+  "homepage": "https://github.com/dbank5ier/vscode-gist/blob/master/README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/ziyasal/vscode-gist.git"
@@ -19,9 +19,10 @@
   "activationEvents": [
     "onCommand:extension.privateGist",
     "onCommand:extension.publicGist",
-    "onCommand:extension.anonymousGist"
+    "onCommand:extension.anonymousGist",
+    "onCommand:extension.openGist"
   ],
-  "main": "./extension",
+  "main": "./out/extension",
   "contributes": {
     "commands": [
       {
@@ -35,6 +36,10 @@
       {
         "command": "extension.publicGist",
         "title": "Gist: create new PUBLIC gist"
+      },
+      {
+        "command": "extension.openGist",
+        "title": "Gist: open a personal gist"
       }
     ],
     "configuration": {
@@ -49,13 +54,19 @@
       }
     }
   },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+  },
   "devDependencies": {
+    "typescript": "^1.7.3",
     "vscode": "0.10.x"
   },
   "dependencies": {
     "bluebird": "^3.0.6",
     "open": "0.0.5",
     "request": "^2.67.0",
-    "shelljs": "^0.5.3"
+    "shelljs": "^0.5.3",
+    "tmp": "0.0.28"
   }
 }

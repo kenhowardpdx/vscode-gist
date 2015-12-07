@@ -1,6 +1,6 @@
+import vscode = require('vscode');
 var shell = require('shelljs');
-var vscode = require('vscode');
-var Promise = require('bluebird');
+
 
 function getUser() {
   var user_command = shell.exec("git config --get github.user")
@@ -23,24 +23,25 @@ function getPass() {
   }
 }
 
-exports.getCredentials = function getCredentials() {
+export function getCredentials() {
   if (!shell.which('git')) {
     return vscode.window.showErrorMessage("Sorry, git must be installed.");
   }
   var user
-  return getUser().then(function (u) {
+  return getUser().then( u => {
     user = u;
     return getPass()
   })
-  .then(function (p) {
-      return Promise.resolve({
+  .then(p =>
+      Promise.resolve({
         user: user,
         pass: p,
         sendImmediately: true
       })
-    })
+    )
 }
 
-exports.getToken = function() {
-  return vscode.workspace.getConfiguration('gist').oauth_token;
+export function getToken() {
+  return vscode.workspace.getConfiguration('gist').get("oauth_token");
 }
+

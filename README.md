@@ -1,6 +1,7 @@
 # vscode-gist
 
-> Extension for Visual Studio Code to create gists. They can be anonymous, private or public and can be created from a selection or full file.
+> Extension for Visual Studio Code to create, open and modify gists.
+They can be anonymous, private or public and can be created from a selection or full file.
 
 ![screencast](./vscode-gist.gif)
 
@@ -41,7 +42,7 @@ curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"sco
 Take the token value and set the following in your `User Settings`:
 
 ~~~
-	"gist.oauth_token": "YOUR_TOKEN"
+"gist.oauth_token": "YOUR_TOKEN"
 ~~~
 
 If value is not set, you will prompted for your password.
@@ -49,13 +50,35 @@ If value is not set, you will prompted for your password.
 
 ## Usage
 
-**Command**
+### Create Gists
 
-Press <kbd>F1</kbd> and type `Gist` and then select which type of gist you want to created.
+Press <kbd>F1</kbd> and enter one fo the following:
 
-You will be prompted for your git credentials and gist description if needed.
+~~~
+Gist: create new PRIVATE gist
+Gist: create new ANONYMOUS gist
+Gist: create new PUBLIC gist
+~~~
 
-**Keybord Shortcut**
+You will be prompted a gist description.
+
+### Open/Edit Gists
+
+Press <kbd>F1</kbd> and enter select: `Gist: open a personal gist`.
+
+* All files associated with the gist will be opened in splits.
+* Saving the gist will commit a new revision.
+
+## Keybord Shortcut
+
+The following are the commands that you can assign shortcuts to:
+
+~~~
+extension.privateGist"
+extension.publicGist"
+extension.anonymousGist"
+extension.openGist
+~~~
 
 None at this stage - but you can define your own.
 
