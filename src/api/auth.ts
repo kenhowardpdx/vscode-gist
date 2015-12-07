@@ -1,5 +1,7 @@
 import vscode = require('vscode');
 var shell = require('shelljs');
+//promise workaround for vscode issue #230
+var Promise = require("bluebird");
 
 
 function getUser() {

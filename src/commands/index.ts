@@ -7,7 +7,7 @@ var tmp = require('tmp');
 var request = require("bluebird").promisify(require("request"));
 
 
-export function createGist(type: Gist.Type) {
+export function createGist(type) {
   let editor = vscode.window.activeTextEditor;
   if (!editor) {
     return vscode.window.showErrorMessage("First open a file");
