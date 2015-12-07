@@ -93,7 +93,6 @@ To Do:
 
   * Add/Remove files from a gist.
   * Update gist description
-  * Open starred gist
 
   * Open gist revision?
   * View commits?
