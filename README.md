@@ -35,8 +35,15 @@ The plugin supports both username/password and token based authentication.
 
 To generate a token use the following command:
 
+**Curl**
 ~~~
 curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"], \"note\": \"VSCode-Gist-Extension\"}"
+~~~
+
+**Powershell**
+~~~
+$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("USERNAME:PASSWORD")))
+Invoke-RestMethod -Uri "https://api.github.com/authorizations" -method post -ContentType "application/json" -Body "{""scopes"" : ""gist"",""note"":""VSCode-Gist-Extension""}" -Headers @{"Authorization"="Basic $base64AuthInfo"}
 ~~~
 
 Take the token value and set the following in your `User Settings`:
