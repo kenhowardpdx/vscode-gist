@@ -83,7 +83,15 @@ extension.openGist
 None at this stage - but you can define your own.
 
 ## Future
-Other gist functions: list, view, edit, import, etc.
+To Do:
+
+  * Add/Remove files from a gist.
+  * Update gist description
+  * Open starred gist
+
+  * Open gist revision?
+  * View commits?
+  * Open gist in browser?
 
 ## License
 
