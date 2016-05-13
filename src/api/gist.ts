@@ -41,7 +41,7 @@ export = {
   create: (type: Type, description: string, file_name: string, text_content: string) => {
     var body = {
       description: description,
-      public: type !== exports.PRIVATE,
+      public: type !== Type.PRIVATE,
       files: {}
     }
     body.files[file_name] = {
