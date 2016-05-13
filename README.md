@@ -3,7 +3,7 @@
 > Extension for Visual Studio Code to create, open and modify gists.
 They can be anonymous, private or public and can be created from a selection or full file.
 
-![screencast](./vscode-gist-open-and-save.gif)
+![screencast](https://github.com/dbankier/vscode-gist/raw/master/vscode-gist-open-and-save.gif)
 
 ## Installation
 
@@ -114,7 +114,7 @@ extension.openGistInBrowser
 To Do (maybe):
   * View commits?
   * Open gist revision?
-  
+
 ## License
 
 MIT © [David Bankier @dbankier](https://github.com/dbankier)
