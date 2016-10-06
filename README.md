@@ -1,5 +1,7 @@
 # vscode-gist
 
+*** I have moved back to VIM. Looking for new maintainers. ***
+
 > Extension for Visual Studio Code to create, open and modify gists.
 They can be anonymous, private or public and can be created from a selection or full file.
 
