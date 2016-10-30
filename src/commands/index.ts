@@ -43,27 +43,29 @@ function openFromList(list_promise, tmp_dir_prefix) {
       return vscode.window.showQuickPick(gists.map(a => a.description))
     })
     .then(description => {
-      return Gist.get(gists.find(a => a.description === description).url);
-    })
-    .then(res => {
-      var selected = res.body;
-      var tmpdir = tmp.dirSync({ prefix: tmp_dir_prefix + selected.id + "_" });
-      var promise;
-      if (vscode.window.activeTextEditor) {
-        promise = vscode.commands.executeCommand("workbench.action.closeOtherEditors");
-      } else {
-        promise = Promise.resolve();
+      if (description) {
+        return Gist.get(gists.find(a => a.description === description).url)
+        .then(res => {
+          var selected = res.body;
+          var tmpdir = tmp.dirSync({ prefix: tmp_dir_prefix + selected.id + "_" });
+          var promise;
+          if (vscode.window.activeTextEditor) {
+            promise = vscode.commands.executeCommand("workbench.action.closeOtherEditors");
+          } else {
+            promise = Promise.resolve();
+          }
+          Object.keys(selected.files).forEach((file, idx) => {
+            if (idx > 0) {
+              promise = promise
+                .then(() => vscode.commands.executeCommand("workbench.action.focusLeftEditor"))
+                .then(() => vscode.commands.executeCommand("workbench.action.splitEditor"))
+            }
+            promise = promise.then(() => openGistFile(tmpdir.name, file, selected.files[file].content))
+          })
+          return promise;
+        });
       }
-      Object.keys(selected.files).forEach((file, idx) => {
-        if (idx > 0) {
-          promise = promise
-            .then(() => vscode.commands.executeCommand("workbench.action.focusLeftEditor"))
-            .then(() => vscode.commands.executeCommand("workbench.action.splitEditor"))
-        }
-        promise = promise.then(() => openGistFile(tmpdir.name, file, selected.files[file].content))
-      })
-      return promise;
-    });
+    })
 }
 
 function getGistDetails(doc = (vscode.window.activeTextEditor ? vscode.window.activeTextEditor.document : undefined)) {
@@ -93,7 +95,6 @@ export function deleteCurrentGist() {
   if (!curr_gist) {
     return vscode.window.showErrorMessage("First open a personal gist");
   }
-  console.log(curr_gist);
   return Gist.remove(curr_gist.id)
   .then(() => vscode.commands.executeCommand("workbench.action.closeAllEditors"))
   .then(() =>  vscode.window.showInformationMessage("Gist removed."))
