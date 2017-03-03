@@ -1,7 +1,5 @@
 # vscode-gist
 
-*** I have moved back to VIM. Looking for new maintainers. ***
-
 > Extension for Visual Studio Code to create, open and modify gists.
 They can be anonymous, private or public and can be created from a selection or full file.
 
@@ -117,7 +115,5 @@ To Do (maybe):
   * View commits?
   * Open gist revision?
 
-## License
-
-MIT © [David Bankier @dbankier](https://github.com/dbankier)
-[@davidbankier](https://twitter.com/davidbankier)
+## Maintainer
+vscode-gist is maintained by [Ken Howard](https://github.com/kenhowardpdx).
