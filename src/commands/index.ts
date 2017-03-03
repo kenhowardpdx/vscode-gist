@@ -4,7 +4,6 @@ import path = require("path");
 import fs = require("fs");
 var open = require('open');
 var tmp = require('tmp');
-var request = require("bluebird").promisify(require("request"));
 
 
 export function createGist(type) {

@@ -1,6 +1,4 @@
 import vscode = require('vscode');
-//promise workaround for vscode issue #230
-var Promise = require("bluebird");
 import * as shell from 'shelljs';
 
 

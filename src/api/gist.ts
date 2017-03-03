@@ -1,7 +1,7 @@
 import vscode = require('vscode');
 import auth = require("./auth");
+import * as request from 'request';
 
-var request = require("bluebird").promisify(require("request"));
 var api = "https://api.github.com";
 
 enum Type {
@@ -10,9 +10,9 @@ enum Type {
   ANONYMOUS = 2,
 }
 
-function send(method: string, path: string, auth_type?: Type, body?: Object) {
+function send(method: string, path: string, auth_type?: Type, body?: Object): Thenable<any> {
   var oauth = auth.getToken();
-  var promise = auth_type !== Type.ANONYMOUS && !oauth ? auth.getCredentials() : Promise.resolve();
+  var promise: Promise<string> = <any>(auth_type !== Type.ANONYMOUS && !oauth ? auth.getCredentials() : Promise.resolve());
   return promise.then(function(creds) {
     console.log(creds);
     var options = {
@@ -32,7 +32,15 @@ function send(method: string, path: string, auth_type?: Type, body?: Object) {
         options.auth = creds;
       }
     }
-    return request(options);
+    return new Promise((resolve, reject) => {
+      request(options, (error, response, body) => {
+        if(error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+    });
   })
 }
 

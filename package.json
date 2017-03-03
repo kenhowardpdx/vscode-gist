@@ -95,7 +95,6 @@
     "conventional-changelog-cli": "^1.2.0",
     "typescript": "^2.2.1",
     "vscode": "^1.0.5",
-    "@types/bluebird": "^3.0.37",
     "@types/mocha": "^2.2.39",
     "@types/node": "^6.0.31",
     "@types/open": "^0.0.29",
@@ -104,7 +103,6 @@
     "@types/tmp": "^0.0.32"
   },
   "dependencies": {
-    "bluebird": "^3.4.7",
     "open": "^0.0.5",
     "request": "^2.79.0",
     "shelljs": "^0.7.6",
