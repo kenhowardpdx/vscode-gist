@@ -1,13 +1,13 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2015",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
     "outDir": "./out",
-		"sourceMap": true,
+    "sourceMap": true,
     "rootDir": "."
-	},
-	"exclude": [
-		"node_modules",
+  },
+  "exclude": [
+    "node_modules",
     ".vscode-test"
-	]
+  ]
 }

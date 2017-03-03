@@ -1,13 +1,19 @@
 {
-	"rules": {
-		"no-unused-expression": true,
-		"no-duplicate-variable": true,
-		"no-unused-variable": true,
+  "rules": {
+    "no-unused-expression": true,
+    "no-duplicate-variable": true,
+    "no-unused-variable": true,
     "no-var-keyword": true,
-		"curly": true,
-		"class-name": true,
-		"semicolon": ["always"],
-		"triple-equals": true,
-    "quotemark": [true, "single", "avoid-escape"]
-	}
+    "curly": true,
+    "class-name": true,
+    "semicolon": [
+      "always"
+    ],
+    "triple-equals": true,
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ]
+  }
 }
