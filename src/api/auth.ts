@@ -1,27 +1,27 @@
 import vscode = require('vscode');
-var shell = require('shelljs');
 //promise workaround for vscode issue #230
 var Promise = require("bluebird");
+import * as shell from 'shelljs';
 
 
 function getUser() {
-  var user_command = shell.exec("git config --get github.user")
-  if (user_command.code !== 0 || !user_command.output.trim()) {
+  var user_command = shell.exec("git config --get github.user");
+  if (user_command.code !== 0 || !user_command.stdout.trim()) {
     return vscode.window.showInputBox({ prompt: "Enter your github username" })
   } else {
-    return Promise.resolve(user_command.output.trim());
+    return Promise.resolve(user_command.stdout.trim());
   }
 }
 function getPass() {
   var password_command = shell.exec("git config --get github.password")
-  if (password_command.code !== 0 || !password_command.output.trim()) {
+  if (password_command.code !== 0 || !password_command.stdout.trim()) {
     return vscode.window.showInputBox({
       prompt: "Enter your github password. \n" +
       "Read the docs for token based authentication.",
       password: true
     })
   } else {
-    return Promise.resolve(password_command.output.trim());
+    return Promise.resolve(password_command.stdout.trim());
   }
 }
 
