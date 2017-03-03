@@ -1,7 +1,6 @@
-import commands = require("./commands");
-import Gist = require("./api/gist");
-import vscode = require('vscode');
-import path = require("path");
+import * as commands from './commands';
+import Gist from './api/gist';
+import * as vscode from 'vscode';
 
 function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand('extension.privateGist', commands.createGist.bind(undefined, Gist.Type.PRIVATE)));

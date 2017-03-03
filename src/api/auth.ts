@@ -1,4 +1,4 @@
-import vscode = require('vscode');
+import * as vscode from 'vscode';
 import * as shell from 'shelljs';
 
 

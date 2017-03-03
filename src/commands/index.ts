@@ -1,9 +1,9 @@
-import vscode = require('vscode');
-import Gist = require("../api/gist");
-import path = require("path");
-import fs = require("fs");
-var open = require('open');
-var tmp = require('tmp');
+import * as vscode from 'vscode';
+import Gist from '../api/gist';
+import * as path from 'path';
+import * as fs from 'fs';
+import open = require('open');
+import * as tmp from 'tmp';
 
 
 export function createGist(type) {

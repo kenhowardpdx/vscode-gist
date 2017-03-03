@@ -1,6 +1,6 @@
-import vscode = require('vscode');
-import auth = require("./auth");
+import * as vscode from 'vscode';
 import * as request from 'request';
+import * as auth from './auth';
 
 var api = "https://api.github.com";
 
@@ -44,7 +44,7 @@ function send(method: string, path: string, auth_type?: Type, body?: Object): Th
   })
 }
 
-export = {
+const Gist = {
   Type,
   create: (type: Type, description: string, file_name: string, text_content: string) => {
     var body = {
@@ -76,3 +76,5 @@ export = {
   fork: (id) => send("POST", "/gist/" + id + "/forks"),
   listForks: (id) => send("GET", "/gist/" + id + "/forks")
 }
+
+export default Gist;
