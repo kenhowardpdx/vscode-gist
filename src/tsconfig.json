@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2015",
+		"outDir": "../out/src",
+		"sourceMap": true,
+		"types": [
+			"node"
+		]
+	},
+	"exclude": [
+		"node_modules"
+	]
+}

@@ -28,7 +28,7 @@
     "onCommand:extension.changeGistDescription",
     "onCommand:extension.openGistInBrowser"
   ],
-  "main": "./out/extension",
+  "main": "./out/src/extension",
   "contributes": {
     "commands": [
       {
@@ -85,20 +85,29 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "vscode:prepublish": "tsc -p ./src",
+    "compile": "tsc -w -p ./src",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {
-    "conventional-changelog-cli": "1.2.0",
-    "typescript": "^1.7.3",
-    "vscode": "0.10.x"
+    "conventional-changelog-cli": "^1.2.0",
+    "typescript": "^2.2.1",
+    "vscode": "^1.0.5",
+    "@types/bluebird": "^3.0.37",
+    "@types/mocha": "^2.2.39",
+    "@types/node": "^6.0.31",
+    "@types/open": "^0.0.29",
+    "@types/request": "^0.0.40",
+    "@types/shelljs": "^0.7.0",
+    "@types/tmp": "^0.0.32"
   },
   "dependencies": {
-    "bluebird": "^3.0.6",
-    "open": "0.0.5",
-    "request": "^2.67.0",
-    "shelljs": "^0.5.3",
-    "tmp": "0.0.28"
+    "bluebird": "^3.4.7",
+    "open": "^0.0.5",
+    "request": "^2.79.0",
+    "shelljs": "^0.7.6",
+    "tmp": "^0.0.31"
   }
 }
