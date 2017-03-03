@@ -85,12 +85,12 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "tsc -p ./src",
-    "compile": "tsc -w -p ./src",
+    "vscode:prepublish": "tsc",
+    "compile": "tsc -w",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "lint": "tslint --project ./src"
+    "lint": "tslint"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.39",
