@@ -117,8 +117,3 @@ To Do (maybe):
 
 ## Maintainer
 vscode-gist is maintained by [Ken Howard](https://github.com/kenhowardpdx).
-
-## License
-
-MIT © [David Bankier @dbankier](https://github.com/dbankier)
-[@davidbankier](https://twitter.com/davidbankier)
