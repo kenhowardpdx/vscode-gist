@@ -17,11 +17,14 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:extension.openCodeBlock"
   ],
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
       {
+        "command": "extension.openCodeBlock",
+        "title": "Gist: open <yours>"
       }
     ],
     "configuration": {
@@ -45,6 +48,7 @@
     "lint": "tslint"
   },
   "devDependencies": {
+    "@types/github": "0.0.0",
     "@types/mocha": "^2.2.39",
     "@types/node": "^6.0.31",
     "@types/open": "^0.0.29",
@@ -57,6 +61,7 @@
     "vscode": "^1.0.5"
   },
   "dependencies": {
+    "github": "^9.1.0",
     "open": "^0.0.5",
     "request": "^2.79.0",
     "shelljs": "^0.7.6",
