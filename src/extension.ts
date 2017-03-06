@@ -3,7 +3,7 @@ import { GistService } from './services/gist.service';
 import { Commands } from './commands';
 
 export function activate(context: ExtensionContext) {
-  const gist = new GistService(context.globalState, true);
+  const gist = new GistService(context.globalState);
   const cmd = new Commands({ gist });
 
   const subscriptions = context.subscriptions;
