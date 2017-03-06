@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
+import { StorageBlock, StorageService } from './services/storage.service';
 
 export class Commands {
 
@@ -36,16 +37,32 @@ export class Commands {
         await this._openTextDocument(directory, f, _file.content);
       }
     } catch (error) {
-      let msg: string;
-      if (typeof error === 'string') {
-        msg = error;
-      } else if (error && error.message) {
-        msg = error.message;
-      } else {
-        msg = 'An error occurred while opening the editor.';
+      this._showError(error);
+    }
+  }
+
+  async onSaveTextDocument(doc: vscode.TextDocument) {
+    const {storageBlockId, fileName} = this._getCodeFileDetails(doc);
+    try {
+      if (storageBlockId) {
+        await this._provider.editFile(storageBlockId, fileName, doc);
+        await vscode.window.showInformationMessage('Gist file saved.');
       }
-      console.error(error);
-      vscode.window.showErrorMessage(msg);
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  private _getCodeFileDetails(doc: vscode.TextDocument) {
+    let sep = (path.sep === '\\') ? '\\\\' : path.sep;
+    let regexp = new RegExp(`.*vscode_gist_([^_]*)_[^${sep}]*${sep}(.*)`);
+    let matches = doc.fileName.match(regexp);
+    if (matches) {
+      return {
+        path: path.dirname(matches[0]),
+        storageBlockId: matches[1],
+        fileName: matches[2],
+      };
     }
   }
 
@@ -54,7 +71,7 @@ export class Commands {
     const files: StorageBlock[] = await this._provider.list();
     const selectedFile = await vscode.window.showQuickPick<StorageBlock>(files);
     if (selectedFile) {
-      return this._provider.getFileByUrl(selectedFile.url);
+      return this._provider.getStorageBlock(selectedFile.url);
     }
   }
 
@@ -83,5 +100,18 @@ export class Commands {
       prompt: `Enter your ${providerName} password.`
     })).trim();
     await this._provider.login(username, password);
+  }
+
+  private _showError(error: any) {
+      let msg: string;
+      if (typeof error === 'string') {
+        msg = error;
+      } else if (error && error.message) {
+        msg = error.message;
+      } else {
+        msg = 'An error occurred while opening the editor.';
+      }
+      console.error(error);
+      vscode.window.showErrorMessage(msg);
   }
 }

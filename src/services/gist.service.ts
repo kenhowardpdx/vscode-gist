@@ -1,5 +1,6 @@
 import github = require('github');
-import { Memento } from 'vscode';
+import { Memento, TextDocument } from 'vscode';
+import { StorageService } from './storage.service';
 
 export class GistService implements StorageService {
   name = 'github';
@@ -62,9 +63,14 @@ export class GistService implements StorageService {
     return gists;
   }
 
-  async getFileByUrl(url: string) {
+  async getStorageBlock(url: string) {
     const id: string = url.split('/').pop();
     const gist = (await this.gh.gists.get({ id })).data;
     return gist;
+  }
+
+  async editFile(gistId: string, fileName: string, file: TextDocument): Promise<void> {
+    const files = { [fileName]: { content: file.getText() } };
+    await this.gh.gists.edit({ id: gistId, files: JSON.stringify(files) });
   }
 }
