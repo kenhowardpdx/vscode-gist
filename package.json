@@ -17,59 +17,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.privateGist",
-    "onCommand:extension.publicGist",
-    "onCommand:extension.anonymousGist",
-    "onCommand:extension.openGist",
-    "onCommand:extension.openStarredGist",
-    "onCommand:extension.deleteCurrentGist",
-    "onCommand:extension.removeFileFromGist",
-    "onCommand:extension.addNewFileToGist",
-    "onCommand:extension.changeGistDescription",
-    "onCommand:extension.openGistInBrowser"
   ],
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
       {
-        "command": "extension.privateGist",
-        "title": "Gist: create new PRIVATE gist"
-      },
-      {
-        "command": "extension.anonymousGist",
-        "title": "Gist: create new ANONYMOUS gist"
-      },
-      {
-        "command": "extension.publicGist",
-        "title": "Gist: create new PUBLIC gist"
-      },
-      {
-        "command": "extension.openGist",
-        "title": "Gist: open a PERSONAL gist"
-      },
-      {
-        "command": "extension.openStarredGist",
-        "title": "Gist: open a STARRED gist"
-      },
-      {
-        "command": "extension.deleteCurrentGist",
-        "title": "Gist: delete current gist"
-      },
-      {
-        "command": "extension.removeFileFromGist",
-        "title": "Gist: remove file from current gist"
-      },
-      {
-        "command": "extension.addNewFileToGist",
-        "title": "Gist: add file to current gist"
-      },
-      {
-        "command": "extension.changeGistDescription",
-        "title": "Gist: change the current gist's description"
-      },
-      {
-        "command": "extension.openGistInBrowser",
-        "title": "Gist: open the current gist in a browser"
       }
     ],
     "configuration": {
