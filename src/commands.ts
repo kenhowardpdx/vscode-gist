@@ -16,8 +16,11 @@ export class Commands {
 
   async openCodeBlock() {
     try {
-      const file = await this._selectCodeBlock();
-      const directory = this._createTmpDir(file.id);
+      const codeBlock = await this._selectCodeBlock();
+      if (!codeBlock) {
+        return;
+      }
+      const directory = this._createTmpDir(codeBlock.id);
 
       // Is there an active text editor?
       if (vscode.window.activeTextEditor) {
@@ -27,14 +30,14 @@ export class Commands {
 
       // Open an editor for each file in CodeFile
       let i = 0;
-      for(let f in file.files) {
+      for(let fileName in codeBlock.files) {
         i++;
-        let _file = file.files[f];
+        let file = codeBlock.files[fileName];
         if (i > 1) {
           await vscode.commands.executeCommand('workbench.action.focusFirstEditorGroup');
           await vscode.commands.executeCommand('workbench.action.splitEditor');
         }
-        await this._openTextDocument(directory, f, _file.content);
+        await this._openTextDocument(directory, fileName, file.content);
       }
     } catch (error) {
       this._showError(error);
