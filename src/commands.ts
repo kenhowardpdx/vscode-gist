@@ -14,8 +14,12 @@ export class Commands {
     this._provider = codeFileServices[providerKey];
   }
 
+  /**
+   * User selects code block from quick pick menu, files open
+   */
   async openCodeBlock() {
     try {
+      // codeBlock is selected by user
       const codeBlock = await this._selectCodeBlock();
       if (!codeBlock) {
         return;
@@ -44,6 +48,10 @@ export class Commands {
     }
   }
 
+  /**
+   * User saves a text document
+   * @param doc
+   */
   async onSaveTextDocument(doc: vscode.TextDocument) {
     const {storageBlockId, fileName} = this._getCodeFileDetails(doc);
     try {
