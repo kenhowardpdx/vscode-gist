@@ -20,7 +20,8 @@ export function activate(context: ExtensionContext) {
     registerCommand('extension.openFavoriteCodeBlock', cmd.openCodeBlock.bind(cmd, true)),
     registerCommand('extension.createCodeBlock', cmd.createCodeBlock, cmd),
     registerCommand('extension.openCodeBlockInBrowser', cmd.openCodeBlockInBrowser, cmd),
-    registerCommand('extension.deleteCodeBlock', cmd.deleteCodeBlock, cmd)
+    registerCommand('extension.deleteCodeBlock', cmd.deleteCodeBlock, cmd),
+    registerCommand('extension.removeFileFromCodeBlock', cmd.removeFileFromCodeBlock, cmd)
   );
   workspace.onDidSaveTextDocument(cmd.onSaveTextDocument, cmd);
 }

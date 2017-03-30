@@ -76,17 +76,7 @@ export class Commands {
    */
   async openCodeBlockInBrowser() {
     try {
-      const doc = (vscode.window.activeTextEditor) ? vscode.window.activeTextEditor.document : undefined;
-
-      if (!doc) {
-        throw new Error('No open documents');
-      }
-
-      const details = this._getCodeFileDetails(doc);
-
-      if (!details) {
-        throw new Error('No gist found for selected document');
-      }
+      const details = this._getCurrentDocument();
       
       const storageBlock = await this._provider.getStorageBlockById(details.storageBlockId);
 
@@ -101,17 +91,8 @@ export class Commands {
    */
   async deleteCodeBlock() {
     try {
-      const doc = (vscode.window.activeTextEditor) ? vscode.window.activeTextEditor.document : undefined;
 
-      if (!doc) {
-        throw new Error('No open documents');
-      }
-
-      const details = this._getCodeFileDetails(doc);
-
-      if (!details) {
-        throw new Error('No gist found for selected document');
-      }
+      const details = this._getCurrentDocument();
       
       await this._provider.deleteStorageBlock(details.storageBlockId);
 
@@ -132,6 +113,23 @@ export class Commands {
   }
 
   /**
+   * Removes file from code block
+   */
+  async removeFileFromCodeBlock() {
+    try {
+      const details = this._getCurrentDocument();
+
+      await this._provider.removeFileFromStorageBlock(details.storageBlockId, details.fileName);
+
+      vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+
+      this._notify('File removed');
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  /**
    * User saves a text document
    * @param doc
    */
@@ -145,6 +143,22 @@ export class Commands {
     } catch (error) {
       this._showError(error);
     }
+  }
+
+  private _getCurrentDocument() {
+      const doc = (vscode.window.activeTextEditor) ? vscode.window.activeTextEditor.document : undefined;
+
+      if (!doc) {
+        throw new Error('No open documents');
+      }
+
+      const details = this._getCodeFileDetails(doc);
+
+      if (!details) {
+        throw new Error('No gist found for selected document');
+      }
+
+      return details;
   }
 
   private _getCodeFileDetails(doc: vscode.TextDocument) {

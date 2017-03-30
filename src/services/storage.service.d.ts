@@ -10,6 +10,7 @@ export interface StorageService {
   createFile(fileName: string, description: string, text: string, isPrivate?: boolean): Promise<StorageBlock>;
   editFile(storageBlockId: string, fileName: string, text: string): Promise<void>;
   deleteStorageBlock(id: string): Promise<void>;
+  removeFileFromStorageBlock(id: string, fileName: string): Promise<void>;
 }
 
 export interface StorageBlock {

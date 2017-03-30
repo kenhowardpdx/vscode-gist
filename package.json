@@ -21,7 +21,8 @@
     "onCommand:extension.openFavoriteCodeBlock",
     "onCommand:extension.createCodeBlock",
     "onCommand:extension.openCodeBlockInBrowser",
-    "onCommand:extension.deleteCodeBlock"
+    "onCommand:extension.deleteCodeBlock",
+    "onCommand:extension.removeFileFromCodeBlock"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -45,6 +46,10 @@
       {
         "command": "extension.deleteCodeBlock",
         "title": "Gist: delete current"
+      },
+      {
+        "command": "extension.removeFileFromCodeBlock",
+        "title": "Gist: remove current file from code block"
       }
     ],
     "configuration": {
