@@ -7,7 +7,7 @@ export interface StorageService {
   list(): Promise<StorageBlock[]>;
   getStorageBlock(url: string): Promise<StorageBlock>;
   getStorageBlockById(id: string): Promise<StorageBlock>;
-  createFile(fileName: string, description: string, text: string, isPrivate?: boolean): Promise<string>;
+  createFile(fileName: string, description: string, text: string, isPrivate?: boolean): Promise<StorageBlock>;
   editFile(storageBlockId: string, fileName: string, text: string): Promise<void>;
 }
 

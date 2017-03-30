@@ -64,11 +64,8 @@ export class Commands {
       let fileName = this._getFileNameFromPath(editor.document.fileName) || 'untitled.txt';
       let description = await this._prompt('Enter description');
       let isPrivate = (await this._prompt('Private? Y = Yes, N = No')).substr(0, 1).toLowerCase() === 'y';
-      let url = await this._provider.createFile(fileName, description, text, isPrivate);
-      if (!url) {
-        throw new Error('Could not create');
-      }
-      open(url); // launch user's default browser
+      let storageBlock = await this._provider.createFile(fileName, description, text, isPrivate);
+      open(storageBlock.html_url); // launch user's default browser
     } catch (error) {
       this._showError(error);
     }

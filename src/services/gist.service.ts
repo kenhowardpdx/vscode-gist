@@ -73,11 +73,14 @@ export class GistService implements StorageService {
     return gist;
   }
 
-  async createFile(fileName: string, description: string, text: string, isPrivate: boolean = false): Promise<string> {
+  async createFile(fileName: string, description: string, text: string, isPrivate: boolean = false) {
     const files = { [fileName]: { content: text } };
     let response = await this.gh.gists.create({ description, files: JSON.stringify(files), public: !isPrivate });
-    let url = (response && response.data) ? response.data.html_url : '';
-    return url;
+    let gist = (response && response.data) ? response.data : undefined;
+    if (!gist) {
+      throw new Error('Gist not created');
+    }
+    return gist;
   }
 
   async editFile(gistId: string, fileName: string, text: string): Promise<void> {
