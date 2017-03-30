@@ -31,35 +31,35 @@
     "commands": [
       {
         "command": "extension.openCodeBlock",
-        "title": "Gist: open"
+        "title": "GIST: Open Block"
       },
       {
         "command": "extension.openFavoriteCodeBlock",
-        "title": "Gist: open favorite"
+        "title": "GIST: Open Favorite Block"
       },
       {
         "command": "extension.createCodeBlock",
-        "title": "Gist: create"
+        "title": "GIST: Create New Block"
       },
       {
         "command": "extension.openCodeBlockInBrowser",
-        "title": "Gist: open current in browser"
+        "title": "GIST: Open Block In Browser"
       },
       {
         "command": "extension.deleteCodeBlock",
-        "title": "Gist: delete current"
+        "title": "GIST: Delete Block"
       },
       {
         "command": "extension.removeFileFromCodeBlock",
-        "title": "Gist: remove current file from code block"
+        "title": "GIST: Remove From Block"
       },
       {
         "command": "extension.addToCodeBlock",
-        "title": "Gist: add to code block"
+        "title": "GIST: Add To Block"
       },
       {
         "command": "extension.changeCodeBlockDescription",
-        "title": "Gist: change description of code block"
+        "title": "GIST: Change Block Description"
       }
     ],
     "configuration": {

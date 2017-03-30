@@ -106,7 +106,7 @@ export class Commands {
         }
       }
 
-      this._notify('Deleted');
+      this._notify('Block Deleted');
     } catch (error) {
       this._showError(error);
     }
@@ -123,7 +123,7 @@ export class Commands {
 
       vscode.commands.executeCommand('workbench.action.closeActiveEditor');
 
-      this._notify('File removed');
+      this._notify('File Removed From Block');
     } catch (error) {
       this._showError(error);
     }
@@ -159,7 +159,7 @@ export class Commands {
         i++;
       }
       await this._provider.editFile(codeBlock.id, fileName, text);
-      this._notify('File added');
+      this._notify('File Added To Block');
     } catch (error) {
       this._showError(error);
     }
@@ -177,7 +177,7 @@ export class Commands {
         return;
       }
       await this._provider.changeDescription(details.storageBlockId, description);
-      this._notify('Description saved');
+      this._notify('Block Description Saved');
     } catch (error) {
       this._showError(error);
     }
@@ -192,7 +192,7 @@ export class Commands {
     try {
       if (storageBlockId) {
         await this._provider.editFile(storageBlockId, fileName, doc.getText());
-        await this._notify('File saved');
+        await this._notify('File Saved To Block');
       }
     } catch (error) {
       this._showError(error);
@@ -271,22 +271,22 @@ export class Commands {
       } else if (error && error.message) {
         msg = error.message;
       } else {
-        msg = 'An error occurred while opening the editor.';
+        msg = 'An unknown error occured';
       }
       
       console.error(error);
 
       // Prefix message w/ 'GIST ERROR:' so the user knows
       // where the error is coming from.
-      vscode.window.showErrorMessage('GIST ERROR: ' + msg);
+      vscode.window.showErrorMessage(`GIST ERROR: ${msg} [${this._provider.name}]`);
   }
 
   private _prompt(message: string, value?: string) {
     return vscode.window.showInputBox({ prompt: message, value });
   }
 
-  private _notify(message: string) {
-    return vscode.window.showInformationMessage('GIST: ' + message);
+  private _notify(message: string, modal = false) {
+    return vscode.window.showInformationMessage(`GIST MESSAGE: ${message} [${this._provider.name}]`, { modal });
   }
 
   private _getFileNameFromPath(filePath: string) {
