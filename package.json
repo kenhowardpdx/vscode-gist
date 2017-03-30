@@ -18,7 +18,8 @@
   ],
   "activationEvents": [
     "onCommand:extension.openCodeBlock",
-    "onCommand:extension.createCodeBlock"
+    "onCommand:extension.createCodeBlock",
+    "onCommand:extension.openCodeBlockInBrowser"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -30,6 +31,10 @@
       {
         "command": "extension.createCodeBlock",
         "title": "Gist: create"
+      },
+      {
+        "command": "extension.openCodeBlockInBrowser",
+        "title": "Gist: open current in browser"
       }
     ],
     "configuration": {

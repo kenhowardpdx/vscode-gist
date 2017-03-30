@@ -75,6 +75,31 @@ export class Commands {
   }
 
   /**
+   * Opens current code block in browser
+   */
+  async openCodeBlockInBrowser() {
+    try {
+      const doc = (vscode.window.activeTextEditor) ? vscode.window.activeTextEditor.document : undefined;
+
+      if (!doc) {
+        throw new Error('No open documents');
+      }
+
+      const details = this._getCodeFileDetails(doc);
+
+      if (!details) {
+        throw new Error('No gist found for selected document');
+      }
+      
+      const storageBlock = await this._provider.getStorageBlockById(details.storageBlockId);
+
+      open(storageBlock.html_url); // launch user's default browser
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  /**
    * User saves a text document
    * @param doc
    */
@@ -148,8 +173,12 @@ export class Commands {
       } else {
         msg = 'An error occurred while opening the editor.';
       }
+      
       console.error(error);
-      vscode.window.showErrorMessage(msg);
+
+      // Prefix message w/ 'GIST ERROR:' so the user knows
+      // where the error is coming from.
+      vscode.window.showErrorMessage('GIST ERROR: ' + msg);
   }
 
   private _prompt(message: string) {

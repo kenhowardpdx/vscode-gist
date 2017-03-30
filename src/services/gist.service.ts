@@ -65,6 +65,10 @@ export class GistService implements StorageService {
 
   async getStorageBlock(url: string) {
     const id: string = url.split('/').pop();
+    return this.getStorageBlockById(id);
+  }
+
+  async getStorageBlockById(id: string) {
     const gist = (await this.gh.gists.get({ id })).data;
     return gist;
   }

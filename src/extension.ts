@@ -17,7 +17,8 @@ export function activate(context: ExtensionContext) {
 
   subscriptions.push(
     registerCommand('extension.openCodeBlock', cmd.openCodeBlock, cmd),
-    registerCommand('extension.createCodeBlock', cmd.createCodeBlock, cmd)
+    registerCommand('extension.createCodeBlock', cmd.createCodeBlock, cmd),
+    registerCommand('extension.openCodeBlockInBrowser', cmd.openCodeBlockInBrowser, cmd)
   );
   workspace.onDidSaveTextDocument(cmd.onSaveTextDocument, cmd);
 }
