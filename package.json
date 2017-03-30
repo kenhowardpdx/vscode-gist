@@ -17,59 +17,49 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.privateGist",
-    "onCommand:extension.publicGist",
-    "onCommand:extension.anonymousGist",
-    "onCommand:extension.openGist",
-    "onCommand:extension.openStarredGist",
-    "onCommand:extension.deleteCurrentGist",
-    "onCommand:extension.removeFileFromGist",
-    "onCommand:extension.addNewFileToGist",
-    "onCommand:extension.changeGistDescription",
-    "onCommand:extension.openGistInBrowser"
+    "onCommand:extension.openCodeBlock",
+    "onCommand:extension.openFavoriteCodeBlock",
+    "onCommand:extension.createCodeBlock",
+    "onCommand:extension.openCodeBlockInBrowser",
+    "onCommand:extension.deleteCodeBlock",
+    "onCommand:extension.removeFileFromCodeBlock",
+    "onCommand:extension.addToCodeBlock",
+    "onCommand:extension.changeCodeBlockDescription"
   ],
-  "main": "./out/extension",
+  "main": "./out/src/extension",
   "contributes": {
     "commands": [
       {
-        "command": "extension.privateGist",
-        "title": "Gist: create new PRIVATE gist"
+        "command": "extension.openCodeBlock",
+        "title": "GIST: Open Block"
       },
       {
-        "command": "extension.anonymousGist",
-        "title": "Gist: create new ANONYMOUS gist"
+        "command": "extension.openFavoriteCodeBlock",
+        "title": "GIST: Open Favorite Block"
       },
       {
-        "command": "extension.publicGist",
-        "title": "Gist: create new PUBLIC gist"
+        "command": "extension.createCodeBlock",
+        "title": "GIST: Create New Block"
       },
       {
-        "command": "extension.openGist",
-        "title": "Gist: open a PERSONAL gist"
+        "command": "extension.openCodeBlockInBrowser",
+        "title": "GIST: Open Block In Browser"
       },
       {
-        "command": "extension.openStarredGist",
-        "title": "Gist: open a STARRED gist"
+        "command": "extension.deleteCodeBlock",
+        "title": "GIST: Delete Block"
       },
       {
-        "command": "extension.deleteCurrentGist",
-        "title": "Gist: delete current gist"
+        "command": "extension.removeFileFromCodeBlock",
+        "title": "GIST: Remove From Block"
       },
       {
-        "command": "extension.removeFileFromGist",
-        "title": "Gist: remove file from current gist"
+        "command": "extension.addToCodeBlock",
+        "title": "GIST: Add To Block"
       },
       {
-        "command": "extension.addNewFileToGist",
-        "title": "Gist: add file to current gist"
-      },
-      {
-        "command": "extension.changeGistDescription",
-        "title": "Gist: change the current gist's description"
-      },
-      {
-        "command": "extension.openGistInBrowser",
-        "title": "Gist: open the current gist in a browser"
+        "command": "extension.changeCodeBlockDescription",
+        "title": "GIST: Change Block Description"
       }
     ],
     "configuration": {
@@ -85,20 +75,31 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "vscode:prepublish": "tsc",
+    "compile": "tsc -w",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "lint": "tslint"
   },
   "devDependencies": {
-    "conventional-changelog-cli": "1.2.0",
-    "typescript": "^1.7.3",
-    "vscode": "0.10.x"
+    "@types/github": "0.0.0",
+    "@types/mocha": "^2.2.39",
+    "@types/node": "^6.0.31",
+    "@types/open": "^0.0.29",
+    "@types/request": "^0.0.40",
+    "@types/shelljs": "^0.7.0",
+    "@types/tmp": "^0.0.32",
+    "conventional-changelog-cli": "^1.2.0",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1",
+    "vscode": "^1.0.5"
   },
   "dependencies": {
-    "bluebird": "^3.0.6",
-    "open": "0.0.5",
-    "request": "^2.67.0",
-    "shelljs": "^0.5.3",
-    "tmp": "0.0.28"
+    "github": "^9.1.0",
+    "open": "^0.0.5",
+    "request": "^2.79.0",
+    "shelljs": "^0.7.6",
+    "tmp": "^0.0.31"
   }
 }
