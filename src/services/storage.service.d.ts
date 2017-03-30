@@ -11,6 +11,7 @@ export interface StorageService {
   editFile(storageBlockId: string, fileName: string, text: string): Promise<void>;
   deleteStorageBlock(id: string): Promise<void>;
   removeFileFromStorageBlock(id: string, fileName: string): Promise<void>;
+  changeDescription(id: string, description: string): Promise<void>;
 }
 
 export interface StorageBlock {

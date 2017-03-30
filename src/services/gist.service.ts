@@ -92,7 +92,7 @@ export class GistService implements StorageService {
       throw new Error('Unable to remove file');
     }
   }
-  
+
   async createFile(fileName: string, description: string, text: string, isPrivate: boolean = false) {
     const files = { [fileName]: { content: text } };
     let response = await this.gh.gists.create({ description, files: JSON.stringify(files), public: !isPrivate });
@@ -106,5 +106,9 @@ export class GistService implements StorageService {
   async editFile(gistId: string, fileName: string, text: string): Promise<void> {
     const files = { [fileName]: { content: text } };
     return await this.gh.gists.edit({ id: gistId, files: JSON.stringify(files) });
+  }
+
+  async changeDescription(gistId: string, description: string) {
+    return await this.gh.gists.edit({ id: gistId, description, files: JSON.stringify({}) });
   }
 }

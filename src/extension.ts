@@ -22,7 +22,8 @@ export function activate(context: ExtensionContext) {
     registerCommand('extension.openCodeBlockInBrowser', cmd.openCodeBlockInBrowser, cmd),
     registerCommand('extension.deleteCodeBlock', cmd.deleteCodeBlock, cmd),
     registerCommand('extension.removeFileFromCodeBlock', cmd.removeFileFromCodeBlock, cmd),
-    registerCommand('extension.addToCodeBlock', cmd.addToCodeBlock, cmd)
+    registerCommand('extension.addToCodeBlock', cmd.addToCodeBlock, cmd),
+    registerCommand('extension.changeCodeBlockDescription', cmd.changeCodeBlockDescription, cmd)
   );
   workspace.onDidSaveTextDocument(cmd.onSaveTextDocument, cmd);
 }

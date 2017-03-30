@@ -129,6 +129,10 @@ export class Commands {
     }
   }
 
+  /**
+   * Add a file or selection to existing code block
+   * If file already exists we generate new file name (might need to come back to this)
+   */
   async addToCodeBlock() {
     try {
       const editor = vscode.window.activeTextEditor;
@@ -162,6 +166,24 @@ export class Commands {
   }
 
   /**
+   * Change code block description
+   */
+  async changeCodeBlockDescription() {
+    try {
+      const details = this._getCurrentDocument();
+      const codeBlock = await this._provider.getStorageBlockById(details.storageBlockId);
+      const description = await this._prompt('Enter Description', codeBlock.description);
+      if (!description) {
+        return;
+      }
+      await this._provider.changeDescription(details.storageBlockId, description);
+      this._notify('Description saved');
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  /**
    * User saves a text document
    * @param doc
    */
@@ -187,7 +209,7 @@ export class Commands {
       const details = this._getCodeFileDetails(doc);
 
       if (!details) {
-        throw new Error('No gist found for selected document');
+        throw new Error(`Not a code block in ${this._provider.name}`);
       }
 
       return details;
@@ -259,8 +281,8 @@ export class Commands {
       vscode.window.showErrorMessage('GIST ERROR: ' + msg);
   }
 
-  private _prompt(message: string) {
-    return vscode.window.showInputBox({ prompt: message });
+  private _prompt(message: string, value?: string) {
+    return vscode.window.showInputBox({ prompt: message, value });
   }
 
   private _notify(message: string) {
