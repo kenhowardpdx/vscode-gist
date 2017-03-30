@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gist Extension",
   "description": "Create, open and edit Gists",
-  "version": "0.5.3",
+  "version": "1.0.0-beta.0",
   "publisher": "dbankier",
   "licence": "MIT",
   "homepage": "https://github.com/dbankier/vscode-gist/blob/master/README.md",
@@ -11,7 +11,7 @@
     "url": "https://github.com/dbankier/vscode-gist.git"
   },
   "engines": {
-    "vscode": "^0.10.1"
+    "vscode": "^1.9.0"
   },
   "categories": [
     "Other"
