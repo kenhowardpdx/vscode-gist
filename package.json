@@ -17,14 +17,19 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.openCodeBlock"
+    "onCommand:extension.openCodeBlock",
+    "onCommand:extension.createCodeBlock"
   ],
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
       {
         "command": "extension.openCodeBlock",
-        "title": "Gist: open <yours>"
+        "title": "Gist: open"
+      },
+      {
+        "command": "extension.createCodeBlock",
+        "title": "Gist: create"
       }
     ],
     "configuration": {

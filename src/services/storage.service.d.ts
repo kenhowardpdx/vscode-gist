@@ -6,7 +6,8 @@ export interface StorageService {
   login(username: string, password: string): Promise<void>;
   list(): Promise<StorageBlock[]>;
   getStorageBlock(url: string): Promise<StorageBlock>;
-  editFile(storageBlockId: string, fileName: string, file: vscode.TextDocument): Promise<void>;
+  createFile(fileName: string, description: string, text: string, isPrivate?: boolean): Promise<string>;
+  editFile(storageBlockId: string, fileName: string, text: string): Promise<void>;
 }
 
 export interface StorageBlock {

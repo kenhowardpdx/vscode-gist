@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
+import open = require('open');
 import { StorageBlock, StorageService } from './services/storage.service';
 
 export class Commands {
@@ -49,6 +50,31 @@ export class Commands {
   }
 
   /**
+   * User creates a code block from open file or selected text
+   * Resulting code block is opened in browser
+   */
+  async createCodeBlock() {
+    try {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        throw new Error('Open a file before creating');
+      }
+      let selection = editor.selection;
+      let text = editor.document.getText(selection.isEmpty ? undefined : selection);
+      let fileName = this._getFileNameFromPath(editor.document.fileName) || 'untitled.txt';
+      let description = await this._prompt('Enter description');
+      let isPrivate = (await this._prompt('Private? Y = Yes, N = No')).substr(0, 1).toLowerCase() === 'y';
+      let url = await this._provider.createFile(fileName, description, text, isPrivate);
+      if (!url) {
+        throw new Error('Could not create');
+      }
+      open(url); // launch user's default browser
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  /**
    * User saves a text document
    * @param doc
    */
@@ -56,7 +82,7 @@ export class Commands {
     const {storageBlockId, fileName} = this._getCodeFileDetails(doc);
     try {
       if (storageBlockId) {
-        await this._provider.editFile(storageBlockId, fileName, doc);
+        await this._provider.editFile(storageBlockId, fileName, doc.getText());
         await vscode.window.showInformationMessage('Gist file saved.');
       }
     } catch (error) {
@@ -124,5 +150,13 @@ export class Commands {
       }
       console.error(error);
       vscode.window.showErrorMessage(msg);
+  }
+
+  private _prompt(message: string) {
+    return vscode.window.showInputBox({ prompt: message });
+  }
+
+  private _getFileNameFromPath(filePath: string) {
+    return path.basename(filePath);
   }
 }

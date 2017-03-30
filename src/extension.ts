@@ -15,6 +15,9 @@ export function activate(context: ExtensionContext) {
     gist.setToken(deprecatedToken);
   }
 
-  subscriptions.push(registerCommand('extension.openCodeBlock', cmd.openCodeBlock, cmd));
+  subscriptions.push(
+    registerCommand('extension.openCodeBlock', cmd.openCodeBlock, cmd),
+    registerCommand('extension.createCodeBlock', cmd.createCodeBlock, cmd)
+  );
   workspace.onDidSaveTextDocument(cmd.onSaveTextDocument, cmd);
 }
