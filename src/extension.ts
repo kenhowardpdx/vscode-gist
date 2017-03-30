@@ -17,6 +17,7 @@ export function activate(context: ExtensionContext) {
 
   subscriptions.push(
     registerCommand('extension.openCodeBlock', cmd.openCodeBlock, cmd),
+    registerCommand('extension.openFavoriteCodeBlock', cmd.openCodeBlock.bind(cmd, true)),
     registerCommand('extension.createCodeBlock', cmd.createCodeBlock, cmd),
     registerCommand('extension.openCodeBlockInBrowser', cmd.openCodeBlockInBrowser, cmd),
     registerCommand('extension.deleteCodeBlock', cmd.deleteCodeBlock, cmd)

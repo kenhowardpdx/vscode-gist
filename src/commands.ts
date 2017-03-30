@@ -18,10 +18,10 @@ export class Commands {
   /**
    * User selects code block from quick pick menu, files open
    */
-  async openCodeBlock() {
+  async openCodeBlock(favorite = false) {
     try {
       // codeBlock is selected by user
-      const codeBlock = await this._selectCodeBlock();
+      const codeBlock = await this._selectCodeBlock(favorite);
       if (!codeBlock) {
         return;
       }
@@ -160,9 +160,9 @@ export class Commands {
     }
   }
 
-  private async _selectCodeBlock() {
+  private async _selectCodeBlock(favorite = false) {
     await this._loginUser();
-    const files: StorageBlock[] = await this._provider.list();
+    const files: StorageBlock[] = await this._provider.list(favorite);
     const selectedFile = await vscode.window.showQuickPick<StorageBlock>(files);
     if (selectedFile) {
       return this._provider.getStorageBlock(selectedFile.url);

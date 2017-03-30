@@ -18,6 +18,7 @@
   ],
   "activationEvents": [
     "onCommand:extension.openCodeBlock",
+    "onCommand:extension.openFavoriteCodeBlock",
     "onCommand:extension.createCodeBlock",
     "onCommand:extension.openCodeBlockInBrowser",
     "onCommand:extension.deleteCodeBlock"
@@ -28,6 +29,10 @@
       {
         "command": "extension.openCodeBlock",
         "title": "Gist: open"
+      },
+      {
+        "command": "extension.openFavoriteCodeBlock",
+        "title": "Gist: open favorite"
       },
       {
         "command": "extension.createCodeBlock",

@@ -53,9 +53,10 @@ export class GistService implements StorageService {
     return this._store.update(this._tokenKey, token);
   }
 
-  async list() {
+  async list(favorite = false) {
     const options: github.GistsGetAllParams = {};
-    const gists: any[] = (await this.gh.gists.getAll(options)).data;
+    const gists: any[] = (await (favorite ? this.gh.gists.getStarred(options) : this.gh.gists.getAll(options))).data;
+    
     gists.forEach(g => {
       let label = g.description || `No Name: ${g.id}`;
       g.label = label;

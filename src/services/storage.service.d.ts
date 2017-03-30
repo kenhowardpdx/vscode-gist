@@ -4,7 +4,7 @@ export interface StorageService {
   name: string;
   isAuthenticated(): boolean;
   login(username: string, password: string): Promise<void>;
-  list(): Promise<StorageBlock[]>;
+  list(favorite?: boolean): Promise<StorageBlock[]>;
   getStorageBlock(url: string): Promise<StorageBlock>;
   getStorageBlockById(id: string): Promise<StorageBlock>;
   createFile(fileName: string, description: string, text: string, isPrivate?: boolean): Promise<StorageBlock>;
