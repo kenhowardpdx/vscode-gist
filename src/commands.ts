@@ -129,6 +129,38 @@ export class Commands {
     }
   }
 
+  async addToCodeBlock() {
+    try {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        throw new Error('Open a file before adding');
+      }
+      const selection = editor.selection;
+      const text = editor.document.getText(selection.isEmpty ? undefined : selection);
+      let fileName = this._getFileNameFromPath(editor.document.fileName) || 'untitled.txt';
+      const codeBlock = await this._selectCodeBlock();
+      if (!codeBlock) {
+        return;
+      }
+      // check if fileName exists prior to adding new file.
+      let i = 1;
+      let originalFileName = fileName;
+      while (codeBlock.files.hasOwnProperty(fileName)) {
+        let extPos = originalFileName.lastIndexOf('.');
+        if (extPos === -1) {
+          extPos = originalFileName.length;
+        }
+        let ext = originalFileName.substr(extPos);
+        fileName = originalFileName.substring(0, extPos) + i + ext;
+        i++;
+      }
+      await this._provider.editFile(codeBlock.id, fileName, text);
+      this._notify('File added');
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
   /**
    * User saves a text document
    * @param doc

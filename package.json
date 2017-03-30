@@ -22,7 +22,8 @@
     "onCommand:extension.createCodeBlock",
     "onCommand:extension.openCodeBlockInBrowser",
     "onCommand:extension.deleteCodeBlock",
-    "onCommand:extension.removeFileFromCodeBlock"
+    "onCommand:extension.removeFileFromCodeBlock",
+    "onCommand:extension.addToCodeBlock"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -50,6 +51,10 @@
       {
         "command": "extension.removeFileFromCodeBlock",
         "title": "Gist: remove current file from code block"
+      },
+      {
+        "command": "extension.addToCodeBlock",
+        "title": "Gist: add to code block"
       }
     ],
     "configuration": {
