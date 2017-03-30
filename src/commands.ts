@@ -97,6 +97,41 @@ export class Commands {
   }
 
   /**
+   * Deletes current code block and closes all associated editors
+   */
+  async deleteCodeBlock() {
+    try {
+      const doc = (vscode.window.activeTextEditor) ? vscode.window.activeTextEditor.document : undefined;
+
+      if (!doc) {
+        throw new Error('No open documents');
+      }
+
+      const details = this._getCodeFileDetails(doc);
+
+      if (!details) {
+        throw new Error('No gist found for selected document');
+      }
+      
+      await this._provider.deleteStorageBlock(details.storageBlockId);
+
+      const editors = vscode.window.visibleTextEditors;
+
+      // close editors associated to this StorageBlock
+      for (let e of editors) {
+        let d = this._getCodeFileDetails(e.document);
+        if (d && d.storageBlockId === details.storageBlockId) {
+          vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+        }
+      }
+
+      this._notify('Deleted');
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  /**
    * User saves a text document
    * @param doc
    */
@@ -105,7 +140,7 @@ export class Commands {
     try {
       if (storageBlockId) {
         await this._provider.editFile(storageBlockId, fileName, doc.getText());
-        await vscode.window.showInformationMessage('Gist file saved.');
+        await this._notify('File saved');
       }
     } catch (error) {
       this._showError(error);
@@ -180,6 +215,10 @@ export class Commands {
 
   private _prompt(message: string) {
     return vscode.window.showInputBox({ prompt: message });
+  }
+
+  private _notify(message: string) {
+    return vscode.window.showInformationMessage('GIST: ' + message);
   }
 
   private _getFileNameFromPath(filePath: string) {

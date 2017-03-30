@@ -19,7 +19,8 @@
   "activationEvents": [
     "onCommand:extension.openCodeBlock",
     "onCommand:extension.createCodeBlock",
-    "onCommand:extension.openCodeBlockInBrowser"
+    "onCommand:extension.openCodeBlockInBrowser",
+    "onCommand:extension.deleteCodeBlock"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -35,6 +36,10 @@
       {
         "command": "extension.openCodeBlockInBrowser",
         "title": "Gist: open current in browser"
+      },
+      {
+        "command": "extension.deleteCodeBlock",
+        "title": "Gist: delete current"
       }
     ],
     "configuration": {

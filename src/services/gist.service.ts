@@ -73,6 +73,15 @@ export class GistService implements StorageService {
     return gist;
   }
 
+  async deleteStorageBlock(id: string) {
+    try {
+      await this.gh.gists.delete({ id });
+    } catch (error) {
+      console.error(error);
+      throw new Error('Unable to delete');
+    }
+  }
+
   async createFile(fileName: string, description: string, text: string, isPrivate: boolean = false) {
     const files = { [fileName]: { content: text } };
     let response = await this.gh.gists.create({ description, files: JSON.stringify(files), public: !isPrivate });
