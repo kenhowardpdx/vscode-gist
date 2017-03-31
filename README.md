@@ -1,70 +1,30 @@
-# vscode-gist
+# Gist Extension
 
-> Extension for Visual Studio Code to create, open and modify gists.
-They can be anonymous, private or public and can be created from a selection or full file.
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/dbankier.vscode-gist.svg)](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-gist)
+
+Access your GitHub Gists within Visual Studio Code. You can add, edit, and delete public and private gists.
 
 ![screencast](https://github.com/dbankier/vscode-gist/raw/master/vscode-gist-open-and-save.gif)
 
 ## Installation
 
-Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pick `Extensions: Install Extension`.
-Select the `Gist Extension` extension from the list
+Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pick `Extensions: Install Extensions`.
+Select the `Gist Extension` extension from the list.
 
-## Manual Install
+## GitHub Authentication
 
-**Mac & Linux**
-```sh
-cd $HOME/.vscode/extensions
-```
-**Windows**
-```sh
-cd %USERPROFILE%\.vscode\extensions
-```
-
-**All Platforms**
-```
-git clone https://github.com/dbankier/vscode-gist.git
-cd vscode-gist
-npm install
-```
-
-
-## Github Authentication
-
-The plugin supports both username/password and token based authentication.
-
-To generate a token use the following command:
-
-**Curl**
-~~~
-curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"], \"note\": \"VSCode-Gist-Extension\"}"
-~~~
-
-**Powershell**
-~~~
-$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("USERNAME:PASSWORD")))
-Invoke-RestMethod -Uri "https://api.github.com/authorizations" -method post -ContentType "application/json" -Body "{""scopes"" : ""gist"",""note"":""VSCode-Gist-Extension""}" -Headers @{"Authorization"="Basic $base64AuthInfo"}
-~~~
-
-Take the token value and set the following in your `User Settings`:
-
-~~~
-"gist.oauth_token": "YOUR_TOKEN"
-~~~
-
-If value is not set, you will prompted for your password.
-
+The plugin requires you authenticate with GitHub. You'll be asked for your username and password the first time you use the extension. This will generate a personal access token on GitHub.
 
 ## Usage
 
 ### Create Gists
 
-Press <kbd>F1</kbd> and enter one fo the following:
+You must have a file open and active to create a gist.
+
+Press <kbd>F1</kbd> and enter the following:
 
 ~~~
-Gist: create new PRIVATE gist
-Gist: create new ANONYMOUS gist
-Gist: create new PUBLIC gist
+GIST: Create New Block
 ~~~
 
 You will be prompted a gist description.
@@ -74,46 +34,38 @@ You will be prompted a gist description.
 Press <kbd>F1</kbd> and enter one fo the following:
 
 ~~~
-Gist: open a PERSONAL gist
-Gist: open a STARRED gist
+GIST: Open Block
+GIST: Open Favorite Block
 ~~~
 
-All files associated with the gist will be opened in splits.
+All files associated with the gist will be opened in group layout.
 
-Once you have opened a **personal** gist saving it will commit a new revision.
+Once you have opened an **owned** gist, saving it will commit a new revision.
+
 You can also use the following commands:
 
 ~~~
-Gist: delete current gist
-Gist: remove file from current gist
-Gist: add file to current gist
-Gist: change the current gist's description
-Gist: open the current gist in a browser
+GIST: Delete Block
+GIST: Remove From Block
+GIST: Add To Block
+GIST: Change Block Description
+GIST: Open Block In Browser
 ~~~
 
-## Keybord Shortcut
+## Keybord Shortcuts
 
-None at this stage - but you can define your own.
-
-The following are the commands that you can assign shortcuts to:
+While there are no pre-defined keyboard shortcuts, the following commands can be used in your settings:
 
 ~~~
-extension.privateGist
-extension.publicGist
-extension.anonymousGist
-extension.openGist
-extension.openStarredGist
-extension.deleteCurrentGist
-extension.removeFileFromGist
-extension.addNewFileToGist
-extension.changeGistDescription
-extension.openGistInBrowser
+extension.openCodeBlock
+extension.openFavoriteCodeBlock
+extension.createCodeBlock
+extension.openCodeBlockInBrowser
+extension.deleteCodeBlock
+extension.removeFileFromCodeBlock
+extension.addToCodeBlock
+extension.changeCodeBlockDescription
 ~~~
-
-## Future
-To Do (maybe):
-  * View commits?
-  * Open gist revision?
 
 ## Maintainer
 vscode-gist is maintained by [Ken Howard](https://github.com/kenhowardpdx).
