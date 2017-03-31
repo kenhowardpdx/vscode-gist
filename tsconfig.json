@@ -4,7 +4,8 @@
     "target": "es2015",
     "outDir": "./out",
     "sourceMap": true,
-    "rootDir": "."
+    "rootDir": ".",
+    "noUnusedLocals": false
   },
   "exclude": [
     "node_modules",
