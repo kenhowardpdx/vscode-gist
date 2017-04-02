@@ -4,8 +4,6 @@
 
 Access your GitHub Gists within Visual Studio Code. You can add, edit, and delete public and private gists.
 
-![screencast](https://github.com/dbankier/vscode-gist/raw/master/vscode-gist-open-and-save.gif)
-
 ## Installation
 
 Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pick `Extensions: Install Extensions`.
@@ -40,7 +38,9 @@ GIST: Open Favorite Block
 
 All files associated with the gist will be opened in group layout.
 
-Once you have opened an **owned** gist, saving it will commit a new revision.
+Once you have opened an **owned*** gist, saving it will commit a new revision.
+
+\* an owned gist is one created by you, not a favorited (starred) gist.
 
 You can also use the following commands:
 
@@ -52,9 +52,9 @@ GIST: Change Block Description
 GIST: Open Block In Browser
 ~~~
 
-## Keybord Shortcuts
+## Keyboard Shortcuts
 
-While there are no pre-defined keyboard shortcuts, the following commands can be used in your settings:
+You can associate the following commands to your own keyboard shortcuts:
 
 ~~~
 extension.openCodeBlock
