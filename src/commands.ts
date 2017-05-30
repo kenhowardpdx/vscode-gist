@@ -9,10 +9,8 @@ export class Commands {
 
   private _provider: StorageService;
 
-  constructor(codeFileServices: { [provider: string]: StorageService; }, _store: Memento) {
-    // TODO: This is a placeholder for future development.
-    const providerKey = Object.keys(codeFileServices)[0];
-    this._provider = codeFileServices[providerKey];
+  constructor(private _codeFileServices: { [provider: string]: StorageService; }, private _store: Memento) {
+    this._init();
   }
 
   /**
@@ -291,5 +289,20 @@ export class Commands {
 
   private _getFileNameFromPath(filePath: string) {
     return path.basename(filePath);
+  }
+
+  private async _setProvider(providerKey: string) {
+    await this._store.update('providerKey', providerKey);
+    this._provider = this._codeFileServices[providerKey];
+  }
+
+  private async _init() {
+    const providerKey = await this._store.get<string>('providerKey');
+
+    if (providerKey) {
+      return this._setProvider(providerKey);
+    } else if (Object.keys(this._codeFileServices).length === 1) {
+      return this._setProvider(Object.keys(this._codeFileServices)[0]);
+    }
   }
 }
