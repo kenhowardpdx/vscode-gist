@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { window, workspace, commands, Memento, TextDocument } from 'vscode';
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -9,7 +9,7 @@ export class Commands {
 
   private _provider: StorageService;
 
-  constructor(codeFileServices: { [provider: string]: StorageService; }) {
+  constructor(codeFileServices: { [provider: string]: StorageService; }, _store: Memento) {
     // TODO: This is a placeholder for future development.
     const providerKey = Object.keys(codeFileServices)[0];
     this._provider = codeFileServices[providerKey];
@@ -28,9 +28,9 @@ export class Commands {
       const directory = this._createTmpDir(codeBlock.id);
 
       // Is there an active text editor?
-      if (vscode.window.activeTextEditor) {
+      if (window.activeTextEditor) {
         // Close it
-        await vscode.commands.executeCommand('workbench.action.closeOtherEditors');
+        await commands.executeCommand('workbench.action.closeOtherEditors');
       }
 
       // Open an editor for each file in CodeFile
@@ -39,8 +39,8 @@ export class Commands {
         i++;
         let file = codeBlock.files[fileName];
         if (i > 1) {
-          await vscode.commands.executeCommand('workbench.action.focusFirstEditorGroup');
-          await vscode.commands.executeCommand('workbench.action.splitEditor');
+          await commands.executeCommand('workbench.action.focusFirstEditorGroup');
+          await commands.executeCommand('workbench.action.splitEditor');
         }
         await this._openTextDocument(directory, fileName, file.content);
       }
@@ -55,7 +55,7 @@ export class Commands {
    */
   async createCodeBlock() {
     try {
-      const editor = vscode.window.activeTextEditor;
+      const editor = window.activeTextEditor;
       if (!editor) {
         throw new Error('Open a file before creating');
       }
@@ -96,13 +96,13 @@ export class Commands {
       
       await this._provider.deleteStorageBlock(details.storageBlockId);
 
-      const editors = vscode.window.visibleTextEditors;
+      const editors = window.visibleTextEditors;
 
       // close editors associated to this StorageBlock
       for (let e of editors) {
         let d = this._getCodeFileDetails(e.document);
         if (d && d.storageBlockId === details.storageBlockId) {
-          vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+          commands.executeCommand('workbench.action.closeActiveEditor');
         }
       }
 
@@ -121,7 +121,7 @@ export class Commands {
 
       await this._provider.removeFileFromStorageBlock(details.storageBlockId, details.fileName);
 
-      vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+      commands.executeCommand('workbench.action.closeActiveEditor');
 
       this._notify('File Removed From Block');
     } catch (error) {
@@ -135,7 +135,7 @@ export class Commands {
    */
   async addToCodeBlock() {
     try {
-      const editor = vscode.window.activeTextEditor;
+      const editor = window.activeTextEditor;
       if (!editor) {
         throw new Error('Open a file before adding');
       }
@@ -187,7 +187,7 @@ export class Commands {
    * User saves a text document
    * @param doc
    */
-  async onSaveTextDocument(doc: vscode.TextDocument) {
+  async onSaveTextDocument(doc: TextDocument) {
     const {storageBlockId, fileName} = this._getCodeFileDetails(doc);
     try {
       if (storageBlockId) {
@@ -200,7 +200,7 @@ export class Commands {
   }
 
   private _getCurrentDocument() {
-      const doc = (vscode.window.activeTextEditor) ? vscode.window.activeTextEditor.document : undefined;
+      const doc = (window.activeTextEditor) ? window.activeTextEditor.document : undefined;
 
       if (!doc) {
         throw new Error('No open documents');
@@ -215,7 +215,7 @@ export class Commands {
       return details;
   }
 
-  private _getCodeFileDetails(doc: vscode.TextDocument) {
+  private _getCodeFileDetails(doc: TextDocument) {
     let sep = (path.sep === '\\') ? '\\\\' : path.sep;
     let regexp = new RegExp(`.*vscode_gist_([^_]*)_[^${sep}]*${sep}(.*)`);
     let matches = doc.fileName.match(regexp);
@@ -231,7 +231,7 @@ export class Commands {
   private async _selectCodeBlock(favorite = false) {
     await this._loginUser();
     const files: StorageBlock[] = await this._provider.list(favorite);
-    const selectedFile = await vscode.window.showQuickPick<StorageBlock>(files);
+    const selectedFile = await window.showQuickPick<StorageBlock>(files);
     if (selectedFile) {
       return this._provider.getStorageBlock(selectedFile.url);
     }
@@ -246,8 +246,8 @@ export class Commands {
   private async _openTextDocument(dir, filename, content) {
     let file = path.join(dir, filename);
     fs.writeFileSync(file, content);
-    return vscode.workspace.openTextDocument(file)
-      .then((doc: vscode.TextDocument) => vscode.window.showTextDocument(doc));
+    return workspace.openTextDocument(file)
+      .then((doc: TextDocument) => window.showTextDocument(doc));
   }
   
   private async _loginUser() {
@@ -255,10 +255,10 @@ export class Commands {
     if (this._provider.isAuthenticated()) {
       return Promise.resolve();
     }
-    const username: string = (await vscode.window.showInputBox({
+    const username: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} username`
     })).trim();
-    const password: string = (await vscode.window.showInputBox({
+    const password: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} password.`
     })).trim();
     await this._provider.login(username, password);
@@ -271,22 +271,22 @@ export class Commands {
       } else if (error && error.message) {
         msg = error.message;
       } else {
-        msg = 'An unknown error occured';
+        msg = 'An unknown error occurred';
       }
       
       console.error(error);
 
       // Prefix message w/ 'GIST ERROR:' so the user knows
       // where the error is coming from.
-      vscode.window.showErrorMessage(`GIST ERROR: ${msg} [${this._provider.name}]`);
+      window.showErrorMessage(`GIST ERROR: ${msg} [${this._provider.name}]`);
   }
 
   private _prompt(message: string, value?: string) {
-    return vscode.window.showInputBox({ prompt: message, value });
+    return window.showInputBox({ prompt: message, value });
   }
 
-  private _notify(message: string, modal = false) {
-    return vscode.window.showInformationMessage(`GIST MESSAGE: ${message} [${this._provider.name}]`, { modal });
+  private _notify(message: string) {
+    return window.showInformationMessage(`GIST MESSAGE: ${message} [${this._provider.name}]`);
   }
 
   private _getFileNameFromPath(filePath: string) {

@@ -4,7 +4,7 @@ import { Commands } from './commands';
 
 export function activate(context: ExtensionContext) {
   const gist = new GistService(context.globalState);
-  const cmd = new Commands({ gist });
+  const cmd = new Commands({ gist }, context.globalState);
 
   const subscriptions = context.subscriptions;
   const registerCommand = commands.registerCommand;
