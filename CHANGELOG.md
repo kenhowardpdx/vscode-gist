@@ -1,3 +1,8 @@
+<a name="1.0.0-beta.1"></a>
+# [1.0.0-beta.1](https://github.com/dbankier/vscode-gist/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-07-10)
+
+
+
 <a name="1.0.0-beta.0"></a>
 # [1.0.0-beta.0](https://github.com/dbankier/vscode-gist/compare/v0.5.3...v1.0.0-beta.0) (2017-03-30)
 
