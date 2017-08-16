@@ -1,6 +1,6 @@
 # Gist Extension
 
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/dbankier.vscode-gist.svg)](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-gist)
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/kenhowardpdx.vscode-gist.svg)](https://marketplace.visualstudio.com/items?itemName=kenhowardpdx.vscode-gist)
 
 Access your GitHub Gists within Visual Studio Code. You can add, edit, and delete public and private gists.
 
