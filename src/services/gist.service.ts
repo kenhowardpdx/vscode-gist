@@ -5,6 +5,10 @@ import { StorageService } from './storage.service';
 export class GistService implements StorageService {
   name = 'github';
   gh: github;
+  get label() {
+    return this.name;
+  }
+  description = 'gist';
 
   constructor(private _store: Memento, debug = false, private _tokenKey: string = 'gisttoken') {
     this.gh = new github({ debug, headers: { 'user-agent': 'VSCode-Gist-Extension' } });

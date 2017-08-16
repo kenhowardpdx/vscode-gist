@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 
 export interface StorageService {
   name: string;
+  label: string;
+  description: string;
   isAuthenticated(): boolean;
   login(username: string, password: string): Promise<void>;
   list(favorite?: boolean): Promise<StorageBlock[]>;

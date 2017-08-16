@@ -8,15 +8,46 @@ import { StorageBlock, StorageService } from './services/storage.service';
 export class Commands {
 
   private _provider: StorageService;
+  private _providers: StorageService[] = [];
+  private _store: Memento;
 
-  constructor(private _codeFileServices: { [provider: string]: StorageService; }, private _store: Memento) {
-    this._init();
+  private static _instance: Commands;
+
+  static get instance() {
+    if (!Commands._instance) {
+      Commands._instance = new Commands();
+    }
+    return Commands._instance;
+  }
+
+  private constructor() {}
+
+  addProvider(provider: StorageService) {
+    this._providers.push(provider);
+  }
+
+  setStore(store: Memento) {
+    this._store = store;
+  }
+
+  async exec(command: string, ...args) {
+    try {
+      if (!this._provider) {
+        await this._selectProvider();
+      }
+      if (!this._provider.isAuthenticated()) {
+        await this._loginUser();
+      }
+      return this[`_${command}`](...args);
+    } catch (error) {
+      this._showError(error);
+    }
   }
 
   /**
    * User selects code block from quick pick menu, files open
    */
-  async openCodeBlock(favorite = false) {
+  private async _openCodeBlock(favorite = false) {
     try {
       // codeBlock is selected by user
       const codeBlock = await this._selectCodeBlock(favorite);
@@ -51,7 +82,7 @@ export class Commands {
    * User creates a code block from open file or selected text
    * Resulting code block is opened in browser
    */
-  async createCodeBlock() {
+  private async _createCodeBlock() {
     try {
       const editor = window.activeTextEditor;
       if (!editor) {
@@ -72,7 +103,7 @@ export class Commands {
   /**
    * Opens current code block in browser
    */
-  async openCodeBlockInBrowser() {
+  private async _openCodeBlockInBrowser() {
     try {
       const details = this._getCurrentDocument();
       
@@ -87,7 +118,7 @@ export class Commands {
   /**
    * Deletes current code block and closes all associated editors
    */
-  async deleteCodeBlock() {
+  private async _deleteCodeBlock() {
     try {
 
       const details = this._getCurrentDocument();
@@ -113,7 +144,7 @@ export class Commands {
   /**
    * Removes file from code block
    */
-  async removeFileFromCodeBlock() {
+  private async _removeFileFromCodeBlock() {
     try {
       const details = this._getCurrentDocument();
 
@@ -131,7 +162,7 @@ export class Commands {
    * Add a file or selection to existing code block
    * If file already exists we generate new file name (might need to come back to this)
    */
-  async addToCodeBlock() {
+  private async _addToCodeBlock() {
     try {
       const editor = window.activeTextEditor;
       if (!editor) {
@@ -166,7 +197,7 @@ export class Commands {
   /**
    * Change code block description
    */
-  async changeCodeBlockDescription() {
+  private async _changeCodeBlockDescription() {
     try {
       const details = this._getCurrentDocument();
       const codeBlock = await this._provider.getStorageBlockById(details.storageBlockId);
@@ -185,7 +216,7 @@ export class Commands {
    * User saves a text document
    * @param doc
    */
-  async onSaveTextDocument(doc: TextDocument) {
+  private async _onSaveTextDocument(doc: TextDocument) {
     const {storageBlockId, fileName} = this._getCodeFileDetails(doc);
     try {
       if (storageBlockId) {
@@ -227,7 +258,6 @@ export class Commands {
   }
 
   private async _selectCodeBlock(favorite = false) {
-    await this._loginUser();
     const files: StorageBlock[] = await this._provider.list(favorite);
     const selectedFile = await window.showQuickPick<StorageBlock>(files);
     if (selectedFile) {
@@ -250,16 +280,32 @@ export class Commands {
   
   private async _loginUser() {
     const providerName = this._provider.name;
-    if (this._provider.isAuthenticated()) {
-      return Promise.resolve();
-    }
     const username: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} username`
     })).trim();
     const password: string = (await window.showInputBox({
-      prompt: `Enter your ${providerName} password.`
+      prompt: `Enter your ${providerName} password.`,
+      password: true
     })).trim();
     await this._provider.login(username, password);
+  }
+
+  private async _selectProvider() {
+    if (!this._providers) {
+      throw new Error('Missing Providers');
+    }
+
+    if (this._providers.length === 1) {
+      this._provider = this._providers.slice().shift();
+      return Promise.resolve();
+    } else {
+      const selectedProvider = await window.showQuickPick<StorageService>(this._providers);
+      this._provider = selectedProvider;
+      if (!this._provider) {
+        throw new Error('Provider not selected');
+      }
+      return Promise.resolve();
+    }
   }
 
   private _showError(error: any) {
@@ -289,20 +335,5 @@ export class Commands {
 
   private _getFileNameFromPath(filePath: string) {
     return path.basename(filePath);
-  }
-
-  private async _setProvider(providerKey: string) {
-    await this._store.update('providerKey', providerKey);
-    this._provider = this._codeFileServices[providerKey];
-  }
-
-  private async _init() {
-    const providerKey = await this._store.get<string>('providerKey');
-
-    if (providerKey) {
-      return this._setProvider(providerKey);
-    } else if (Object.keys(this._codeFileServices).length === 1) {
-      return this._setProvider(Object.keys(this._codeFileServices)[0]);
-    }
   }
 }
