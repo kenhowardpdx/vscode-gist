@@ -1,40 +1,40 @@
 sudo: false
-
 language: node_js
 node_js:
 - '6'
-
 os:
 - osx
 - linux
-
 before_install:
 - npm i -g npm@latest
 - if [ $TRAVIS_OS_NAME == "linux" ]; then export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
   sh -e /etc/init.d/xvfb start; sleep 3; fi
-
 install:
 - npm install
 - npm run vscode:prepublish
-
 script:
 - npm test --silent
-
-deploy:  
+before_deploy:
+- npm install -g vsce;
+- vsce package;
+deploy:
 - provider: releases
-  api_key: [GITHUB_AUTH_TOKEN]
+  api_key:
+    secure: ahYU+fFgq/E0bztjFNlsJNK8tBoh+h+DiQmn7f4qbW2tke1p0dx5MgOnlU/wf7+XFBigBz4dMWHlEUqzwau5ouns1NZZnSmUJw9thNeRhbNwtbet0aFtOdW1csA4ErncNfoX/bZUrFtswCwpwkdCcqydla0eGmO5cKcZobWJnD4+WvwbpxSDDhyf59AbxE24tpU+C7ZBkd1tzgyRJ3ax9IKL7a6KKuv3dbJdVIxHi4I/msVXOd5F25yRfwtVtzZh/v/LQqFsbhe9oOp3RcJ7Oles4/p9TlenkuEVRJwF3TjmBMv2Fm91fiXkm8cSzD5c77e+jvMigk1hT/dtnP6Wxi9b8lUUUZGUbPJ8iyLLvX4M4sUnnQ/jp65CYM7yyTcGSSW4r1egTYVLx1VC+98TxJf8ny31oYSq9VbzkpcMW/P4qRIB9kmFleSSbqBlEYaY1ywmDy30b1Q6GganTzO6EGW+XMPdaKExkelv49ZwwaCIZ35h2gW6rU+UpmD3Zl6C2MWO1EB+m5xmTa4+BUX9f76IRJtxnqb1EOXM3CsGbX1KFVQF2+5+eUI4BlO1vnl8jf8CPvHuGIPA5farnYQiQq7FyxjUkvc3NoT5yC/DJO5e408H/huS/TTabnUfrtpiq1B8ZSyxCvUfx2QHWhGfzCHQ1THu5O+LfGsoJIVKTDo=
   file_glob: true
-  file: "*.vsix"
+  file: '*.vsix'
   skip_cleanup: true
   on:
+    repo: kenhowardpdx/vscode-gist
     tags: true
+    condition: $TRAVIS_OS_NAME = linux
 - provider: script
   script: vsce publish -p $VS_TOKEN
   skip_cleanup: true
   on:
+    repo: kenhowardpdx/vscode-gist
     tags: true
-
+    condition: $TRAVIS_OS_NAME = linux
 env:
-  matrix:
-  - secure: QPqz4sQJ6YGhdv8EiI3UJbadzBm5M87ENTxlHdz2UcmxRl5Py5BkZsrj/eNMUEZxaJs6uBOwdwcrLyl6ou5TNBJfFmSC0UteNvsxvqiLr+K8kB64E2AFHY4z9PI3Pm3eInqioJYlSS/5aTIp4gIxymMZGabrwhmU72fYxStMNtYitZ/6rj+0OmpQ3JdFX+6+z5REsy6ZmOxKlfIQvJtoGi1Ow4JBEh2pXV2cATM/Br7NDnKW/W0bz+eKEgJfDCI13NR0/5dREnQ8ELK92HSsVbPLxfcVPRXw830ne2/azcPiTZ6TztTnyHIaK2xjZqxqLZCKmPC6rofmqy6A37LXAQLe5oZshqWDRmbW7eEgle5OMfiNAmrpi1gBohUK3NQVjtcDdSX1BZbwvQXW1mXRUdNefDxW1E3eX6Gbit5YSAB5CFkCQt2jQIDxFKN2iHg9XcSe6B4ovNCOJzSz3CsBXtgdzTNDtANAm/hUCOLzXn+FAi59yz/u7CDHl3J7p633I+wbJHtDxp9kDhJsktWIDxqz4u9zfr28roAsJpPdDf0Q95Shm/696qWtLLIl2mE3fmV+nYyvGUE0bETUO1K1JkcWNs5rcTku8OcarbHD36bssC6NJR1x0ec77oWgqcs/ErPsYXd7Kg21Z6RMrpXrKXZFnRIEeYYmYL7qmPcjcQ0=
-  - secure: nDcQ5B+Izm3Dnp7FOIOdciPcSCXxPQp1MKAX285+PDAA1q5byvINZrsMpGAQQv+FPPKeT3m/YS0kumqmwoNQPVM8Z+kyQv6Vbp7QY3Gz+v1kKUo9PTNn5CMhqvhGihsoiOmVbPfqV2AT7dV1+BjWmK9MYqi379m+Dxl7rE+qPXIUl5KqK1HRL1Yhi4PGlRL+QuFZ4oKtSGoeD+zXXWLY+CsTU0unjqIkjRejlEbBzpSXsV9JbWlHslQB4iLoUrOxgiX2ne+erhcVls7aZEpyS2cCeZMM/xjUhVNWbksa+CT2BUrsksWRi/AX/3TpUc++ja14liS4fL7fL1pPxph6e42cKB50hfHMShoB+wxeCVEY1bvGyD07TrkzKIW8Eqm5omtsuG+nBUlGHQyVabj944Rg8DPM2PiPGrevRJGp+4c8cWGhV0ThRf1nncdOuG+OUwEKti/+QhvhUAJU2g175xDsXGkggzimxSv9Gvi5Sb78r3x5fZxNEBj/UMcbSPyRBTS5ILN6VcExqezjjjSNLPghEc1Qek8XB6LjKEEwEYChZMNBaJ2GUUlma+u0xW7gG9iG/ih4EDY8vZDNPUaJ307sTOW5RPfwj0vuDYj0dw9xg9n/ZYBVGkyhFjyqybbklKMpyfBFSmKhWiERaT0xIjNmvCausyPuHQIB9R5U3A0=
+  global:
+    secure: ecE8V3uNRC2lcO7wfzWu5iHkuDdvAZj+OEYxOmGYsOi3VlOGzDiCzVV7GlKzUqed4dAcb3XemantzCr1MEEjeqYP6wfXRVQdAvlMrRzktaW7S9Ffnd+EdCjVoMqJqVDNBg5thHgKgTpGwkV1nqyW0a/CGjqEaaM8unyafc+X7LSnHY6M6TTz3MPT+6ZCCklH4XHxj27k5YKbV1TEbkio7qAoisZL3pHh3PdZ4Fu/pps8VeRCCwZIdsve1LCwljj+cdCFA38xWHnVwUpzyARjYs5uHyRNV1KM3g96PPeu7e4GDZOd5y/B18ES2X3a37Xbcyl/0VIzxehBqZ6ycf4AbfpsV9gTMiVxcmxemEcaBSm8TlqTes0vHdLD7U/fGjjhB2dVPefkJHq+EvAMpA9Lo4D5LeFKO6zqqWdWvMKMAngwPOctfV9jxjvKxb22QZTiIMhxO+CTctXf8LScMS2xsfC4RcAXFMWzEudZ2rIE1hWOha/VD9s1bpSv4PEQ92RWuIkz5XwtYJ9iIbuVQHSaATn5zIuZm5nYyLosfaGWwtIFyYll7Sg9Ys87LTnCHXhQrXpcgYqJ0Aeq6mShv1tQVdN1zRmFHEDGRVctjeHjR87iPis0hk9MI9a/HMEUuW1wT+CDX605zn1bXTsHYiR3HTKJtgUyhjvFLhaJNUC0BhU=
