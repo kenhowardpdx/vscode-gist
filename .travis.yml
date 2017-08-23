@@ -1,19 +1,40 @@
 sudo: false
 
+language: node_js
+node_js:
+- '6'
+
 os:
-  - osx
-  - linux
+- osx
+- linux
 
 before_install:
-  - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
-      sh -e /etc/init.d/xvfb start;
-      sleep 3;
-    fi
+- npm i -g npm@latest
+- if [ $TRAVIS_OS_NAME == "linux" ]; then export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
+  sh -e /etc/init.d/xvfb start; sleep 3; fi
 
 install:
-  - npm install
-  - npm run vscode:prepublish
+- npm install
+- npm run vscode:prepublish
 
 script:
-  - npm test --silent
+- npm test --silent
+
+deploy:  
+- provider: releases
+  api_key: [GITHUB_AUTH_TOKEN]
+  file_glob: true
+  file: "*.vsix"
+  skip_cleanup: true
+  on:
+    tags: true
+- provider: script
+  script: vsce publish -p $VS_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true
+
+env:
+  matrix:
+  - secure: QPqz4sQJ6YGhdv8EiI3UJbadzBm5M87ENTxlHdz2UcmxRl5Py5BkZsrj/eNMUEZxaJs6uBOwdwcrLyl6ou5TNBJfFmSC0UteNvsxvqiLr+K8kB64E2AFHY4z9PI3Pm3eInqioJYlSS/5aTIp4gIxymMZGabrwhmU72fYxStMNtYitZ/6rj+0OmpQ3JdFX+6+z5REsy6ZmOxKlfIQvJtoGi1Ow4JBEh2pXV2cATM/Br7NDnKW/W0bz+eKEgJfDCI13NR0/5dREnQ8ELK92HSsVbPLxfcVPRXw830ne2/azcPiTZ6TztTnyHIaK2xjZqxqLZCKmPC6rofmqy6A37LXAQLe5oZshqWDRmbW7eEgle5OMfiNAmrpi1gBohUK3NQVjtcDdSX1BZbwvQXW1mXRUdNefDxW1E3eX6Gbit5YSAB5CFkCQt2jQIDxFKN2iHg9XcSe6B4ovNCOJzSz3CsBXtgdzTNDtANAm/hUCOLzXn+FAi59yz/u7CDHl3J7p633I+wbJHtDxp9kDhJsktWIDxqz4u9zfr28roAsJpPdDf0Q95Shm/696qWtLLIl2mE3fmV+nYyvGUE0bETUO1K1JkcWNs5rcTku8OcarbHD36bssC6NJR1x0ec77oWgqcs/ErPsYXd7Kg21Z6RMrpXrKXZFnRIEeYYmYL7qmPcjcQ0=
+  - secure: nDcQ5B+Izm3Dnp7FOIOdciPcSCXxPQp1MKAX285+PDAA1q5byvINZrsMpGAQQv+FPPKeT3m/YS0kumqmwoNQPVM8Z+kyQv6Vbp7QY3Gz+v1kKUo9PTNn5CMhqvhGihsoiOmVbPfqV2AT7dV1+BjWmK9MYqi379m+Dxl7rE+qPXIUl5KqK1HRL1Yhi4PGlRL+QuFZ4oKtSGoeD+zXXWLY+CsTU0unjqIkjRejlEbBzpSXsV9JbWlHslQB4iLoUrOxgiX2ne+erhcVls7aZEpyS2cCeZMM/xjUhVNWbksa+CT2BUrsksWRi/AX/3TpUc++ja14liS4fL7fL1pPxph6e42cKB50hfHMShoB+wxeCVEY1bvGyD07TrkzKIW8Eqm5omtsuG+nBUlGHQyVabj944Rg8DPM2PiPGrevRJGp+4c8cWGhV0ThRf1nncdOuG+OUwEKti/+QhvhUAJU2g175xDsXGkggzimxSv9Gvi5Sb78r3x5fZxNEBj/UMcbSPyRBTS5ILN6VcExqezjjjSNLPghEc1Qek8XB6LjKEEwEYChZMNBaJ2GUUlma+u0xW7gG9iG/ih4EDY8vZDNPUaJ307sTOW5RPfwj0vuDYj0dw9xg9n/ZYBVGkyhFjyqybbklKMpyfBFSmKhWiERaT0xIjNmvCausyPuHQIB9R5U3A0=
