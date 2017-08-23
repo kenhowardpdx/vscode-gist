@@ -1,3 +1,8 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.0-beta.1...v1.0.1) (2017-08-15)
+
+
+
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-07-10)
 
