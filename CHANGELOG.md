@@ -1,5 +1,10 @@
-<a name="1.0.2"></a>
-## [1.0.2](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.1...v1.0.2) (2017-08-24)
+<a name="1.1.0"></a>
+## [1.1.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.1...v1.1.0) (2017-08-29)
+
+
+### Features
+
+* **Insert Text:** Add insert text feature ([96e3609](https://github.com/kenhowardpdx/vscode-gist/commit/96e3609)), closes [#5](https://github.com/kenhowardpdx/vscode-gist/issues/5)
 
 
 
