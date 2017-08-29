@@ -50,6 +50,7 @@ GIST: Remove From Block
 GIST: Add To Block
 GIST: Change Block Description
 GIST: Open Block In Browser
+GIST: Insert Code Into Current File
 ~~~
 
 ## Keyboard Shortcuts
@@ -65,6 +66,7 @@ extension.deleteCodeBlock
 extension.removeFileFromCodeBlock
 extension.addToCodeBlock
 extension.changeCodeBlockDescription
+extension.insertCode
 ~~~
 
 ## Maintainer
