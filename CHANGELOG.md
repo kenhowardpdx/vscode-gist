@@ -1,3 +1,8 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.0...v1.1.1) (2017-08-29)
+
+
+
 <a name="1.1.0"></a>
 ## [1.1.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.1...v1.1.0) (2017-08-29)
 
