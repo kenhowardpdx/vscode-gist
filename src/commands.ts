@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import open = require('open');
 import { StorageBlock, StorageService } from './services/storage.service';
+import { insertText } from './helpers';
 
 export class Commands {
 
@@ -213,6 +214,31 @@ export class Commands {
   }
 
   /**
+   * Inserts code into current file
+   */
+  private async _insertCode() {
+    try {
+      const editor = window.activeTextEditor;
+      if (!editor) {
+        throw new Error('Open a file before inserting');
+      }
+      // codeBlock is selected by user
+      const codeBlock = await this._selectCodeBlock();
+      if (!codeBlock) {
+        return;
+      }
+      // selected file to insert
+      const file = await this._selectFileFromCodeBlock(codeBlock);
+      if (!file) {
+        return;
+      }
+      insertText(editor, file.content);
+    } catch (error) {
+      this._showError(error);
+    }
+  }
+
+  /**
    * User saves a text document
    * @param doc
    */
@@ -258,10 +284,29 @@ export class Commands {
   }
 
   private async _selectCodeBlock(favorite = false) {
-    const files: StorageBlock[] = await this._provider.list(favorite);
-    const selectedFile = await window.showQuickPick<StorageBlock>(files);
+    const blocks: StorageBlock[] = await this._provider.list(favorite);
+    const selectedCodeBlock = await window.showQuickPick<StorageBlock>(blocks);
+    if (selectedCodeBlock) {
+      return this._provider.getStorageBlock(selectedCodeBlock.url);
+    }
+  }
+
+  private async _selectFileFromCodeBlock(codeBlock: StorageBlock) {
+    const files = Object.keys(codeBlock.files).map(key => {
+      return {
+        label: key,
+        description: '',
+        file: codeBlock.files[key]
+      };
+    });
+    let selectedFile;
+    if (files.length > 1) {
+      selectedFile = await window.showQuickPick(files);
+    } else {
+      selectedFile = files[0];
+    }
     if (selectedFile) {
-      return this._provider.getStorageBlock(selectedFile.url);
+      return selectedFile.file;
     }
   }
 

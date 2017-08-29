@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gist Extension",
   "description": "Create, open and edit Gists",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "kenhowardpdx",
   "licence": "MIT",
   "homepage": "https://github.com/kenhowardpdx/vscode-gist/blob/master/README.md",
@@ -24,7 +24,8 @@
     "onCommand:extension.deleteCodeBlock",
     "onCommand:extension.removeFileFromCodeBlock",
     "onCommand:extension.addToCodeBlock",
-    "onCommand:extension.changeCodeBlockDescription"
+    "onCommand:extension.changeCodeBlockDescription",
+    "onCommand:extension.insertCode"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -60,6 +61,10 @@
       {
         "command": "extension.changeCodeBlockDescription",
         "title": "GIST: Change Block Description"
+      },
+      {
+        "command": "extension.insertCode",
+        "title": "GIST: Insert Code Into Current File"
       }
     ],
     "configuration": {
