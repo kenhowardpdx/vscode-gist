@@ -1,6 +1,6 @@
 import github = require('github');
-import { Memento } from 'vscode';
-import { StorageService } from './storage.service';
+import { Memento, env } from 'vscode';
+import { StorageService, StorageBlock } from './storage.service';
 
 export class GistService implements StorageService {
   name = 'github';
@@ -58,14 +58,18 @@ export class GistService implements StorageService {
   }
 
   async list(favorite = false) {
-    const options: github.GistsGetAllParams = {};
-    const gists: any[] = (await (favorite ? this.gh.gists.getStarred(options) : this.gh.gists.getAll(options))).data;
-    
-    gists.forEach(g => {
-      let label = g.description || `No Name: ${g.id}`;
-      g.label = label;
+    const options: github.GistsGetAllParams = { per_page: 9999 };
+    const gists: StorageBlock[] = (await (favorite ? this.gh.gists.getStarred(options) : this.gh.gists.getAll(options))).data;
+
+    return gists.map((g, i) => {
+      const label = g.description || Object.keys(g.files)[0];
+      const date = new Intl.DateTimeFormat(env.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(g.created_at));
+      return {
+        label: `${gists.length - i}. ${label}`,
+        description: `Created on ${date}`,
+        block: g
+      };
     });
-    return gists;
   }
 
   async getStorageBlock(url: string) {

@@ -3,7 +3,7 @@ import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
 import open = require('open');
-import { StorageBlock, StorageService } from './services/storage.service';
+import { StorageBlock, StorageService, QuickPickStorageBlock } from './services/storage.service';
 import { insertText } from './helpers';
 
 export class Commands {
@@ -284,10 +284,10 @@ export class Commands {
   }
 
   private async _selectCodeBlock(favorite = false) {
-    const blocks: StorageBlock[] = await this._provider.list(favorite);
-    const selectedCodeBlock = await window.showQuickPick<StorageBlock>(blocks);
+    const items: QuickPickStorageBlock[] = await this._provider.list(favorite);
+    const selectedCodeBlock = await window.showQuickPick(items);
     if (selectedCodeBlock) {
-      return this._provider.getStorageBlock(selectedCodeBlock.url);
+      return this._provider.getStorageBlock(selectedCodeBlock.block.url);
     }
   }
 

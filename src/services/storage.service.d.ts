@@ -6,7 +6,7 @@ export interface StorageService {
   description: string;
   isAuthenticated(): boolean;
   login(username: string, password: string): Promise<void>;
-  list(favorite?: boolean): Promise<StorageBlock[]>;
+  list(favorite?: boolean): Promise<QuickPickStorageBlock[]>;
   getStorageBlock(url: string): Promise<StorageBlock>;
   getStorageBlockById(id: string): Promise<StorageBlock>;
   createFile(fileName: string, description: string, text: string, isPrivate?: boolean): Promise<StorageBlock>;
@@ -18,13 +18,23 @@ export interface StorageService {
 
 export interface StorageBlock {
   id: string;
-  label: string;
+  comments: number;
+  comments_url: string;
+  commits_url: string;
+  created_at: string;
+  updated_at: string;
   description: string;
   url: string;
   html_url: string;
   files: { [filename: string]: CodeFile };
+  public: boolean;
+  truncated: boolean;
 }
 
 export interface CodeFile {
   content: string;
+}
+
+export interface QuickPickStorageBlock extends vscode.QuickPickItem {
+  block: StorageBlock
 }
