@@ -30,5 +30,5 @@ export function activate(context: ExtensionContext) {
     registerCommand('extension.changeCodeBlockDescription', () => cmd.exec('changeCodeBlockDescription')),
     registerCommand('extension.insertCode', () => cmd.exec('insertCode'))
   );
-  workspace.onDidSaveTextDocument(() => cmd.exec('onSaveTextDocument'));
+  workspace.onDidSaveTextDocument((doc) => cmd.exec('onSaveTextDocument', doc));
 }
