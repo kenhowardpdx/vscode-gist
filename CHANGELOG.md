@@ -1,3 +1,13 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.2...v1.1.3) (2017-08-30)
+
+
+### Bug Fixes
+
+* **save:** pass doc to onSaveTextDocument ([9528eb8](https://github.com/kenhowardpdx/vscode-gist/commit/9528eb8)), closes [#9](https://github.com/kenhowardpdx/vscode-gist/issues/9)
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.0...v1.1.1) (2017-08-29)
 
