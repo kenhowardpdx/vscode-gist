@@ -232,7 +232,7 @@ export class Commands {
       if (!file) {
         return;
       }
-      insertText(editor, file.content);
+      await insertText(editor, file.content);
     } catch (error) {
       this._showError(error);
     }
