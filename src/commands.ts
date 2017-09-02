@@ -1,4 +1,4 @@
-import { window, workspace, commands, Memento, TextDocument } from 'vscode';
+import { window, workspace, commands, Memento, TextDocument } from './modules/vscode';
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';

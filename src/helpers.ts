@@ -1,4 +1,4 @@
-import { workspace, TextEdit, TextEditor, WorkspaceEdit, Range } from 'vscode';
+import { workspace, TextEdit, TextEditor, WorkspaceEdit, Range } from './modules/vscode';
 
 /**
  * Inserts text into code editor at cursor position

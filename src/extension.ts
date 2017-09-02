@@ -1,4 +1,4 @@
-import { ExtensionContext, commands, workspace } from 'vscode';
+import { ExtensionContext, commands, workspace } from './modules/vscode';
 import { GistService } from './services/gist.service';
 import { Commands } from './commands';
 

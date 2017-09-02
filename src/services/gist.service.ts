@@ -1,5 +1,5 @@
-import github = require('github');
-import { Memento, env } from 'vscode';
+import github from '../modules/github';
+import { Memento, env } from '../modules/vscode';
 import { StorageService, StorageBlock } from './storage.service';
 
 export class GistService implements StorageService {

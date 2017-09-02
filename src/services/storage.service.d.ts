@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import * as vscode from '../modules/vscode';
 
 export interface StorageService {
   name: string;
