@@ -1,7 +1,7 @@
 # Gist Extension
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/kenhowardpdx.vscode-gist.svg)](https://marketplace.visualstudio.com/items?itemName=kenhowardpdx.vscode-gist)
-[![Build Status](https://travis-ci.org/kenhowardpdx/vscode-gist.svg?branch=v1.0.2)](https://travis-ci.org/kenhowardpdx/vscode-gist)
+[![Build Status](https://travis-ci.org/kenhowardpdx/vscode-gist.svg?branch=master)](https://travis-ci.org/kenhowardpdx/vscode-gist)
 
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/kenhowardpdx.vscode-gist.svg)](https://marketplace.visualstudio.com/items?itemName=kenhowardpdx.vscode-gist) [![Coverage Status](https://coveralls.io/repos/github/kenhowardpdx/vscode-gist/badge.svg?branch=master)](https://coveralls.io/github/kenhowardpdx/vscode-gist?branch=master)
 
