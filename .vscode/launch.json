@@ -11,7 +11,7 @@
 			"stopOnEntry": false,
 			"sourceMaps": true,
 			"outFiles": ["${workspaceRoot}/out/src/**/*.js"],
-			"preLaunchTask": "npm",
+			"preLaunchTask": "build"
 		},
 		{
 			"name": "Launch Tests",
@@ -22,7 +22,18 @@
 			"stopOnEntry": false,
 			"sourceMaps": true,
 			"outFiles": ["${workspaceRoot}/out/test/**/*.js"],
-			"preLaunchTask": "npm"
+			"preLaunchTask": "build"
+		},
+		{
+			"name": "Launch Code Coverage",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": ["--extensionDevelopmentPath=${workspaceRoot}", "--extensionTestsPath=${workspaceRoot}/out/test" ],
+			"stopOnEntry": false,
+			"sourceMaps": true,
+			"outFiles": ["${workspaceRoot}/out/test/**/*.js"],
+			"preLaunchTask": "coverage"
 		}
 	]
 }
