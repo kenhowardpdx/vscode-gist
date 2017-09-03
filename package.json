@@ -88,7 +88,8 @@
     "test:coverage": "npm run coverage && npm run test",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
-    "coverage": "gulp cover:enable && tsc"
+    "coverage": "gulp cover:enable && tsc",
+    "clean": "del './out' './coverage'"
   },
   "devDependencies": {
     "@types/github": "7.1.0",
@@ -103,6 +104,7 @@
     "coveralls": "^2.13.1",
     "decache": "^4.1.0",
     "del": "^3.0.0",
+    "del-cli": "^1.1.0",
     "gulp": "^3.9.1",
     "gulp-json-editor": "^2.2.1",
     "istanbul": "^0.4.5",
