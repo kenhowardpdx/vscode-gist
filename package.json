@@ -25,7 +25,8 @@
     "onCommand:extension.removeFileFromCodeBlock",
     "onCommand:extension.addToCodeBlock",
     "onCommand:extension.changeCodeBlockDescription",
-    "onCommand:extension.insertCode"
+    "onCommand:extension.insertCode",
+    "onCommand:extension.initialize"
   ],
   "main": "./out/src/extension",
   "contributes": {

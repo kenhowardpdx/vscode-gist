@@ -1,16 +1,20 @@
-import { ExtensionContext, commands, workspace } from './modules/vscode';
+import { ExtensionContext, commands, workspace, extensions } from './modules/vscode';
 import { GistService } from './services/gist.service';
 import { Commands } from './commands';
 
+let controller: Commands;
+
 export function activate(context: ExtensionContext) {
+  const {
+    globalState,
+    subscriptions
+  } = context;
   const gist = new GistService(context.globalState);
-  const cmd = Commands.instance;
+  const registerCommand = commands.registerCommand;
+  const cmd = controller = Commands.instance;
 
   cmd.setStore(context.globalState);
   cmd.addProvider(gist);
-
-  const subscriptions = context.subscriptions;
-  const registerCommand = commands.registerCommand;
 
   // This will need to be removed in a future release
   const deprecatedToken = workspace.getConfiguration('gist').get<string>('oauth_token');
@@ -28,7 +32,15 @@ export function activate(context: ExtensionContext) {
     registerCommand('extension.removeFileFromCodeBlock', () => cmd.exec('removeFileFromCodeBlock')),
     registerCommand('extension.addToCodeBlock', () => cmd.exec('addToCodeBlock')),
     registerCommand('extension.changeCodeBlockDescription', () => cmd.exec('changeCodeBlockDescription')),
-    registerCommand('extension.insertCode', () => cmd.exec('insertCode'))
+    registerCommand('extension.insertCode', () => cmd.exec('insertCode')),
+    registerCommand('extension.initialize', () => {}) // For testing purposes
   );
   workspace.onDidSaveTextDocument((doc) => cmd.exec('onSaveTextDocument', doc));
+}
+
+/**
+ * Exposed for testing purposes
+ */
+export function getController(): Commands {
+  return controller;
 }
