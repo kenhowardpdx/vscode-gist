@@ -2,7 +2,7 @@ import assert = require('assert');
 import vscode = require('vscode');
 
 import * as Extension from '../src/extension';
-import { Commands } from '../src/commands';
+import { Commands } from '../src/controllers/main.controller';
 
 function ensureExtensionIsActive(): Promise<any> {
     return new Promise((resolve, reject) => {

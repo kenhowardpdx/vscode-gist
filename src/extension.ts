@@ -1,6 +1,6 @@
 import { ExtensionContext, commands, workspace, extensions } from './modules/vscode';
 import { GistService } from './services/gist.service';
-import { Commands } from './commands';
+import { Commands } from './controllers/main.controller';
 
 let controller: Commands;
 

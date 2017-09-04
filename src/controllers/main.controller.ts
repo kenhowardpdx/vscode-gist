@@ -1,10 +1,10 @@
-import { window, workspace, commands, Memento, TextDocument } from './modules/vscode';
+import { window, workspace, commands, Memento, TextDocument } from '../modules/vscode';
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
 import open = require('open');
-import { StorageBlock, StorageService, QuickPickStorageBlock } from './services/storage.service';
-import { insertText } from './helpers';
+import { StorageBlock, StorageService, QuickPickStorageBlock } from '../services/storage.service';
+import { insertText } from '../helpers';
 
 export class Commands {
 
