@@ -6,19 +6,19 @@ import open = require('open');
 import { StorageBlock, StorageService, QuickPickStorageBlock } from '../services/storage.service';
 import { insertText } from '../helpers';
 
-export class Commands {
+export class MainController {
 
   private _provider: StorageService;
   private _providers: StorageService[] = [];
   private _store: Memento;
 
-  private static _instance: Commands;
+  private static _instance: MainController;
 
   static get instance() {
-    if (!Commands._instance) {
-      Commands._instance = new Commands();
+    if (!MainController._instance) {
+      MainController._instance = new MainController();
     }
-    return Commands._instance;
+    return MainController._instance;
   }
 
   private constructor() {}

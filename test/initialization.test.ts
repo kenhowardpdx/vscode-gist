@@ -2,7 +2,7 @@ import assert = require('assert');
 import vscode = require('vscode');
 
 import * as Extension from '../src/extension';
-import { Commands } from '../src/controllers/main.controller';
+import { MainController } from '../src/controllers/main.controller';
 
 function ensureExtensionIsActive(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ suite('Initialization Tests', () => {
         // Wait for the extension to activate
         ensureExtensionIsActive().then(() => {
             // Verify that the connection manager was initialized properly
-            let controller: Commands = Extension.getController();
+            let controller: MainController = Extension.getController();
             assert.notStrictEqual(undefined, controller.addProvider);
             done();
         });

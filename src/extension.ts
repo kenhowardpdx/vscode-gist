@@ -1,8 +1,8 @@
 import { ExtensionContext, commands, workspace, extensions } from './modules/vscode';
 import { GistService } from './services/gist.service';
-import { Commands } from './controllers/main.controller';
+import { MainController } from './controllers/main.controller';
 
-let controller: Commands;
+let controller: MainController;
 
 export function activate(context: ExtensionContext) {
   const {
@@ -11,7 +11,7 @@ export function activate(context: ExtensionContext) {
   } = context;
   const gist = new GistService(context.globalState);
   const registerCommand = commands.registerCommand;
-  const cmd = controller = Commands.instance;
+  const cmd = controller = MainController.instance;
 
   cmd.setStore(context.globalState);
   cmd.addProvider(gist);
@@ -41,6 +41,6 @@ export function activate(context: ExtensionContext) {
 /**
  * Exposed for testing purposes
  */
-export function getController(): Commands {
+export function getController(): MainController {
   return controller;
 }
