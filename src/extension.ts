@@ -23,17 +23,20 @@ export function activate(context: ExtensionContext) {
     gist.setToken(deprecatedToken);
   }
 
+  cmd.updateStatusBar();
+
   subscriptions.push(
-    registerCommand('extension.openCodeBlock', () => cmd.exec('openCodeBlock')),
-    registerCommand('extension.openFavoriteCodeBlock', () => cmd.exec('openCodeBlock', true)),
-    registerCommand('extension.createCodeBlock', () => cmd.exec('createCodeBlock')),
-    registerCommand('extension.openCodeBlockInBrowser', () => cmd.exec('openCodeBlockInBrowser')),
-    registerCommand('extension.deleteCodeBlock', () => cmd.exec('deleteCodeBlock')),
-    registerCommand('extension.removeFileFromCodeBlock', () => cmd.exec('removeFileFromCodeBlock')),
-    registerCommand('extension.addToCodeBlock', () => cmd.exec('addToCodeBlock')),
-    registerCommand('extension.changeCodeBlockDescription', () => cmd.exec('changeCodeBlockDescription')),
-    registerCommand('extension.insertCode', () => cmd.exec('insertCode')),
-    registerCommand('extension.initialize', () => {}) // For testing purposes
+    registerCommand('extension.openCodeBlock', () => cmd.exec('openCodeBlock').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.openFavoriteCodeBlock', () => cmd.exec('openCodeBlock', true).then(() => cmd.updateStatusBar())),
+    registerCommand('extension.createCodeBlock', () => cmd.exec('createCodeBlock').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.openCodeBlockInBrowser', () => cmd.exec('openCodeBlockInBrowser').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.deleteCodeBlock', () => cmd.exec('deleteCodeBlock').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.removeFileFromCodeBlock', () => cmd.exec('removeFileFromCodeBlock').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.addToCodeBlock', () => cmd.exec('addToCodeBlock').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.changeCodeBlockDescription', () => cmd.exec('changeCodeBlockDescription').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.insertCode', () => cmd.exec('insertCode').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.logOut', () => cmd.exec('logoutUser').then(() => cmd.updateStatusBar())),
+    registerCommand('extension.initialize', () => cmd.updateStatusBar()) // For testing purposes
   );
   workspace.onDidSaveTextDocument((doc) => cmd.exec('onSaveTextDocument', doc));
 }

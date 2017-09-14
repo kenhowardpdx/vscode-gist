@@ -6,6 +6,7 @@ export interface StorageService {
   description: string;
   isAuthenticated(): boolean;
   login(username: string, password: string): Promise<void>;
+  logout(): Promise<void>;
   list(favorite?: boolean): Promise<QuickPickStorageBlock[]>;
   getStorageBlock(url: string): Promise<StorageBlock>;
   getStorageBlockById(id: string): Promise<StorageBlock>;

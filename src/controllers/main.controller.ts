@@ -1,4 +1,4 @@
-import { window, workspace, commands, Memento, TextDocument } from '../modules/vscode';
+import { window, workspace, commands, Memento, TextDocument, StatusBarItem, StatusBarAlignment } from '../modules/vscode';
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -11,6 +11,7 @@ export class MainController {
   private _provider: StorageService;
   private _providers: StorageService[] = [];
   private _store: Memento;
+  private _statusBarItem: StatusBarItem;
 
   private static _instance: MainController;
 
@@ -42,6 +43,23 @@ export class MainController {
       return this[`_${command}`](...args);
     } catch (error) {
       this._showError(error);
+    }
+  }
+  
+  updateStatusBar() {
+    if (!this._statusBarItem) {
+      this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
+    }
+
+    // check if provider is in store
+    const provider = this._getProviderName();
+
+    if (provider) {
+      this._statusBarItem.text = `GIST [${provider}]`;
+      this._statusBarItem.command = 'extension.logOut';
+      this._statusBarItem.show();
+    } else {
+      this._statusBarItem.hide();
     }
   }
 
@@ -327,12 +345,27 @@ export class MainController {
     const providerName = this._provider.name;
     const username: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} username`
-    })).trim();
+    }));
+    if (!username) {
+      return;
+    }
     const password: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} password.`,
       password: true
-    })).trim();
-    await this._provider.login(username, password);
+    }))
+    if (!password) {
+      return;
+    }
+    await this._provider.login(username.trim(), password.trim());
+  }
+
+  private async _logoutUser() {
+    const logOut: string = (await window.showWarningMessage('Would you like to log out?', 'Yes'));
+    if (logOut === 'Yes') {
+      await this._provider.logout();
+      this._setProvider(null);
+      await this._notify('User Logged Out');
+    }
   }
 
   private async _selectProvider() {
@@ -340,15 +373,20 @@ export class MainController {
       throw new Error('Missing Providers');
     }
 
-    if (this._providers.length === 1) {
-      this._provider = this._providers.slice().shift();
+    const providerName = this._getProviderName();
+
+    if (providerName) {
+      this._provider = this._providers.slice().filter(p => p.name === providerName).shift();
+      return Promise.resolve();
+    } else if (this._providers.length === 1) {
+      this._setProvider(this._providers.slice().shift());
       return Promise.resolve();
     } else {
       const selectedProvider = await window.showQuickPick<StorageService>(this._providers);
-      this._provider = selectedProvider;
-      if (!this._provider) {
+      if (!selectedProvider) {
         throw new Error('Provider not selected');
       }
+      this._setProvider(selectedProvider);
       return Promise.resolve();
     }
   }
@@ -375,10 +413,19 @@ export class MainController {
   }
 
   private _notify(message: string) {
-    return window.showInformationMessage(`GIST MESSAGE: ${message} [${this._provider.name}]`);
+    return window.showInformationMessage(`GIST MESSAGE: ${message} ${ this._provider ? `[${this._provider.name}]` : ''}`);
   }
 
   private _getFileNameFromPath(filePath: string) {
     return path.basename(filePath);
+  }
+
+  private _getProviderName() {
+    return this._store.get('gist_provider') || this._provider && this._provider.name;
+  }
+
+  private _setProvider(provider: StorageService) {
+    this._store.update('gist_provider', provider && provider.name);
+    this._provider = provider;
   }
 }

@@ -16,12 +16,16 @@ export class GistService implements StorageService {
   }
 
   isAuthenticated(): boolean {
-    return !!(this._token);
+    return !!(this._token && this._token !== 'notauthenticated');
   }
 
   async login(username: string, password: string) {
     await this._authenticate(username, password);
     await this._createToken();
+  }
+
+  async logout() {
+    await this.setToken();
   }
 
   private _authenticate(username, password): Thenable<void> {
@@ -35,25 +39,24 @@ export class GistService implements StorageService {
       scopes: ['gist'],
       note: `vscode-gist extension :: ${new Date().toISOString()}`
     })).data;
-    let token = data.token;
-    return this.setToken(token);
+    return this.setToken(data.token);
   }
 
   private _token: string;
 
   private _getToken(): Thenable<string> {
     if (!this._token) {
-      return this.setToken(this._store.get<string>(this._tokenKey)).then(() => this._getToken());
+      let token = this._store.get<string>(this._tokenKey);
+      return this.setToken(token).then(() => this._getToken());
     }
     return Promise.resolve(this._token);
   }
 
   // This will eventually become private when `gist.oauth_token` is removed.
-  setToken(token: string): Thenable<void> {
+  // 'notauthenticated' value indicates the user logged out of the GIST extension
+  setToken(token: string = 'notauthenticated'): Thenable<void> {
     this._token = token;
-    if (this._token) {
-      this.gh.authenticate({ type: 'token', token });
-    }
+    this.gh.authenticate({ type: 'token', token });
     return this._store.update(this._tokenKey, token);
   }
 

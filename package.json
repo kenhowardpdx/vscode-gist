@@ -17,16 +17,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.openCodeBlock",
-    "onCommand:extension.openFavoriteCodeBlock",
-    "onCommand:extension.createCodeBlock",
-    "onCommand:extension.openCodeBlockInBrowser",
-    "onCommand:extension.deleteCodeBlock",
-    "onCommand:extension.removeFileFromCodeBlock",
-    "onCommand:extension.addToCodeBlock",
-    "onCommand:extension.changeCodeBlockDescription",
-    "onCommand:extension.insertCode",
-    "onCommand:extension.initialize"
+    "*"
   ],
   "main": "./out/src/extension",
   "contributes": {
