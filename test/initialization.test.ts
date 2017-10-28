@@ -30,8 +30,10 @@ suite('Initialization Tests', () => {
         ensureExtensionIsActive().then(() => {
             // Verify that the connection manager was initialized properly
             let controller: MainController = Extension.getController();
-            assert.notStrictEqual(undefined, controller.addProvider);
+            assert.equal(true, controller instanceof MainController);
             done();
+        }).catch((e) => {
+          done(e);
         });
     });
 });

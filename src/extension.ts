@@ -2,8 +2,6 @@ import { ExtensionContext, commands, workspace, extensions } from './modules/vsc
 import { GistService } from './services/gist.service';
 import { MainController } from './controllers/main.controller';
 
-let controller: MainController;
-
 export function activate(context: ExtensionContext) {
   const {
     globalState,
@@ -11,7 +9,7 @@ export function activate(context: ExtensionContext) {
   } = context;
   const gist = new GistService(context.globalState);
   const registerCommand = commands.registerCommand;
-  const cmd = controller = MainController.instance;
+  const cmd = MainController.instance;
 
   cmd.setStore(context.globalState);
   cmd.addProvider(gist);
@@ -45,5 +43,5 @@ export function activate(context: ExtensionContext) {
  * Exposed for testing purposes
  */
 export function getController(): MainController {
-  return controller;
+  return MainController.instance;
 }
