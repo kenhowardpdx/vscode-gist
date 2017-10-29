@@ -5,7 +5,8 @@
     "outDir": "./out",
     "sourceMap": true,
     "rootDir": ".",
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
