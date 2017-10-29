@@ -75,12 +75,6 @@ export class MainController {
       }
       const directory = this._createTmpDir(codeBlock.id);
 
-      // Is there an active text editor?
-      if (window.activeTextEditor) {
-        // Close it
-        await commands.executeCommand('workbench.action.closeOtherEditors');
-      }
-
       // Open an editor for each file in CodeFile
       let i = 0;
       for(let fileName in codeBlock.files) {
@@ -352,7 +346,7 @@ export class MainController {
     const password: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} password.`,
       password: true
-    }))
+    }));
     if (!password) {
       return;
     }
