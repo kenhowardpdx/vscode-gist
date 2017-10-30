@@ -9,8 +9,8 @@ suite('Helpers Tests', () => {
       const vscode = require('../src/modules/vscode');
       const applyEdit = td.function('applyEdit');
       td.replace(vscode, 'workspace', { applyEdit });
-      td.replace(vscode, 'Range', td.constructor(vscode.Range));
-      td.replace(vscode, 'TextEdit', td.constructor(vscode.TextEdit));
+      td.replace(vscode, 'Range', td.constructor(undefined));
+      td.replace(vscode, 'TextEdit', td.constructor(undefined));
       td.replace(vscode, 'WorkspaceEdit', td.constructor(class WorkspaceEdit { set(uri: string, edits: any[]) {}}));
       td.when(applyEdit(td.matchers.anything())).thenResolve(true);
       insertText = require('../src/helpers').insertText;
