@@ -1,3 +1,20 @@
+<a name="1.1.5"></a>
+## [1.1.5](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.4...v1.1.5) (2017-11-07)
+
+
+### Bug Fixes
+
+* **Initialization test:** return actual instance of controller. ([d14b333](https://github.com/kenhowardpdx/vscode-gist/commit/d14b333))
+* **open multiple files:** keep editor open, don't split ([936a5a7](https://github.com/kenhowardpdx/vscode-gist/commit/936a5a7)), closes [#18](https://github.com/kenhowardpdx/vscode-gist/issues/18)
+* **openCodeBlock:** remove condition that closes other editors  ([e9d1017](https://github.com/kenhowardpdx/vscode-gist/commit/e9d1017)), closes [#16](https://github.com/kenhowardpdx/vscode-gist/issues/16)
+
+
+### Features
+
+* **Log Out:** Added status bar "GIST" to indicate logged in status. ([93edeeb](https://github.com/kenhowardpdx/vscode-gist/commit/93edeeb)), closes [#14](https://github.com/kenhowardpdx/vscode-gist/issues/14)
+
+
+
 <a name="1.1.4"></a>
 ## [1.1.4](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.3...v1.1.4) (2017-08-30)
 
