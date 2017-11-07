@@ -76,14 +76,8 @@ export class MainController {
       const directory = this._createTmpDir(codeBlock.id);
 
       // Open an editor for each file in CodeFile
-      let i = 0;
       for(let fileName in codeBlock.files) {
-        i++;
         let file = codeBlock.files[fileName];
-        if (i > 1) {
-          await commands.executeCommand('workbench.action.focusFirstEditorGroup');
-          await commands.executeCommand('workbench.action.splitEditor');
-        }
         await this._openTextDocument(directory, fileName, file.content);
       }
     } catch (error) {
@@ -332,7 +326,8 @@ export class MainController {
     let file = path.join(dir, filename);
     fs.writeFileSync(file, content);
     return workspace.openTextDocument(file)
-      .then((doc: TextDocument) => window.showTextDocument(doc));
+      .then((doc: TextDocument) => window.showTextDocument(doc))
+      .then(() => commands.executeCommand('workbench.action.keepEditor'));
   }
   
   private async _loginUser() {
