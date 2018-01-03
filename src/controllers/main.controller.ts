@@ -6,6 +6,7 @@ import open = require('open');
 import { StorageBlock, StorageService, QuickPickStorageBlock } from '../services/storage.service';
 import { insertText } from '../helpers';
 
+const MAX_FILES = workspace.getConfiguration('gist').get<number>('codeBlockFileNotificationThreshold');
 export class MainController {
 
   private _provider: StorageService;
@@ -83,8 +84,8 @@ export class MainController {
       const directory = this._createTmpDir(codeBlock.id);
       let openSingle = false;
 
-      if (Object.keys(codeBlock.files).length > 10) {
-        openSingle = 'Open Single File' === (await window.showInformationMessage('Selected Block Contains More Than 10 Files.', 'Open Single File', 'Open All'));
+      if (Object.keys(codeBlock.files).length > MAX_FILES) {
+        openSingle = 'Open Single File' === (await window.showInformationMessage(`Selected Block Contains More Than ${MAX_FILES} Files.`, 'Open Single File', 'Open All'));
       }
 
       if (openSingle) {

@@ -67,6 +67,11 @@
           "type": "string",
           "default": "",
           "description": "OAuth Github Token"
+        },
+        "gist.codeBlockFileNotificationThreshold": {
+          "type": "number",
+          "default": 10,
+          "description": "Will trigger dialog when opening code block which has more than this number of files."
         }
       }
     }
