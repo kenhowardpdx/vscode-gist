@@ -1,3 +1,14 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.5...v1.2.0) (2018-01-03)
+
+
+### Features
+
+* **default file threshold:** Add codeBlockFileNotificationThreshold user setting. ([233fab6](https://github.com/kenhowardpdx/vscode-gist/commit/233fab6))
+* **open single:** Open a single file if block has more than 10 files ([9352558](https://github.com/kenhowardpdx/vscode-gist/commit/9352558))
+
+
+
 <a name="1.1.5"></a>
 ## [1.1.5](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.4...v1.1.5) (2017-11-07)
 
@@ -30,13 +41,13 @@
 
 
 
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.1...v1.1.2) (2017-08-29)
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.0...v1.1.1) (2017-08-29)
-
-
-
-<a name="1.1.0"></a>
-## [1.1.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.1...v1.1.0) (2017-08-29)
 
 
 ### Features
@@ -46,7 +57,12 @@
 
 
 <a name="1.0.1"></a>
-## [1.0.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.0-beta.1...v1.0.1) (2017-08-15)
+## [1.0.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.0...v1.0.1) (2017-08-16)
+
+
+
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.0.0-beta.1...v1.0.0) (2017-08-16)
 
 
 
@@ -91,7 +107,7 @@ This release is a precursor for future development enabling adding providers oth
 * **bug** Fixes "Cannot read property 'url' of undefined" ([88e46c8](https://github.com/kenhowardpdx/vscode-gist/commit/88e46c83b6e2decacd28dda4becf1052bc793fb7)), closes [#11](https://github.com/kenhowardpdx/vscode-gist/issues/11)
 
 <a name="0.5.2"></a>
-## 0.5.2 (2016-05-12)
+## 0.5.2 (2016-10-06)
 
 
 
