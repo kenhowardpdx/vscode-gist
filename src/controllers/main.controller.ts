@@ -81,11 +81,25 @@ export class MainController {
         return;
       }
       const directory = this._createTmpDir(codeBlock.id);
+      let openSingle = false;
 
-      // Open an editor for each file in CodeFile
-      for(let fileName in codeBlock.files) {
-        let file = codeBlock.files[fileName];
-        await this._openTextDocument(directory, fileName, file.content);
+      if (Object.keys(codeBlock.files).length > 10) {
+        openSingle = 'Open Single File' === (await window.showInformationMessage('Selected Block Contains More Than 10 Files.', 'Open Single File', 'Open All'));
+      }
+
+      if (openSingle) {
+        // selected file to insert
+        const file = await this._selectFileFromCodeBlock(codeBlock);
+        if (!file) {
+          return;
+        }
+        await this._openTextDocument(directory, file.filename, file.content);
+      } else {
+        // Open an editor for each file in CodeFile
+        for(let filename in codeBlock.files) {
+          let file = codeBlock.files[filename];
+          await this._openTextDocument(directory, filename, file.content);
+        }
       }
     } catch (error) {
       this._showError(error);
