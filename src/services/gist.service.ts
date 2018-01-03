@@ -67,9 +67,16 @@ export class GistService implements StorageService {
     return gists.map((g, i) => {
       const label = g.description || Object.keys(g.files)[0];
       const date = new Intl.DateTimeFormat(env.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(g.created_at));
+      const updateDate = new Intl.DateTimeFormat(env.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(g.updated_at));
+      const descriptionParts = [
+        g.public ? 'PUBLIC' : 'PRIVATE',
+        `Files: ${Object.keys(g.files).length}`,
+        `Created: ${date}`,
+        `Updated: ${updateDate}`,
+      ];
       return {
         label: `${gists.length - i}. ${label}`,
-        description: `Created on ${date}`,
+        description: descriptionParts.join(', '),
         block: g
       };
     });
