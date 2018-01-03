@@ -14,7 +14,15 @@ Select the `Gist Extension` extension from the list.
 
 ## GitHub Authentication
 
-The plugin requires you authenticate with GitHub. You'll be asked for your username and password the first time you use the extension. This will generate a personal access token on GitHub.
+The plugin requires you authenticate with GitHub.
+
+You can either enter a username and password or a personal access token.
+
+### Login With Username
+![login-username](./images/login-username.gif)
+
+### Login With Access Token
+![login-access-token](./images/login-access-token.gif)
 
 ## Usage
 
