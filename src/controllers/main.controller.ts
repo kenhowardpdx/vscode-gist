@@ -32,6 +32,13 @@ export class MainController {
     this._store = store;
   }
 
+  async authExec(command: string, ...args) {
+    if (!this._provider || !(this._provider && this._provider.isAuthenticated())) {
+      return; // exit if the user has not been authenticated
+    }
+    await this.exec(command, ...args);
+  }
+
   async exec(command: string, ...args) {
     try {
       if (!this._provider) {
@@ -336,7 +343,7 @@ export class MainController {
       prompt: `Enter your ${providerName} username`
     }));
     if (!username) {
-      return;
+      return await this._setToken();
     }
     const password: string = (await window.showInputBox({
       prompt: `Enter your ${providerName} password.`,
@@ -348,12 +355,25 @@ export class MainController {
     await this._provider.login(username.trim(), password.trim());
   }
 
-  private async _logoutUser() {
-    const logOut: string = (await window.showWarningMessage('Would you like to log out?', 'Yes'));
+  private async _setToken() {
+    const token = (await window.showInputBox({
+      prompt: `Enter your ${this._provider.name} access token`
+    }));
+    if (!token) {
+      return;
+    }
+    await this._provider.setToken(token);
+  }
+
+  private async _logoutUser(auto = false) {
+    const logOut: string = auto === true ? 'Yes' : (await window.showWarningMessage('Would you like to log out?', 'Yes'));
     if (logOut === 'Yes') {
       await this._provider.logout();
       this._setProvider(null);
-      await this._notify('User Logged Out');
+      if (!auto) {
+        await this._notify('User Logged Out');
+      }
+      this.updateStatusBar();
     }
   }
 
@@ -380,21 +400,32 @@ export class MainController {
     }
   }
 
-  private _showError(error: any) {
+  private async _showError(error: any) {
       let msg: string;
       if (typeof error === 'string') {
         msg = error;
       } else if (error && error.message) {
         msg = error.message;
+        if (typeof error.message === 'string') {
+          try {
+            msg = JSON.parse(msg).message;
+          } catch (err) {
+            // do nothing.
+          }
+        }
       } else {
         msg = 'An unknown error occurred';
       }
-      
-      console.error(error);
+
+      console.error(msg);
+
+      if (msg === 'Bad credentials') {
+        await this._logoutUser(true);
+      }
 
       // Prefix message w/ 'GIST ERROR:' so the user knows
       // where the error is coming from.
-      window.showErrorMessage(`GIST ERROR: ${msg} [${this._provider.name}]`);
+      return window.showErrorMessage(`GIST ERROR: ${msg} [${this._provider.name}]`);
   }
 
   private _prompt(message: string, value?: string) {

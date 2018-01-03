@@ -54,10 +54,10 @@ export class GistService implements StorageService {
 
   // This will eventually become private when `gist.oauth_token` is removed.
   // 'notauthenticated' value indicates the user logged out of the GIST extension
-  setToken(token: string = 'notauthenticated'): Thenable<void> {
+  setToken(token: string = 'notauthenticated'): Promise<void> {
     this._token = token;
     this.gh.authenticate({ type: 'token', token });
-    return this._store.update(this._tokenKey, token);
+    return <any>this._store.update(this._tokenKey, token);
   }
 
   async list(favorite = false) {

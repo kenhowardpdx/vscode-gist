@@ -36,7 +36,7 @@ export function activate(context: ExtensionContext) {
     registerCommand('extension.logOut', () => cmd.exec('logoutUser').then(() => cmd.updateStatusBar())),
     registerCommand('extension.initialize', () => cmd.updateStatusBar()) // For testing purposes
   );
-  workspace.onDidSaveTextDocument((doc) => cmd.exec('onSaveTextDocument', doc));
+  workspace.onDidSaveTextDocument((doc) => cmd.authExec('onSaveTextDocument', doc));
 }
 
 /**
