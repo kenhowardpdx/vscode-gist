@@ -22,6 +22,9 @@ You can either enter a username and password or a personal access token.
 ![login-username](./images/login-username.gif)
 
 ### Login With Access Token
+
+Note: To access _Login With Access Token_, leave username blank and press <kbd>ENTER</kbd> or <kbd>ESCAPE</kbd> and jump to this option.
+
 ![login-access-token](./images/login-access-token.gif)
 
 ## Usage
