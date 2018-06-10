@@ -1,4 +1,10 @@
-// 1.2.1 pending release notes
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.5...v1.2.1) (2018-06-10)
+
+
+### Bug Fixes
+
+* **deps:** update github pkg to [@octokit](https://github.com/octokit)/rest pkg ([36e1b5a](https://github.com/kenhowardpdx/vscode-gist/commit/36e1b5a))
 
 ### Vulnerability Updates
 

@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gist Extension",
   "description": "Create, open and edit Gists",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "kenhowardpdx",
   "licence": "MIT",
   "homepage": "https://github.com/kenhowardpdx/vscode-gist/blob/master/README.md",
