@@ -1,3 +1,15 @@
+// 1.2.1 pending release notes
+
+### Vulnerability Updates
+
+* upgraded to latest dependencies to address vulnerability in hoek v2.16.3 ([CVE-2018-3728](https://nvd.nist.gov/vuln/detail/CVE-2018-3728), [9bc973c](https://github.com/kenhowardpdx/vscode-gist/commit/9bc973c))
+
+### Notes
+
+* Prevents `.vscode-test` folder from published with the extension. ([86f39ac](https://github.com/kenhowardpdx/vscode-gist/commit/86f39ac))
+* Updates README.md with note on logging in with access tokens. ([27f7b67](https://github.com/kenhowardpdx/vscode-gist/commit/27f7b67))
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.1.5...v1.2.0) (2018-01-03)
 
