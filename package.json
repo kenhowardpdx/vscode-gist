@@ -93,7 +93,6 @@
     "clean": "del './out' './coverage'"
   },
   "devDependencies": {
-    "@types/github": "7.1.0",
     "@types/istanbul": "^0.4.29",
     "@types/mocha": "^5.2.0",
     "@types/node": "^10.3.0",
@@ -116,7 +115,7 @@
     "vscode": "^1.1.6"
   },
   "dependencies": {
-    "github": "^14.0.0",
+    "@octokit/rest": "^15.8.1",
     "node-git-utils": "^1.4.1",
     "open": "^0.0.5",
     "request": "^2.87.0",

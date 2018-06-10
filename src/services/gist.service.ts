@@ -11,7 +11,7 @@ export class GistService implements StorageService {
   description = 'gist';
 
   constructor(private _store: Memento, debug = false, private _tokenKey: string = 'gisttoken') {
-    this.gh = new github({ debug, headers: { 'user-agent': 'VSCode-Gist-Extension' } });
+    this.gh = new github({ headers: { 'user-agent': 'VSCode-Gist-Extension' } });
     this._getToken();
   }
 
@@ -88,13 +88,13 @@ export class GistService implements StorageService {
   }
 
   async getStorageBlockById(id: string) {
-    const gist = (await this.gh.gists.get({ id })).data;
+    const gist = (await this.gh.gists.get({ id, 'gist_id': id })).data;
     return gist;
   }
 
   async deleteStorageBlock(id: string) {
     try {
-      await this.gh.gists.delete({ id });
+      await this.gh.gists.delete({ id, 'gist_id': id });
     } catch (error) {
       console.error(error);
       throw new Error('Unable to delete');
@@ -104,7 +104,7 @@ export class GistService implements StorageService {
   async removeFileFromStorageBlock(id: string, fileName: string) {
     try {
       const files = { [fileName]: null };
-      this.gh.gists.edit({ id, files: JSON.stringify(files) });
+      this.gh.gists.edit({ id, 'gist_id': id, files: JSON.stringify(files) });
     } catch (error) {
       console.error(error);
       throw new Error('Unable to remove file');
@@ -123,10 +123,10 @@ export class GistService implements StorageService {
 
   async editFile(gistId: string, fileName: string, text: string): Promise<void> {
     const files = { [fileName]: { content: text } };
-    return await this.gh.gists.edit({ id: gistId, files: JSON.stringify(files) });
+    return await <any>this.gh.gists.edit({ id: gistId, 'gist_id': gistId, files: JSON.stringify(files) });
   }
 
-  async changeDescription(gistId: string, description: string) {
-    return await this.gh.gists.edit({ id: gistId, description, files: JSON.stringify({}) });
+  async changeDescription(gistId: string, description: string): Promise<void> {
+    return await <any>this.gh.gists.edit({ id: gistId, 'gist_id': gistId, description, files: JSON.stringify({}) });
   }
 }
