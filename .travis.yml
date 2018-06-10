@@ -9,5 +9,5 @@ install:
 - yarn install
 - yarn vscode:prepublish
 script:
-- yarn test:coverage -- --silent
+- yarn test:coverage
 - node_modules/.bin/coveralls < coverage/lcov.info;
