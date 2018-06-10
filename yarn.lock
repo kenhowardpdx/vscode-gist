@@ -37,7 +37,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/istanbul@^0.4.29":
+"@types/istanbul@^0.4.30":
   version "0.4.30"
   resolved "https://registry.yarnpkg.com/@types/istanbul/-/istanbul-0.4.30.tgz#073159320ab3296b2cfeb481f756a1f8f4c9c8e4"
 
@@ -45,19 +45,23 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
-"@types/mocha@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.0.tgz#b3c8e69f038835db1a7fdc0b3d879fc50506e29e"
+"@types/mocha@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.1.tgz#465450aaf5cec6f7d35523748c6cc89a5e222dc5"
 
-"@types/node@*", "@types/node@^10.3.0":
+"@types/node@*":
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.0.tgz#078516315a84d56216b5d4fed8f75d59d3b16cac"
+
+"@types/node@^10.3.2":
+  version "10.3.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.2.tgz#3840ec6c12556fdda6e0e6d036df853101d732a4"
 
 "@types/open@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/open/-/open-0.0.29.tgz#3de910012674909db14d608d1fde44ffa7a9ecea"
 
-"@types/request@^2.0.7":
+"@types/request@^2.47.0":
   version "2.47.0"
   resolved "https://registry.yarnpkg.com/@types/request/-/request-2.47.0.tgz#76a666cee4cb85dcffea6cd4645227926d9e114e"
   dependencies:
@@ -620,25 +624,25 @@ conventional-changelog-angular@^1.6.6:
     compare-func "^1.3.1"
     q "^1.5.1"
 
-conventional-changelog-atom@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-atom/-/conventional-changelog-atom-1.0.0.tgz#ce798f2fa0c6494c45dd0cb693009cb9bb9ed8b0"
+conventional-changelog-atom@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-atom/-/conventional-changelog-atom-2.0.0.tgz#cd6453469cfb8fc345af3391b92990251c95558b"
   dependencies:
     q "^1.5.1"
 
-conventional-changelog-cli@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-cli/-/conventional-changelog-cli-2.0.0.tgz#2dc42b81e3092220c17d25a9b854b60a7ca29fdf"
+conventional-changelog-cli@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-cli/-/conventional-changelog-cli-2.0.1.tgz#1bceb924a063b05757e131e93d6674bd7d3f5bc7"
   dependencies:
     add-stream "^1.0.0"
-    conventional-changelog "^2.0.0"
+    conventional-changelog "^2.0.1"
     lodash "^4.2.1"
     meow "^4.0.0"
     tempfile "^1.1.1"
 
-conventional-changelog-codemirror@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-codemirror/-/conventional-changelog-codemirror-1.0.0.tgz#bb409e45a6a0ab3836223aece27bf7677fefc010"
+conventional-changelog-codemirror@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-codemirror/-/conventional-changelog-codemirror-2.0.0.tgz#bfb61ccabacdd3bf8425a5cbe92276c86c5a0c1e"
   dependencies:
     q "^1.5.1"
 
@@ -660,21 +664,21 @@ conventional-changelog-core@^3.0.0:
     read-pkg-up "^1.0.1"
     through2 "^2.0.0"
 
-conventional-changelog-ember@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-ember/-/conventional-changelog-ember-1.0.0.tgz#e717b422dd528601729a20521e4016615313bc4f"
-  dependencies:
-    q "^1.5.1"
-
-conventional-changelog-eslint@^2.0.0:
+conventional-changelog-ember@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-eslint/-/conventional-changelog-eslint-2.0.0.tgz#93c78e2c218cbf258a850e68f1761895d38eb37e"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-ember/-/conventional-changelog-ember-2.0.0.tgz#4104571fc8871bcf08501a3d5252b25d1a9a070c"
   dependencies:
     q "^1.5.1"
 
-conventional-changelog-express@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-express/-/conventional-changelog-express-1.0.0.tgz#11575d1f09bf95a145a66f54a406dac7286db5e9"
+conventional-changelog-eslint@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-eslint/-/conventional-changelog-eslint-3.0.0.tgz#cc5376cb29a622c1ade197e155bf054640c05cd3"
+  dependencies:
+    q "^1.5.1"
+
+conventional-changelog-express@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-express/-/conventional-changelog-express-2.0.0.tgz#d3d020118fbfce21a75e025ec097101e355a2361"
   dependencies:
     q "^1.5.1"
 
@@ -690,9 +694,9 @@ conventional-changelog-jscs@^0.1.0:
   dependencies:
     q "^1.4.1"
 
-conventional-changelog-jshint@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-jshint/-/conventional-changelog-jshint-1.0.0.tgz#759eff2088923cd28a113eadd7091678f8950646"
+conventional-changelog-jshint@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-jshint/-/conventional-changelog-jshint-2.0.0.tgz#7a038330f485082e489f47f5d07539036949f87d"
   dependencies:
     compare-func "^1.3.1"
     q "^1.5.1"
@@ -716,20 +720,20 @@ conventional-changelog-writer@^4.0.0:
     split "^1.0.0"
     through2 "^2.0.0"
 
-conventional-changelog@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog/-/conventional-changelog-2.0.0.tgz#b582de9e83218e9f043ca941f5ed0d8d4570b8f5"
+conventional-changelog@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/conventional-changelog/-/conventional-changelog-2.0.1.tgz#0d8f0f9668eaeaa5edd612896e7f3cc4385b31c9"
   dependencies:
     conventional-changelog-angular "^1.6.6"
-    conventional-changelog-atom "^1.0.0"
-    conventional-changelog-codemirror "^1.0.0"
+    conventional-changelog-atom "^2.0.0"
+    conventional-changelog-codemirror "^2.0.0"
     conventional-changelog-core "^3.0.0"
-    conventional-changelog-ember "^1.0.0"
-    conventional-changelog-eslint "^2.0.0"
-    conventional-changelog-express "^1.0.0"
+    conventional-changelog-ember "^2.0.0"
+    conventional-changelog-eslint "^3.0.0"
+    conventional-changelog-express "^2.0.0"
     conventional-changelog-jquery "^0.1.0"
     conventional-changelog-jscs "^0.1.0"
-    conventional-changelog-jshint "^1.0.0"
+    conventional-changelog-jshint "^2.0.0"
     conventional-changelog-preset-loader "^2.0.0"
 
 conventional-commits-filter@^2.0.0:
@@ -835,7 +839,7 @@ debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
-decache@^4.2.0:
+decache@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/decache/-/decache-4.4.0.tgz#6f6df6b85d7e7c4410a932ffc26489b78e9acd13"
   dependencies:
@@ -1626,7 +1630,7 @@ gulp-gunzip@1.0.0:
     through2 "~0.6.5"
     vinyl "~0.4.6"
 
-gulp-json-editor@^2.2.1:
+gulp-json-editor@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/gulp-json-editor/-/gulp-json-editor-2.4.1.tgz#ef9dfcc7a29c664bdd0e992a331d2f1b0e64650d"
   dependencies:
@@ -3723,7 +3727,7 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
-testdouble@^3.2.6:
+testdouble@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/testdouble/-/testdouble-3.8.1.tgz#8c74b6807f82fb07c2387a0640b4ae594b09b964"
   dependencies:
@@ -3882,7 +3886,7 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-typescript@^2.5.3:
+typescript@^2.9.1:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.1.tgz#fdb19d2c67a15d11995fd15640e373e09ab09961"
 
@@ -4099,7 +4103,7 @@ vinyl@^2.0.1, vinyl@^2.0.2:
     remove-trailing-separator "^1.0.1"
     replace-ext "^1.0.0"
 
-vscode@^1.1.6:
+vscode@^1.1.18:
   version "1.1.18"
   resolved "https://registry.yarnpkg.com/vscode/-/vscode-1.1.18.tgz#e9227265dc72fc826bd6cd7bd21193f4e48fa671"
   dependencies:
