@@ -77,7 +77,11 @@
     }
   },
   "scripts": {
+    "add:changes": "git add package.json CHANGELOG.md",
     "build": "gulp cover:disable && npm run compile --loglevel silent",
+    "bump": "yarn bump:version && yarn changelog && yarn add:changes && yarn commit:changes",
+    "bump:version": "yarn version --no-git-tag-version",
+    "commit:changes": "node bin/commit-bump.js",
     "vscode:prepublish": "tsc",
     "compile": "tsc -w",
     "postinstall": "node ./node_modules/vscode/bin/install",
@@ -113,6 +117,7 @@
   },
   "dependencies": {
     "github": "^14.0.0",
+    "node-git-utils": "^1.4.1",
     "open": "^0.0.5",
     "request": "^2.87.0",
     "shelljs": "^0.8.2",
