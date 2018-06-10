@@ -78,7 +78,7 @@
   },
   "scripts": {
     "add:changes": "git add package.json CHANGELOG.md",
-    "build": "gulp cover:disable && yarn compile --loglevel silent",
+    "build": "gulp cover:disable && yarn compile",
     "bump": "yarn bump:version && yarn changelog && yarn add:changes && yarn commit:changes",
     "bump:version": "yarn version --no-git-tag-version",
     "commit:changes": "node bin/commit-bump.js",
