@@ -1,3 +1,3 @@
-import github = require('github');
+import github = require('@octokit/rest');
 
 export default github;

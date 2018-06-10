@@ -53,7 +53,7 @@ export class MainController {
       this._showError(error);
     }
   }
-  
+
   updateStatusBar() {
     if (!this._statusBarItem) {
       this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
@@ -135,7 +135,7 @@ export class MainController {
   private async _openCodeBlockInBrowser() {
     try {
       const details = this._getCurrentDocument();
-      
+
       const storageBlock = await this._provider.getStorageBlockById(details.storageBlockId);
 
       open(storageBlock.html_url); // launch user's default browser
@@ -151,7 +151,7 @@ export class MainController {
     try {
 
       const details = this._getCurrentDocument();
-      
+
       await this._provider.deleteStorageBlock(details.storageBlockId);
 
       const editors = window.visibleTextEditors;
@@ -343,7 +343,7 @@ export class MainController {
       const directory = tmp.dirSync({ prefix });
       return directory.name;
   }
-  
+
   private async _openTextDocument(dir, filename, content) {
     let file = path.join(dir, filename);
     fs.writeFileSync(file, content);
@@ -351,7 +351,7 @@ export class MainController {
       .then((doc: TextDocument) => window.showTextDocument(doc))
       .then(() => commands.executeCommand('workbench.action.keepEditor'));
   }
-  
+
   private async _loginUser() {
     const providerName = this._provider.name;
     const username: string = (await window.showInputBox({
