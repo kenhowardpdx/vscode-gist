@@ -1,47 +1,33 @@
-import { ExtensionContext, commands, workspace, extensions } from './modules/vscode';
-import { GistService } from './services/gist.service';
-import { MainController } from './controllers/main.controller';
+'use strict';
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
+import * as vscode from 'vscode';
 
-export function activate(context: ExtensionContext) {
-  const {
-    globalState,
-    subscriptions
-  } = context;
-  const gist = new GistService(context.globalState);
-  const registerCommand = commands.registerCommand;
-  const cmd = MainController.instance;
+// this method is called when your extension is activated
+// your extension is activated the very first time the command is executed
+export function activate(context: vscode.ExtensionContext): void {
+  // Use the console to output diagnostic information (console.log) and errors (console.error)
+  // This line of code will only be executed once when your extension is activated
+  // tslint:disable-next-line:no-console
+  console.log('Congratulations, your extension "vscode-gist" is now active!');
 
-  cmd.setStore(context.globalState);
-  cmd.addProvider(gist);
+  // The command has been defined in the package.json file
+  // Now provide the implementation of the command with  registerCommand
+  // The commandId parameter must match the command field in package.json
+  const disposable = vscode.commands.registerCommand(
+    'extension.sayHello',
+    () => {
+      // The code you place here will be executed every time your command is executed
 
-  // This will need to be removed in a future release
-  const deprecatedToken = workspace.getConfiguration('gist').get<string>('oauth_token');
-  
-  if (deprecatedToken) {
-    gist.setToken(deprecatedToken);
-  }
-
-  cmd.updateStatusBar();
-
-  subscriptions.push(
-    registerCommand('extension.openCodeBlock', () => cmd.exec('openCodeBlock').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.openFavoriteCodeBlock', () => cmd.exec('openCodeBlock', true).then(() => cmd.updateStatusBar())),
-    registerCommand('extension.createCodeBlock', () => cmd.exec('createCodeBlock').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.openCodeBlockInBrowser', () => cmd.exec('openCodeBlockInBrowser').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.deleteCodeBlock', () => cmd.exec('deleteCodeBlock').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.removeFileFromCodeBlock', () => cmd.exec('removeFileFromCodeBlock').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.addToCodeBlock', () => cmd.exec('addToCodeBlock').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.changeCodeBlockDescription', () => cmd.exec('changeCodeBlockDescription').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.insertCode', () => cmd.exec('insertCode').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.logOut', () => cmd.exec('logoutUser').then(() => cmd.updateStatusBar())),
-    registerCommand('extension.initialize', () => cmd.updateStatusBar()) // For testing purposes
+      // Display a message box to the user
+      vscode.window.showInformationMessage('Hello World!');
+    }
   );
-  workspace.onDidSaveTextDocument((doc) => cmd.authExec('onSaveTextDocument', doc));
+
+  context.subscriptions.push(disposable);
 }
 
-/**
- * Exposed for testing purposes
- */
-export function getController(): MainController {
-  return MainController.instance;
+// this method is called when your extension is deactivated
+export function deactivate(): void {
+  // intentionally left blank
 }

@@ -1,126 +1,81 @@
 {
-  "name": "vscode-gist",
-  "displayName": "Gist Extension",
-  "description": "Create, open and edit Gists",
-  "version": "1.2.1",
-  "publisher": "kenhowardpdx",
-  "licence": "MIT",
-  "homepage": "https://github.com/kenhowardpdx/vscode-gist/blob/master/README.md",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kenhowardpdx/vscode-gist.git"
-  },
-  "engines": {
-    "vscode": "^1.9.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "*"
-  ],
-  "main": "./out/src/extension",
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.openCodeBlock",
-        "title": "GIST: Open Block"
-      },
-      {
-        "command": "extension.openFavoriteCodeBlock",
-        "title": "GIST: Open Favorite Block"
-      },
-      {
-        "command": "extension.createCodeBlock",
-        "title": "GIST: Create New Block"
-      },
-      {
-        "command": "extension.openCodeBlockInBrowser",
-        "title": "GIST: Open Block In Browser"
-      },
-      {
-        "command": "extension.deleteCodeBlock",
-        "title": "GIST: Delete Block"
-      },
-      {
-        "command": "extension.removeFileFromCodeBlock",
-        "title": "GIST: Remove From Block"
-      },
-      {
-        "command": "extension.addToCodeBlock",
-        "title": "GIST: Add To Block"
-      },
-      {
-        "command": "extension.changeCodeBlockDescription",
-        "title": "GIST: Change Block Description"
-      },
-      {
-        "command": "extension.insertCode",
-        "title": "GIST: Insert Code Into Current File"
-      }
+    "name": "vscode-gist",
+    "displayName": "Gist Extension",
+    "description": "Create, open and edit Gists",
+    "version": "1.2.1",
+    "publisher": "kenhowardpdx",
+    "repository": "https://github.com/kenhowardpdx/vscode-gist",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "categories": [
+        "Other"
     ],
-    "configuration": {
-      "type": "object",
-      "title": "Gist Configuration",
-      "properties": {
-        "gist.oauth_token": {
-          "type": "string",
-          "default": "",
-          "description": "OAuth Github Token"
-        },
-        "gist.codeBlockFileNotificationThreshold": {
-          "type": "number",
-          "default": 10,
-          "description": "Will trigger dialog when opening code block which has more than this number of files."
-        }
-      }
+    "activationEvents": [
+        "onCommand:extension.openCodeBlock",
+        "onCommand:extension.openFavoriteCodeBlock",
+        "onCommand:extension.createCodeBlock",
+        "onCommand:extension.openCodeBlockInBrowser",
+        "onCommand:extension.deleteCodeBlock",
+        "onCommand:extension.removeFileFromCodeBlock",
+        "onCommand:extension.addToCodeBlock",
+        "onCommand:extension.changeCodeBlockDescription",
+        "onCommand:extension.insertCode"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+          {
+            "command": "extension.openCodeBlock",
+            "title": "GIST: Open Block"
+          },
+          {
+            "command": "extension.openFavoriteCodeBlock",
+            "title": "GIST: Open Favorite Block"
+          },
+          {
+            "command": "extension.createCodeBlock",
+            "title": "GIST: Create New Block"
+          },
+          {
+            "command": "extension.openCodeBlockInBrowser",
+            "title": "GIST: Open Block In Browser"
+          },
+          {
+            "command": "extension.deleteCodeBlock",
+            "title": "GIST: Delete Block"
+          },
+          {
+            "command": "extension.removeFileFromCodeBlock",
+            "title": "GIST: Remove From Block"
+          },
+          {
+            "command": "extension.addToCodeBlock",
+            "title": "GIST: Add To Block"
+          },
+          {
+            "command": "extension.changeCodeBlockDescription",
+            "title": "GIST: Change Block Description"
+          },
+          {
+            "command": "extension.insertCode",
+            "title": "GIST: Insert Code Into Current File"
+          }
+        ]
+    },
+    "scripts": {
+        "compile": "tsc -p ./",
+        "lint": "tslint -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test",
+        "vscode:prepublish": "npm run compile",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "typescript": "^3.1.6",
+        "vscode": "^1.1.21",
+        "tslint": "^5.11.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
     }
-  },
-  "scripts": {
-    "add:changes": "git add package.json CHANGELOG.md",
-    "build": "gulp cover:disable && yarn compile",
-    "bump": "yarn bump:version && yarn changelog && yarn add:changes && yarn commit:changes",
-    "bump:version": "yarn version --no-git-tag-version",
-    "commit:changes": "node bin/commit-bump.js",
-    "vscode:prepublish": "tsc",
-    "compile": "tsc -w",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test",
-    "test:coverage": "yarn coverage && yarn test",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
-    "coverage": "gulp cover:enable && tsc",
-    "clean": "del './out' './coverage'"
-  },
-  "devDependencies": {
-    "@types/istanbul": "^0.4.30",
-    "@types/mocha": "^5.2.1",
-    "@types/node": "^10.3.2",
-    "@types/open": "^0.0.29",
-    "@types/request": "^2.47.0",
-    "@types/shelljs": "^0.8.0",
-    "@types/tmp": "^0.0.33",
-    "conventional-changelog-cli": "^2.0.1",
-    "coveralls": "^3.0.1",
-    "decache": "^4.4.0",
-    "del": "^3.0.0",
-    "del-cli": "^1.1.0",
-    "gulp": "^3.9.1",
-    "gulp-json-editor": "^2.4.1",
-    "istanbul": "^0.4.5",
-    "remap-istanbul": "^0.11.1",
-    "testdouble": "^3.8.1",
-    "tslint": "^5.8.0",
-    "typescript": "^2.9.1",
-    "vscode": "^1.1.18"
-  },
-  "dependencies": {
-    "@octokit/rest": "^15.8.1",
-    "node-git-utils": "^1.4.1",
-    "open": "^0.0.5",
-    "request": "^2.87.0",
-    "shelljs": "^0.8.2",
-    "tmp": "^0.0.33"
-  },
-  "icon": "icon.png"
 }
