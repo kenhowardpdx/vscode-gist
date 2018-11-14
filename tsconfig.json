@@ -65,7 +65,7 @@
       "./src",
       "./test"
     ],
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "sourceMap": true,
     "sourceRoot": "",
     "strict": true,

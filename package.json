@@ -1,81 +1,86 @@
 {
-    "name": "vscode-gist",
-    "displayName": "Gist Extension",
-    "description": "Create, open and edit Gists",
-    "version": "1.2.1",
-    "publisher": "kenhowardpdx",
-    "repository": "https://github.com/kenhowardpdx/vscode-gist",
-    "engines": {
-        "vscode": "^1.28.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.openCodeBlock",
-        "onCommand:extension.openFavoriteCodeBlock",
-        "onCommand:extension.createCodeBlock",
-        "onCommand:extension.openCodeBlockInBrowser",
-        "onCommand:extension.deleteCodeBlock",
-        "onCommand:extension.removeFileFromCodeBlock",
-        "onCommand:extension.addToCodeBlock",
-        "onCommand:extension.changeCodeBlockDescription",
-        "onCommand:extension.insertCode"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
-          {
-            "command": "extension.openCodeBlock",
-            "title": "GIST: Open Block"
-          },
-          {
-            "command": "extension.openFavoriteCodeBlock",
-            "title": "GIST: Open Favorite Block"
-          },
-          {
-            "command": "extension.createCodeBlock",
-            "title": "GIST: Create New Block"
-          },
-          {
-            "command": "extension.openCodeBlockInBrowser",
-            "title": "GIST: Open Block In Browser"
-          },
-          {
-            "command": "extension.deleteCodeBlock",
-            "title": "GIST: Delete Block"
-          },
-          {
-            "command": "extension.removeFileFromCodeBlock",
-            "title": "GIST: Remove From Block"
-          },
-          {
-            "command": "extension.addToCodeBlock",
-            "title": "GIST: Add To Block"
-          },
-          {
-            "command": "extension.changeCodeBlockDescription",
-            "title": "GIST: Change Block Description"
-          },
-          {
-            "command": "extension.insertCode",
-            "title": "GIST: Insert Code Into Current File"
-          }
-        ]
-    },
-    "scripts": {
-        "compile": "tsc -p ./",
-        "lint": "tslint -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test",
-        "vscode:prepublish": "npm run compile",
-        "watch": "tsc -watch -p ./"
-    },
-    "devDependencies": {
-        "typescript": "^3.1.6",
-        "vscode": "^1.1.21",
-        "tslint": "^5.11.0",
-        "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
-    }
+  "name": "vscode-gist",
+  "displayName": "Gist Extension",
+  "description": "Create, open and edit Gists",
+  "version": "1.2.1",
+  "publisher": "kenhowardpdx",
+  "repository": "https://github.com/kenhowardpdx/vscode-gist",
+  "engines": {
+    "vscode": "^1.28.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.openCodeBlock",
+    "onCommand:extension.openFavoriteCodeBlock",
+    "onCommand:extension.createCodeBlock",
+    "onCommand:extension.openCodeBlockInBrowser",
+    "onCommand:extension.deleteCodeBlock",
+    "onCommand:extension.removeFileFromCodeBlock",
+    "onCommand:extension.addToCodeBlock",
+    "onCommand:extension.changeCodeBlockDescription",
+    "onCommand:extension.insertCode"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.openCodeBlock",
+        "title": "GIST: Open Block"
+      },
+      {
+        "command": "extension.openFavoriteCodeBlock",
+        "title": "GIST: Open Favorite Block"
+      },
+      {
+        "command": "extension.createCodeBlock",
+        "title": "GIST: Create New Block"
+      },
+      {
+        "command": "extension.openCodeBlockInBrowser",
+        "title": "GIST: Open Block In Browser"
+      },
+      {
+        "command": "extension.deleteCodeBlock",
+        "title": "GIST: Delete Block"
+      },
+      {
+        "command": "extension.removeFileFromCodeBlock",
+        "title": "GIST: Remove From Block"
+      },
+      {
+        "command": "extension.addToCodeBlock",
+        "title": "GIST: Add To Block"
+      },
+      {
+        "command": "extension.changeCodeBlockDescription",
+        "title": "GIST: Change Block Description"
+      },
+      {
+        "command": "extension.insertCode",
+        "title": "GIST: Insert Code Into Current File"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "lint": "tslint -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test:unit": "jest",
+    "test:integration": "npm run compile && node ./node_modules/vscode/bin/test",
+    "test": "npm run test:unit && npm run test:integration",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.10.25",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "vscode": "^1.1.21"
+  }
 }
