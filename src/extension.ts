@@ -3,7 +3,8 @@ import * as vscode from 'vscode';
 import { Levels, Logger } from './logger';
 
 export function activate(_: vscode.ExtensionContext): void {
-  const logger = new Logger(Levels.DEBUG);
+  const debug = process.env.DEBUG === 'true';
+  const logger = new Logger(debug ? Levels.DEBUG : Levels.ERROR);
 
   logger.debug('extension activated');
   vscode.commands.registerCommand(
