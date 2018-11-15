@@ -11,8 +11,12 @@
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--debug"
             ],
+            "env": {
+                "DEBUG": "true"
+            },
             "outFiles": [
                 "${workspaceFolder}/out/**/*.js"
             ],
