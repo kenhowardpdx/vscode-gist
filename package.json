@@ -27,39 +27,48 @@
     "commands": [
       {
         "command": "extension.openCodeBlock",
-        "title": "GIST: Open Block"
+        "title": "GIST: Open Block",
+        "category": "Gist"
       },
       {
         "command": "extension.openFavoriteCodeBlock",
-        "title": "GIST: Open Favorite Block"
+        "title": "GIST: Open Favorite Block",
+        "category": "Gist"
       },
       {
         "command": "extension.createCodeBlock",
-        "title": "GIST: Create New Block"
+        "title": "GIST: Create New Block",
+        "category": "Gist"
       },
       {
         "command": "extension.openCodeBlockInBrowser",
-        "title": "GIST: Open Block In Browser"
+        "title": "GIST: Open Block In Browser",
+        "category": "Gist"
       },
       {
         "command": "extension.deleteCodeBlock",
-        "title": "GIST: Delete Block"
+        "title": "GIST: Delete Block",
+        "category": "Gist"
       },
       {
         "command": "extension.removeFileFromCodeBlock",
-        "title": "GIST: Remove From Block"
+        "title": "GIST: Remove From Block",
+        "category": "Gist"
       },
       {
         "command": "extension.addToCodeBlock",
-        "title": "GIST: Add To Block"
+        "title": "GIST: Add To Block",
+        "category": "Gist"
       },
       {
         "command": "extension.changeCodeBlockDescription",
-        "title": "GIST: Change Block Description"
+        "title": "GIST: Change Block Description",
+        "category": "Gist"
       },
       {
         "command": "extension.insertCode",
-        "title": "GIST: Insert Code Into Current File"
+        "title": "GIST: Insert Code Into Current File",
+        "category": "Gist"
       }
     ]
   },
@@ -77,10 +86,15 @@
     "@types/jest": "^23.3.9",
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.25",
+    "@types/tmp": "0.0.33",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6",
     "vscode": "^1.1.21"
+  },
+  "dependencies": {
+    "@octokit/rest": "^15.17.0",
+    "tmp": "0.0.33"
   }
 }
