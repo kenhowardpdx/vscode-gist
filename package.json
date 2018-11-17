@@ -76,7 +76,7 @@
     "compile": "tsc -p ./",
     "lint": "tslint -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test:unit": "jest",
+    "test:unit": "jest --silent",
     "test:integration": "npm run compile && node ./node_modules/vscode/bin/test",
     "test": "npm run test:unit && npm run test:integration",
     "vscode:prepublish": "npm run compile",
