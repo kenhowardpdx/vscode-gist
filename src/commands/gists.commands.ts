@@ -3,8 +3,8 @@ import { window } from 'vscode';
 import { getGists } from '../gists';
 import { logger } from '../logger';
 
-const _getGists = async (favorite = false): Promise<QuickPickGist[]> =>
-  (await getGists(favorite)).map((item, _, j) => ({
+const _getGists = async (favorite = false): Promise<QuickPickGist[]> => {
+  const items = (await getGists(favorite)).map((item, _, j) => ({
     block: item,
     description: `${item.public ? 'PUBLIC' : 'PRIVATE'} - Files: ${
       item.fileCount
@@ -12,11 +12,20 @@ const _getGists = async (favorite = false): Promise<QuickPickGist[]> =>
     label: `${j.length - 1}. ${item.name}`
   }));
 
+  return items;
+};
+
 const openCodeBlock = async (): Promise<void> => {
   try {
     logger.info('User Activated "openCodeBlock"');
 
     const gists = await _getGists();
+
+    if (gists.length === 0) {
+      // TODO: alert user there are no gists
+      return;
+    }
+
     const selected = await window.showQuickPick(gists);
     if (!selected) {
       logger.info('User Aborted "openCodeBlock"');

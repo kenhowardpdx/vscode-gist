@@ -5,6 +5,7 @@ import {
 import { env } from 'vscode';
 
 import { GISTS_PER_PAGE } from '../constants';
+import { logger } from '../logger';
 
 import { gists } from './gists-service';
 
@@ -33,9 +34,20 @@ const formatList = (gistList: ListResponse): Gist[] =>
 /**
  * Get a list of gists
  */
-export const getGists = async (starred = false): Promise<Gist[]> =>
-  formatList(
-    (await gists[starred ? 'getStarred' : 'getAll']({
+export const getGists = async (starred = false): Promise<Gist[]> => {
+  try {
+    const results = await gists[starred ? 'getStarred' : 'getAll']({
       per_page: GISTS_PER_PAGE
-    })).data
-  );
+    });
+
+    if (!results || !results.data) {
+      throw new Error('No Gists Found');
+    }
+
+    return formatList(results.data);
+  } catch (err) {
+    logger.error(err && err.message);
+
+    return [];
+  }
+};
