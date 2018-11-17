@@ -28,7 +28,7 @@ describe('GistService tests', () => {
       expect.assertions(1);
 
       testGists.getAll().then((response: any) => {
-        expect(response.data[0].description).toBe('test standard');
+        expect(response.data[0].description).toBe('gist one');
         done();
       });
     });
@@ -38,7 +38,7 @@ describe('GistService tests', () => {
       expect.assertions(1);
 
       testGists.getStarred().then((response: any) => {
-        expect(response.data[0].description).toBe('test starred');
+        expect(response.data[0].description).toBe('gist one');
         done();
       });
     });

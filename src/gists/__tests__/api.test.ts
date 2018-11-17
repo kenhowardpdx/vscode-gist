@@ -8,18 +8,18 @@ describe('Gists API Tests', () => {
 
       const storageBlocks = await getGists();
 
-      expect(storageBlocks.length).toBe(1);
+      expect(storageBlocks.length).toBe(2);
 
-      expect(storageBlocks[0].description).toBe('test standard');
+      expect(storageBlocks[0].description).toBe('gist one');
     });
     test('list with starred params should return one block', async () => {
       expect.assertions(2);
 
       const storageBlocks = await getGists(true);
 
-      expect(storageBlocks.length).toBe(1);
+      expect(storageBlocks.length).toBe(2);
 
-      expect(storageBlocks[0].description).toBe('test starred');
+      expect(storageBlocks[0].description).toBe('gist one');
     });
   });
 });
