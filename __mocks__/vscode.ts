@@ -1,6 +1,8 @@
 // tslint:disable:no-any
 module.exports = {
-  env: {},
+  env: {
+    language: 'en-US'
+  },
   window: {
     showQuickPick: jest.fn()
   }
