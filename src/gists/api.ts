@@ -19,6 +19,7 @@ const formatList = (gistList: ListResponse): Gist[] =>
     }).format(new Date(gist.created_at)),
     description: gist.description,
     fileCount: Object.keys(gist.files).length,
+    files: gist.files,
     id: gist.id,
     name: gist.description || Object.keys(gist.files)[0],
     public: !gist.public,
