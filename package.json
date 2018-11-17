@@ -73,14 +73,14 @@
     ]
   },
   "scripts": {
-    "compile": "tsc -p ./",
-    "lint": "tslint -p ./",
+    "compile": "tsc -p tsconfig.prod.json",
+    "lint": "tslint -p tsconfig.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test:unit": "jest --silent",
     "test:integration": "npm run compile && node ./node_modules/vscode/bin/test",
     "test": "npm run test:unit && npm run test:integration",
     "vscode:prepublish": "npm run compile",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p tsconfig.prod.json"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",

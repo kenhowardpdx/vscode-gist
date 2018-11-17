@@ -6,7 +6,6 @@
     "allowUnusedLabels": false,
     "alwaysStrict": true,
     "baseUrl": ".",
-    "build": false,
     "charset": "utf8",
     "checkJs": false,
     "declaration": false,
@@ -63,9 +62,7 @@
     "removeComments": true,
     "resolveJsonModule": false,
     "rootDirs": [
-      "./src",
-      "./test",
-      "./__mock__"
+      "./src"
     ],
     "skipLibCheck": true,
     "sourceMap": true,
@@ -81,6 +78,7 @@
     "traceResolution": false
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "__mocks__"
   ]
 }
