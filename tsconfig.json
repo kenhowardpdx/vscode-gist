@@ -63,7 +63,8 @@
     "resolveJsonModule": false,
     "rootDirs": [
       "./src",
-      "./test"
+      "./test",
+      "./__mocks__"
     ],
     "skipLibCheck": true,
     "sourceMap": true,

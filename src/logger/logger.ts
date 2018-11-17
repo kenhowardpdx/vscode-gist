@@ -1,3 +1,5 @@
+import { LOGGER_LEVEL } from '../constants';
+
 // tslint:disable:no-console no-any
 export enum Levels {
   DEBUG = 0,
@@ -5,8 +7,14 @@ export enum Levels {
   WARN = 2,
   ERROR = 3
 }
-export class Logger {
-  public static log = (
+class Logger {
+  public static getInstance = (): Logger =>
+    (Logger.instance = Logger.instance
+      ? Logger.instance
+      : new Logger(LOGGER_LEVEL))
+
+  private static instance?: Logger;
+  private static log = (
     method: 'debug' | 'log' | 'info' | 'warn' | 'error',
     ...args: any[]
   ): void => {
@@ -19,7 +27,7 @@ export class Logger {
   }
   private level: Levels;
 
-  public constructor(level: Levels) {
+  private constructor(level: Levels) {
     this.level = level;
   }
 
@@ -41,9 +49,15 @@ export class Logger {
     }
   }
 
+  public setLevel(level: Levels): void {
+    this.level = level;
+  }
+
   public warn(...args: any[]): void {
     if (this.level <= Levels.WARN) {
       Logger.log('warn', ...args);
     }
   }
 }
+
+export const logger = Logger.getInstance();

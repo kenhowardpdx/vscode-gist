@@ -1,12 +1,13 @@
-// tslint:disable:no-magic-numbers
-import { Levels, Logger } from '../';
+// tslint:disable:no-any no-magic-numbers
+import { Levels, logger } from '../';
 
 describe('Logger tests', () => {
   describe('Debug Level', () => {
-    let debugLogger: Logger;
+    let debugLogger: any;
 
     beforeEach(() => {
-      debugLogger = new Logger(Levels.DEBUG);
+      debugLogger = logger;
+      debugLogger.setLevel(Levels.DEBUG);
       jest.resetAllMocks();
     });
     test('#debug', () => {
@@ -63,9 +64,10 @@ describe('Logger tests', () => {
     });
   });
   describe('Info Level', () => {
-    let infoLogger: Logger;
+    let infoLogger: any;
     beforeEach(() => {
-      infoLogger = new Logger(Levels.INFO);
+      infoLogger = logger;
+      infoLogger.setLevel(Levels.INFO);
       jest.resetAllMocks();
     });
     test('#debug', () => {
@@ -106,9 +108,10 @@ describe('Logger tests', () => {
     });
   });
   describe('Warn Level', () => {
-    let warnLogger: Logger;
+    let warnLogger: any;
     beforeEach(() => {
-      warnLogger = new Logger(Levels.WARN);
+      warnLogger = logger;
+      warnLogger.setLevel(Levels.WARN);
       jest.resetAllMocks();
     });
     test('#debug', () => {
@@ -148,9 +151,10 @@ describe('Logger tests', () => {
       expect(errorSpy.mock.calls.length).toBe(1);
     });
     describe('Error Level', () => {
-      let errorLogger: Logger;
+      let errorLogger: any;
       beforeEach(() => {
-        errorLogger = new Logger(Levels.ERROR);
+        errorLogger = logger;
+        errorLogger.setLevel(Levels.ERROR);
         jest.resetAllMocks();
       });
       test('#debug', () => {
