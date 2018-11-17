@@ -6,7 +6,7 @@ describe('Gists API Tests', () => {
     test('list without params should return one block', async () => {
       expect.assertions(2);
 
-      const storageBlocks = await getGists();
+      const storageBlocks: any = await getGists();
 
       expect(storageBlocks.length).toBe(2);
 
@@ -15,7 +15,7 @@ describe('Gists API Tests', () => {
     test('list with starred params should return one block', async () => {
       expect.assertions(2);
 
-      const storageBlocks = await getGists(true);
+      const storageBlocks: any = await getGists(true);
 
       expect(storageBlocks.length).toBe(2);
 

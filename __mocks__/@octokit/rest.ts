@@ -54,6 +54,9 @@ const gistsResponse = (): Promise<any> =>
   });
 
 const mockedGists = {
+  get: jest.fn((options) =>
+    Promise.resolve({ data: { ...gistsResponseData[0], id: options.gist_id } })
+  ),
   getAll: jest.fn(gistsResponse),
   getStarred: jest.fn(gistsResponse)
 };

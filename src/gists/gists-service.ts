@@ -8,7 +8,9 @@ const DEFAULT_OPTIONS = {
 
 class GistsService {
   public static getInstance = (): GistsService =>
-    GistsService.instance ? GistsService.instance : new GistsService()
+    // TODO: permanently disable the semicolon rule
+    // tslint:disable-next-line:semicolon
+    GistsService.instance ? GistsService.instance : new GistsService();
 
   private static readonly instance?: GistsService;
 
@@ -17,6 +19,12 @@ class GistsService {
 
   private constructor() {
     this.octokit = new Octokit(this.options);
+  }
+
+  public get(
+    params: Octokit.GistsGetParams
+  ): Response<Octokit.GistsGetResponse> {
+    return this.octokit.gists.get({ ...params });
   }
 
   public getAll(
