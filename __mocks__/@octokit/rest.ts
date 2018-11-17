@@ -1,5 +1,5 @@
-// tslint:disable:no-any
-jest.genMockFromModule('@octokit/rest');
+// tslint:disable:no-any no-unsafe-any
+jest.genMockFromModule<object>('@octokit/rest');
 
 const mockedGists = {
   getAll: jest.fn().mockResolvedValue({
