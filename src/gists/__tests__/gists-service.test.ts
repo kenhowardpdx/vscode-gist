@@ -43,4 +43,10 @@ describe('GistService tests', () => {
       });
     });
   });
+  describe('#get', () => {
+    test('should have get function', async () => {
+      const results = await testGists.get({ gist_id: 'one-really-cool-id' });
+      expect(results.data.id).toBe('one-really-cool-id');
+    });
+  });
 });

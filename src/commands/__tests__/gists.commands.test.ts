@@ -22,8 +22,7 @@ describe('Gists Commands Tests', () => {
       const firstGist = mock.mock.calls[0][0][0];
       const secondGist = mock.mock.calls[0][0][1];
 
-      expect(firstGist.label).toBe('1. gist one');
-      // TODO: this should be '2. gist two'
+      expect(firstGist.label).toBe('2. gist one');
       expect(secondGist.label).toBe('1. gist two');
     });
   });
