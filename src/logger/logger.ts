@@ -14,7 +14,7 @@ class Logger {
       : new Logger(LOGGER_LEVEL))
 
   private static instance?: Logger;
-  private static log = (
+  private static readonly log = (
     method: 'debug' | 'log' | 'info' | 'warn' | 'error',
     ...args: any[]
   ): void => {
