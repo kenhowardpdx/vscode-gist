@@ -89,7 +89,7 @@
       }
     ],
     "unified-signatures": true,
-    "await-promise": true,
+    "await-promise": [true, "Thenable"],
     "ban-comma-operator": true,
     "ban": [
       true,
