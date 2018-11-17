@@ -33,7 +33,7 @@ const formatList = (gistList: ListResponse): Gist[] =>
 /**
  * Get a list of gists
  */
-export const list = async (starred = false): Promise<Gist[]> =>
+export const getGists = async (starred = false): Promise<Gist[]> =>
   formatList(
     (await gists[starred ? 'getStarred' : 'getAll']({
       per_page: GISTS_PER_PAGE

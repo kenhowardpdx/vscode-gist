@@ -1,16 +1,10 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as tmp from 'tmp';
-import { commands, window, workspace } from 'vscode';
+import { window } from 'vscode';
 
-import { list } from '../gists/index';
+import { getGists } from '../gists';
 import { logger } from '../logger';
-// import { logger } from './logger';
 
-const selectGist = async (
-  favorite = false
-): Promise<QuickPickGist | undefined> => {
-  const items = (await list(favorite)).map((item, i, j) => ({
+const _getGists = async (favorite = false): Promise<QuickPickGist[]> =>
+  (await getGists(favorite)).map((item, _, j) => ({
     block: item,
     description: `${item.public ? 'PUBLIC' : 'PRIVATE'} - Files: ${
       item.fileCount
@@ -18,47 +12,21 @@ const selectGist = async (
     label: `${j.length - 1}. ${item.name}`
   }));
 
-  return window.showQuickPick(items);
-};
-
 const openCodeBlock = async (): Promise<void> => {
   try {
-    const selected = await selectGist();
+    logger.info('User Activated "openCodeBlock"');
+
+    const gists = await _getGists();
+    const selected = await window.showQuickPick(gists);
     if (!selected) {
+      logger.info('User Aborted "openCodeBlock"');
+
       return;
     }
-    const dir = generateDirectory({ token: selected.block.id });
-    // TODO: Open the files
+    logger.info(`User Selected Gist: "${selected.label}"`);
   } catch (err) {
-    logger.error(err);
-  }
-};
-
-const generateDirectory = (options: {
-  prefix?: string;
-  token: string;
-}): string => {
-  const prefix = `${options.prefix ? options.prefix : 'vscode_gist_'}_${
-    options.token
-  }_`;
-  const directory = tmp.dirSync({ prefix });
-
-  return directory.name;
-};
-
-const openTextDocument = async (
-  dir: string,
-  filename: string,
-  content: string
-): Promise<void> => {
-  try {
-    const file = path.join(dir, filename);
-    fs.writeFileSync(file, content);
-    const textDocument = await workspace.openTextDocument(file);
-    await window.showTextDocument(textDocument);
-    commands.executeCommand('workbench.action.keepEditor');
-  } catch (err) {
-    logger.error(err);
+    const error: Error = err as Error;
+    logger.error(error && error.message);
   }
 };
 

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import { openCodeBlock } from './commands';
 import { Levels, logger } from './logger';
 
 export function activate(_: vscode.ExtensionContext): void {
@@ -7,12 +8,7 @@ export function activate(_: vscode.ExtensionContext): void {
   logger.setLevel(debug ? Levels.DEBUG : Levels.ERROR);
 
   logger.debug('extension activated');
-  vscode.commands.registerCommand(
-    'extension.openCodeBlock',
-    (): void => {
-      // intentionally left blank
-    }
-  );
+  vscode.commands.registerCommand('extension.openCodeBlock', openCodeBlock);
   vscode.commands.registerCommand(
     'extension.openFavoriteCodeBlock',
     (): void => {

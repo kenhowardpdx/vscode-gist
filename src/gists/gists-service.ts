@@ -10,7 +10,7 @@ class GistsService {
   public static getInstance = (): GistsService =>
     GistsService.instance ? GistsService.instance : new GistsService()
 
-  private static instance?: GistsService;
+  private static readonly instance?: GistsService;
 
   private octokit: Octokit;
   private options: Octokit.Options = DEFAULT_OPTIONS;
