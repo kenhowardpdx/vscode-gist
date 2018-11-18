@@ -1,5 +1,6 @@
 // tslint:disable:no-any no-magic-numbers no-unsafe-any
 import { filesSync, fileSync } from '..';
+import { extractTextDocumentDetails } from '../file';
 
 jest.mock('path');
 jest.mock('fs');
@@ -29,6 +30,23 @@ describe('File Tests', () => {
       expect(filePath[1]).toContain('test-2-filename.md');
       expect(filePath[2]).toContain('test-token');
       expect(filePath[2]).toContain('test-3-filename.md');
+    });
+  });
+  describe('#extractTextDocumentDetails', () => {
+    test('should get document details', () => {
+      const getText = jest.fn(() => 'mocked-content');
+      const result = extractTextDocumentDetails({
+        fileName:
+          '/var/folders/T/vscode_gist_1111_random_string/mocked-text-document.md',
+        getText
+      } as any);
+      expect(result).toStrictEqual({
+        content: 'mocked-content',
+        filename: 'mocked-text-document.md',
+        id: '1111',
+        path:
+          '/var/folders/T/vscode_gist_1111_random_string/mocked-text-document.md'
+      });
     });
   });
 });

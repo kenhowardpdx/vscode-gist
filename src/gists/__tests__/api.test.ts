@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers
+// tslint:disable:no-any no-magic-numbers no-unsafe-any
 import { getGists } from '../api';
 
 describe('Gists API Tests', () => {

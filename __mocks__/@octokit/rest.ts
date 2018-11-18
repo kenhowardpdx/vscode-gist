@@ -54,6 +54,17 @@ const gistsResponse = (): Promise<any> =>
   });
 
 const mockedGists = {
+  edit: jest.fn((options) =>
+    Promise.resolve({
+      data: {
+        ...gistsResponseData[0],
+        files: {
+          ...gistsResponseData[0].files,
+          ...options.files
+        }
+      }
+    })
+  ),
   get: jest.fn((options) =>
     Promise.resolve({ data: { ...gistsResponseData[0], id: options.gist_id } })
   ),

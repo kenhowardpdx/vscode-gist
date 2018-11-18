@@ -23,21 +23,21 @@ describe('GistService tests', () => {
       });
     });
   });
-  describe('#getAll', () => {
+  describe('#list', () => {
     test('should have getAll function', (done) => {
       expect.assertions(1);
 
-      testGists.getAll().then((response: any) => {
+      testGists.list().then((response: any) => {
         expect(response.data[0].description).toBe('gist one');
         done();
       });
     });
   });
-  describe('#getStarred', () => {
+  describe('#listStarred', () => {
     test('should have getAll function', (done) => {
       expect.assertions(1);
 
-      testGists.getStarred().then((response: any) => {
+      testGists.listStarred().then((response: any) => {
         expect(response.data[0].description).toBe('gist one');
         done();
       });
