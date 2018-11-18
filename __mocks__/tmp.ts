@@ -1,4 +1,4 @@
-// tslint:disable:no-any ban no-magic-numbers
+// tslint:disable:no-any ban no-magic-numbers no-unsafe-any
 const randomString = (): string =>
   Math.random()
     .toString(36)

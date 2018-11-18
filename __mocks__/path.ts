@@ -1,3 +1,6 @@
+// tslint:disable:no-any no-unsafe-any
 module.exports = {
-  join: jest.fn((...paths) => ['var', 'T', 'tmp', ...paths].join('/'))
+  dirname: jest.fn((input) => input),
+  join: jest.fn((...paths) => ['var', 'T', 'tmp', ...paths].join('/')),
+  sep: '/'
 };

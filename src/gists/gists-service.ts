@@ -27,13 +27,13 @@ class GistsService {
     return this.octokit.gists.get({ ...params });
   }
 
-  public getAll(
+  public list(
     params?: Octokit.GistsGetAllParams
   ): Response<Octokit.GistsGetAllResponseItem[]> {
     return this.octokit.gists.getAll({ ...params });
   }
 
-  public getStarred(
+  public listStarred(
     params?: Octokit.GistsGetStarredParams
   ): Response<Octokit.GistsGetStarredResponseItem[]> {
     return this.octokit.gists.getStarred({ ...params });
@@ -42,6 +42,12 @@ class GistsService {
   public reset(options?: Octokit.Options): void {
     this.options = options || this.options;
     this.octokit = new Octokit(this.options);
+  }
+
+  public update(
+    params: Octokit.GistsEditParams
+  ): Response<Octokit.GistsEditResponse> {
+    return this.octokit.gists.edit(params);
   }
 }
 

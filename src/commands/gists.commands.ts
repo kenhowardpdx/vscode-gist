@@ -1,8 +1,8 @@
 import { commands, window, workspace } from 'vscode';
 
-import { getGist, getGists } from '../gists';
+import { getGist, getGists, updateGist } from '../gists';
 import { logger } from '../logger';
-import { filesSync } from '../utils';
+import { extractTextDocumentDetails, filesSync } from '../utils';
 
 const _formatGistsForQuickPick = (gists: Gist[]): QuickPickGist[] =>
   gists.map((item, i, j) => ({
@@ -33,7 +33,13 @@ const _openDocument = (file: string): Thenable<void> =>
     .then(window.showTextDocument)
     .then(() => commands.executeCommand('workbench.action.keepEditor'));
 
+// TODO: Move _notify to utils
+const _notify = (friendly: string, message: string): void => {
+  window.showInformationMessage(`GIST: ${friendly}> ${message}"`);
+};
+
 const openCodeBlock = async (): Promise<void> => {
+  let gistName = '';
   try {
     logger.info('User Activated "openCodeBlock"');
 
@@ -50,6 +56,7 @@ const openCodeBlock = async (): Promise<void> => {
 
       return;
     }
+    gistName = `"${selected.block.name}"`;
     logger.info(`User Selected Gist: "${selected.label}"`);
 
     const codeBlock = await _getGist(selected.block.id);
@@ -62,8 +69,31 @@ const openCodeBlock = async (): Promise<void> => {
     }
   } catch (err) {
     const error: Error = err as Error;
-    logger.error(error && error.message);
+    logger.error(`openCodeBlock > ${error && error.message}`);
+    if (error && error.message === 'Not Found') {
+      _notify(`Could Not Open Gist ${gistName}>`, error.message);
+    }
   }
 };
 
-export { openCodeBlock };
+const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
+  let file = '';
+  try {
+    const { id, filename, content } = extractTextDocumentDetails(doc);
+    file = `"${filename}" `;
+    if (id) {
+      logger.info(`Saving "${filename}"`);
+      await updateGist(id, filename, content);
+    } else {
+      logger.info(`"${filename}" Not a Gist`);
+    }
+  } catch (err) {
+    const error: Error = err as Error;
+    logger.error(`updateCodeBlock > ${error && error.message}`);
+    if (error && error.message === 'Not Found') {
+      _notify(`Could Not Save ${file}`, error.message);
+    }
+  }
+};
+
+export { openCodeBlock, updateCodeBlock };

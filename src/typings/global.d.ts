@@ -18,6 +18,10 @@ interface Gist {
   updatedAt: string;
 }
 
+interface GistTextDocument {
+  fileName: string;
+  getText(): string;
+}
 interface QuickPickGist {
   block: Gist;
   /**

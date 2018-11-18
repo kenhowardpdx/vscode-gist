@@ -28,6 +28,18 @@ interface GistResponse {
 
 type GistsResponse = GistResponse[];
 
+// tslint:disable:no-any
+const prepareError = (err: Error): Error => {
+  const httpError: Error = JSON.parse(err.message) as Error;
+
+  if (err instanceof Object && err.message && httpError.message) {
+    return new Error(httpError.message);
+  }
+
+  return err;
+};
+// tslint:enable:no-any
+
 const formatGist = (gist: GistResponse): Gist => ({
   createdAt: new Intl.DateTimeFormat(env.language, {
     day: 'numeric',
@@ -55,12 +67,17 @@ export const getGist = async (id: string): Promise<Gist | void> => {
     const results = await gists.get({ gist_id: id });
 
     if (!results || !results.data) {
-      throw new Error('Gist Not Found');
+      throw new Error('Not Found');
     }
 
     return formatGist(results.data);
   } catch (err) {
-    logger.error(err && err.message);
+    const error: Error = prepareError(err as Error);
+    const { message } = error;
+    if (message === 'Not Found') {
+      throw error;
+    }
+    logger.error(error && error.message);
   }
 };
 
@@ -69,18 +86,46 @@ export const getGist = async (id: string): Promise<Gist | void> => {
  */
 export const getGists = async (starred = false): Promise<Gist[] | void> => {
   try {
-    const results = await gists[starred ? 'getStarred' : 'getAll']({
+    const results = await gists[starred ? 'listStarred' : 'list']({
       per_page: GISTS_PER_PAGE
     });
 
     if (!results || !results.data) {
-      throw new Error('No Gists Found');
+      throw new Error('Not Found');
     }
 
     // TODO: Octokit type definitions need updating.
     // tslint:disable-next-line:no-any
     return formatGists(results.data as any);
   } catch (err) {
-    logger.error(err && err.message);
+    const error: Error = prepareError(err as Error);
+    const { message } = error;
+    if (message === 'Not Found') {
+      throw error;
+    }
+    logger.error(error && error.message);
+  }
+};
+
+export const updateGist = async (
+  id: string,
+  filename: string,
+  content: string
+): Promise<Gist | void> => {
+  try {
+    const results = await gists.update({
+      files: { [filename]: content },
+      gist_id: id
+    });
+
+    return formatGist(results.data);
+  } catch (err) {
+    const error: Error = prepareError(err as Error);
+
+    const { message } = error;
+    if (message === 'Not Found') {
+      throw error;
+    }
+    logger.error(error && error.message);
   }
 };

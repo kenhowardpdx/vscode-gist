@@ -37,3 +37,16 @@ export const filesSync = (
 
   return filePaths;
 };
+
+export const extractTextDocumentDetails = (
+  doc: GistTextDocument
+): { content: string; filename: string; id: string; path: string } => {
+  const sep = path.sep === '\\' ? '\\\\' : path.sep;
+  const regexp = new RegExp(
+    `.*${TMP_DIRECTORY_PREFIX}_([^_]*)_[^${sep}]*${sep}(.*)`
+  );
+  const [fullPath, id, filename] = doc.fileName.match(regexp) || ['', '', ''];
+  const content = doc.getText();
+
+  return { content, filename, id, path: path.dirname(fullPath) };
+};
