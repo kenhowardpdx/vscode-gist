@@ -1,6 +1,6 @@
 {
   "name": "vscode-gist",
-  "displayName": "Gist Extension",
+  "displayName": "Gists",
   "description": "Create, open and edit Gists",
   "version": "1.2.1",
   "publisher": "kenhowardpdx",

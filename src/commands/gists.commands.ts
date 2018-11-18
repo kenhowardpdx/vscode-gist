@@ -2,7 +2,7 @@ import { commands, window, workspace } from 'vscode';
 
 import { getGist, getGists, updateGist } from '../gists';
 import { logger } from '../logger';
-import { extractTextDocumentDetails, filesSync } from '../utils';
+import { extractTextDocumentDetails, filesSync, notify } from '../utils';
 
 const _formatGistsForQuickPick = (gists: Gist[]): QuickPickGist[] =>
   gists.map((item, i, j) => ({
@@ -32,11 +32,6 @@ const _openDocument = (file: string): Thenable<void> =>
     .openTextDocument(file)
     .then(window.showTextDocument)
     .then(() => commands.executeCommand('workbench.action.keepEditor'));
-
-// TODO: Move _notify to utils
-const _notify = (friendly: string, message: string): void => {
-  window.showInformationMessage(`GIST: ${friendly}> ${message}"`);
-};
 
 const openCodeBlock = async (): Promise<void> => {
   let gistName = '';
@@ -71,7 +66,10 @@ const openCodeBlock = async (): Promise<void> => {
     const error: Error = err as Error;
     logger.error(`openCodeBlock > ${error && error.message}`);
     if (error && error.message === 'Not Found') {
-      _notify(`Could Not Open Gist ${gistName}>`, error.message);
+      notify.error(
+        `Could Not Open Gist ${gistName}`,
+        `Reason: ${error.message}`
+      );
     }
   }
 };
@@ -84,6 +82,7 @@ const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
     if (id) {
       logger.info(`Saving "${filename}"`);
       await updateGist(id, filename, content);
+      notify.info(`Saved "${filename}"`);
     } else {
       logger.info(`"${filename}" Not a Gist`);
     }
@@ -91,7 +90,7 @@ const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
     const error: Error = err as Error;
     logger.error(`updateCodeBlock > ${error && error.message}`);
     if (error && error.message === 'Not Found') {
-      _notify(`Could Not Save ${file}`, error.message);
+      notify.error(`Could Not Save ${file}`, `Reason: ${error.message}`);
     }
   }
 };
