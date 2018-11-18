@@ -35,13 +35,14 @@ describe('Gists Commands Tests', () => {
   });
   describe('#updateCodeBlock', () => {
     test('should save', async () => {
-      expect.assertions(2);
+      expect.assertions(3);
 
       await updateCodeBlock({
         fileName: `${TMP_DIRECTORY_PREFIX}_123456789abcdefg_random_string/test-file-name.md`,
         getText: jest.fn(() => 'test-file-content')
       });
 
+      expect(editSpy.mock.calls.length).toBe(1);
       expect(editSpy.mock.calls[0][0].gist_id).toBe('123456789abcdefg');
       expect(editSpy.mock.calls[0][0].files).toStrictEqual({
         'test-file-name.md': 'test-file-content'
