@@ -95,6 +95,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^15.17.0",
-    "tmp": "0.0.33"
+    "tmp": "0.0.33",
+    "vscode-extension-telemetry": "^0.1.0"
   }
 }
