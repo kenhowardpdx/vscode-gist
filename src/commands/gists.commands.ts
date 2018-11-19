@@ -1,6 +1,7 @@
 import { commands, window, workspace } from 'vscode';
 
 import { getGist, getGists, updateGist } from '../gists';
+import { insights } from '../insights';
 import { logger } from '../logger';
 import { extractTextDocumentDetails, filesSync, notify } from '../utils';
 
@@ -27,11 +28,11 @@ const _getGist = async (id: string): Promise<Gist | void> => {
   }
 };
 
-const _openDocument = (file: string): Thenable<void> =>
-  workspace
-    .openTextDocument(file)
-    .then(window.showTextDocument)
-    .then(() => commands.executeCommand('workbench.action.keepEditor'));
+const _openDocument = async (file: string): Promise<void> => {
+  const doc = await workspace.openTextDocument(file);
+  await window.showTextDocument(doc);
+  commands.executeCommand('workbench.action.keepEditor');
+};
 
 const openCodeBlock = async (): Promise<void> => {
   let gistName = '';
@@ -60,7 +61,12 @@ const openCodeBlock = async (): Promise<void> => {
       logger.info('Code Block Found');
       const filePaths = filesSync(codeBlock.id, codeBlock.files);
 
-      filePaths.forEach(_openDocument);
+      // await is not available not available in forEach
+      for (const filePath of filePaths) {
+        await _openDocument(filePath);
+      }
+
+      insights.track('open', undefined, { fileCount: codeBlock.fileCount });
     }
   } catch (err) {
     const error: Error = err as Error;
@@ -70,6 +76,7 @@ const openCodeBlock = async (): Promise<void> => {
         `Could Not Open Gist ${gistName}`,
         `Reason: ${error.message}`
       );
+      insights.exception('openCodeBlock', { messsage: error.message });
     }
   }
 };
@@ -83,6 +90,7 @@ const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
       logger.info(`Saving "${filename}"`);
       await updateGist(id, filename, content);
       notify.info(`Saved "${filename}"`);
+      insights.track('save');
     } else {
       logger.info(`"${filename}" Not a Gist`);
     }
@@ -92,6 +100,7 @@ const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
     if (error && error.message === 'Not Found') {
       notify.error(`Could Not Save ${file}`, `Reason: ${error.message}`);
     }
+    insights.exception('updateCodeBlock', { messsage: error.message });
   }
 };
 
