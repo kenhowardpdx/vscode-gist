@@ -21,30 +21,27 @@ const telemetryCohortMin = 1;
 const telemetryCohort =
   Math.floor(Math.random() * telemetryCohortMax) + telemetryCohortMin;
 
-const enabled = ((): boolean => {
-  if (DEBUG) {
-    return true;
-  } else if (
-    telemetryCohort >= TELEMETRY_COHORT_RANGE[0] &&
-    telemetryCohort <= TELEMETRY_COHORT_RANGE[1]
+const enabled = (debug = false): boolean => {
+  if (
+    debug ||
+    (telemetryCohort >= TELEMETRY_COHORT_RANGE[0] &&
+      telemetryCohort <= TELEMETRY_COHORT_RANGE[1])
   ) {
     return true;
   }
 
   return false;
-})();
+};
 
 class TelemetryService {
   public static getInstance = (): TelemetryService =>
-    // TODO: permanently disable the semicolon rule
-    // tslint:disable-next-line:semicolon
     TelemetryService.instance
       ? TelemetryService.instance
       : new TelemetryService()
 
   private static readonly instance?: TelemetryService;
 
-  private readonly enabled = enabled;
+  private readonly enabled = enabled(DEBUG);
   private reporter: TelemetryReporter;
 
   private constructor() {
@@ -53,10 +50,6 @@ class TelemetryService {
       extensionVersion,
       TELEMETRY_WRITE_KEY
     );
-  }
-
-  public configure(id: string, version: string, key: string): void {
-    this.reporter = new TelemetryReporter(id, version, key);
   }
 
   public exception(

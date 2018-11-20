@@ -1,7 +1,5 @@
 import { window } from 'vscode';
 
-import { logger } from '../logger';
-
 const _notify = (type: 'error' | 'info', ...messages: string[]): void => {
   const formattedMessage = [...messages]
     .filter((m?: string) => typeof m !== 'undefined')
@@ -14,7 +12,6 @@ const _notify = (type: 'error' | 'info', ...messages: string[]): void => {
       window.showInformationMessage(`GIST: ${formattedMessage}`);
       break;
     default:
-      logger.error(`Invalid Notify Type "${type}"`);
   }
 };
 

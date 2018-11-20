@@ -61,17 +61,18 @@ const mockedGists = {
         files: {
           ...gistsResponseData[0].files,
           ...options.files
-        }
+        },
+        id: options.gist_id || gistsResponseData[0].id
       }
     })
   ),
   get: jest.fn((options) =>
-    Promise.resolve({ data: { ...gistsResponseData[0], id: options.gist_id } })
+    Promise.resolve({
+      data: { ...gistsResponseData[0], id: options.gist_id }
+    })
   ),
   getAll: jest.fn(gistsResponse),
   getStarred: jest.fn(gistsResponse)
 };
 
-module.exports = (): object => ({
-  gists: mockedGists
-});
+module.exports = jest.fn(() => ({ gists: mockedGists }));
