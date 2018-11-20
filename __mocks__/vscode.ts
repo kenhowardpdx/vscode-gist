@@ -1,5 +1,8 @@
 // tslint:disable:no-any
 module.exports = {
+  commands: {
+    executeCommand: jest.fn()
+  },
   env: {
     language: 'en-US'
   },
@@ -9,6 +12,10 @@ module.exports = {
   window: {
     showErrorMessage: jest.fn(),
     showInformationMessage: jest.fn(),
-    showQuickPick: jest.fn()
+    showQuickPick: jest.fn(),
+    showTextDocument: jest.fn()
+  },
+  workspace: {
+    openTextDocument: jest.fn()
   }
 };

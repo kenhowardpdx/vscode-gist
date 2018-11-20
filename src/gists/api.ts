@@ -1,7 +1,6 @@
 import { env } from 'vscode';
 
 import { GISTS_PER_PAGE } from '../constants';
-import { logger } from '../logger';
 
 import { gists } from './gists-service';
 
@@ -30,13 +29,15 @@ type GistsResponse = GistResponse[];
 
 // tslint:disable:no-any
 const prepareError = (err: Error): Error => {
-  const httpError: Error = JSON.parse(err.message) as Error;
+  let httpError: Error | undefined;
 
-  if (err instanceof Object && err.message && httpError.message) {
-    return new Error(httpError.message);
+  try {
+    httpError = new Error(JSON.parse(err.message).message);
+  } catch (exc) {
+    // empty
   }
 
-  return err;
+  return httpError || err;
 };
 // tslint:enable:no-any
 
@@ -62,48 +63,34 @@ const formatGist = (gist: GistResponse): Gist => ({
 const formatGists = (gistList: GistsResponse): Gist[] =>
   gistList.map(formatGist);
 
-export const getGist = async (id: string): Promise<Gist | void> => {
+export const getGist = async (id: string): Promise<Gist> => {
   try {
     const results = await gists.get({ gist_id: id });
-
-    if (!results || !results.data) {
-      throw new Error('Not Found');
-    }
 
     return formatGist(results.data);
   } catch (err) {
     const error: Error = prepareError(err as Error);
-    const { message } = error;
-    if (message === 'Not Found') {
-      throw error;
-    }
-    logger.error(error && error.message);
+
+    throw error;
   }
 };
 
 /**
  * Get a list of gists
  */
-export const getGists = async (starred = false): Promise<Gist[] | void> => {
+export const getGists = async (starred = false): Promise<Gist[]> => {
   try {
     const results = await gists[starred ? 'listStarred' : 'list']({
       per_page: GISTS_PER_PAGE
     });
-
-    if (!results || !results.data) {
-      throw new Error('Not Found');
-    }
 
     // TODO: Octokit type definitions need updating.
     // tslint:disable-next-line:no-any
     return formatGists(results.data as any);
   } catch (err) {
     const error: Error = prepareError(err as Error);
-    const { message } = error;
-    if (message === 'Not Found') {
-      throw error;
-    }
-    logger.error(error && error.message);
+
+    throw error;
   }
 };
 
@@ -111,7 +98,7 @@ export const updateGist = async (
   id: string,
   filename: string,
   content: string
-): Promise<Gist | void> => {
+): Promise<Gist> => {
   try {
     const results = await gists.update({
       files: { [filename]: content },
@@ -122,10 +109,6 @@ export const updateGist = async (
   } catch (err) {
     const error: Error = prepareError(err as Error);
 
-    const { message } = error;
-    if (message === 'Not Found') {
-      throw error;
-    }
-    logger.error(error && error.message);
+    throw error;
   }
 };

@@ -24,7 +24,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#list', () => {
-    test('should have getAll function', (done) => {
+    test('should have list function', (done) => {
       expect.assertions(1);
 
       testGists.list().then((response: any) => {
@@ -34,7 +34,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#listStarred', () => {
-    test('should have getAll function', (done) => {
+    test('should have listStarred function', (done) => {
       expect.assertions(1);
 
       testGists.listStarred().then((response: any) => {

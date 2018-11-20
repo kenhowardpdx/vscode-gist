@@ -3,31 +3,40 @@ import { window } from 'vscode';
 
 import { TMP_DIRECTORY_PREFIX } from '../../constants';
 import { gists } from '../../gists/gists-service';
+import { logger } from '../../logger';
 import { openCodeBlock, updateCodeBlock } from '../gists.commands';
 
-let editSpy: jest.SpyInstance;
+jest.mock('fs');
+jest.mock('path');
+
+const editSpy = jest.spyOn(gists, 'update');
+const errorSPy = jest.spyOn(logger, 'error');
+const infoSpy = jest.spyOn(logger, 'info');
+
+const showQuickPickSpy = jest.spyOn(window, 'showQuickPick');
 
 describe('Gists Commands Tests', () => {
-  beforeEach(() => {
-    editSpy = jest.spyOn(gists, 'update');
-  });
   afterEach(() => {
-    editSpy.mockRestore();
+    jest.clearAllMocks();
   });
   describe('#openCodeBlock', () => {
+    test('what happens when errors occur', async () => {
+      expect.assertions(1);
+
+      showQuickPickSpy.mockRejectedValueOnce(false);
+
+      await openCodeBlock();
+      expect(errorSPy.mock.calls.length).toBe(1);
+    });
     test('it opens the quickpick pane', async () => {
       expect.assertions(3);
 
-      const mock: jest.MockInstance<
-        typeof window.showQuickPick
-      > = window.showQuickPick as any;
-
       await openCodeBlock();
 
-      expect(mock.mock.calls.length).toBe(1);
+      expect(showQuickPickSpy.mock.calls.length).toBe(1);
 
-      const firstGist = mock.mock.calls[0][0][0];
-      const secondGist = mock.mock.calls[0][0][1];
+      const firstGist = showQuickPickSpy.mock.calls[0][0][0];
+      const secondGist = showQuickPickSpy.mock.calls[0][0][1];
 
       expect(firstGist.label).toBe('2. gist one');
       expect(secondGist.label).toBe('1. gist two');
@@ -47,6 +56,16 @@ describe('Gists Commands Tests', () => {
       expect(editSpy.mock.calls[0][0].files).toStrictEqual({
         'test-file-name.md': 'test-file-content'
       });
+    });
+    test('should NOT save a non-gist', async () => {
+      expect.assertions(1);
+
+      await updateCodeBlock({
+        fileName: '/var/foo/bar/test-file-name.md',
+        getText: jest.fn(() => 'test-file-content')
+      });
+
+      expect(infoSpy.mock.calls[0][0]).toContain('Not a Gist');
     });
   });
 });
