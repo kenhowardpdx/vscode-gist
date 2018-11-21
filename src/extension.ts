@@ -1,62 +1,99 @@
-import * as vscode from 'vscode';
+import { commands, ExtensionContext, workspace } from 'vscode';
 
-import { openCodeBlock, updateCodeBlock } from './commands';
+import {
+  clearProfiles,
+  createProfile,
+  openCodeBlock,
+  selectProfile,
+  updateCodeBlock,
+  updateGistAccessKey,
+  updateStatusBar
+} from './commands';
 import { DEBUG } from './constants';
 import { insights } from './insights';
 import { Levels, logger } from './logger';
+import { profiles } from './profiles';
 
-export function activate(_: vscode.ExtensionContext): void {
+export function activate(context: ExtensionContext): void {
   logger.setLevel(DEBUG ? Levels.DEBUG : Levels.ERROR);
 
   logger.debug('extension activated');
-  vscode.commands.registerCommand('extension.openCodeBlock', openCodeBlock);
-  vscode.workspace.onDidSaveTextDocument(updateCodeBlock);
+
+  profiles.configure({ state: context.globalState });
+
+  /**
+   * Gist Commands
+   */
+  commands.registerCommand('extension.openCodeBlock', openCodeBlock);
+  workspace.onDidSaveTextDocument(updateCodeBlock);
+  commands.registerCommand(
+    'extension.updateGistAccessKey',
+    updateGistAccessKey
+  );
+
+  /**
+   * Profile Commands
+   */
+  commands.registerCommand('extension.toggleProfile', selectProfile);
+  commands.registerCommand('extension.createProfile', createProfile);
+  commands.registerCommand('extension.clearProfiles', clearProfiles);
+
+  /**
+   * Status Bar
+   */
+  commands.registerCommand('extension.updateStatusBar', updateStatusBar);
+
+  /**
+   * Execute Startup Commands
+   */
+  commands.executeCommand('extension.updateStatusBar');
+  commands.executeCommand('extension.updateGistAccessKey');
 
   insights.track('activated');
 
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.openFavoriteCodeBlock',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.createCodeBlock',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.openCodeBlockInBrowser',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.deleteCodeBlock',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.removeFileFromCodeBlock',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.addToCodeBlock',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.changeCodeBlockDescription',
     (): void => {
       // intentionally left blank
     }
   );
-  vscode.commands.registerCommand(
+  commands.registerCommand(
     'extension.insertCode',
     (): void => {
       // intentionally left blank

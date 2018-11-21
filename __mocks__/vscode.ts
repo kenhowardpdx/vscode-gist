@@ -12,10 +12,12 @@ module.exports = {
   window: {
     showErrorMessage: jest.fn(),
     showInformationMessage: jest.fn(),
+    showInputBox: jest.fn(),
     showQuickPick: jest.fn(),
     showTextDocument: jest.fn()
   },
   workspace: {
+    getConfiguration: jest.fn(() => ({ get: jest.fn(), update: jest.fn() })),
     openTextDocument: jest.fn()
   }
 };

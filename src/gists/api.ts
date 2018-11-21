@@ -1,6 +1,6 @@
 import { env } from 'vscode';
 
-import { GISTS_PER_PAGE } from '../constants';
+import { GISTS_BASE_URL, GISTS_PER_PAGE } from '../constants';
 
 import { gists } from './gists-service';
 
@@ -101,7 +101,7 @@ export const updateGist = async (
 ): Promise<Gist> => {
   try {
     const results = await gists.update({
-      files: { [filename]: content },
+      files: { [filename]: { content } },
       gist_id: id
     });
 
@@ -111,4 +111,10 @@ export const updateGist = async (
 
     throw error;
   }
+};
+
+export const configure = (options: { key: string; url: string }): void => {
+  const key = options.key || '';
+  const url = options.url || GISTS_BASE_URL;
+  gists.configure({ key, url });
 };

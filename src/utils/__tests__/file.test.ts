@@ -44,6 +44,7 @@ describe('File Tests', () => {
         content: 'mocked-content',
         filename: 'mocked-text-document.md',
         id: '1111',
+        language: 'unknown',
         path:
           '/var/folders/T/vscode_gist_1111_random_string/mocked-text-document.md'
       });
