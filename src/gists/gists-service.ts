@@ -1,9 +1,11 @@
 import * as Octokit from '@octokit/rest';
 
+import { GISTS_BASE_URL } from '../constants';
+
 type Response<T> = Promise<Octokit.Response<T>>;
 
 const DEFAULT_OPTIONS = {
-  baseUrl: 'https://api.github.com'
+  baseUrl: GISTS_BASE_URL
 };
 
 class GistsService {
@@ -19,6 +21,13 @@ class GistsService {
 
   private constructor() {
     this.octokit = new Octokit(this.options);
+  }
+
+  public configure(options: { key: string; url: string }): void {
+    const config = { baseUrl: options.url };
+    this.options = config || this.options;
+    this.octokit = new Octokit(this.options);
+    this.octokit.authenticate({ type: 'token', token: options.key });
   }
 
   public get(
@@ -37,11 +46,6 @@ class GistsService {
     params?: Octokit.GistsGetStarredParams
   ): Response<Octokit.GistsGetStarredResponseItem[]> {
     return this.octokit.gists.getStarred({ ...params });
-  }
-
-  public reset(options?: Octokit.Options): void {
-    this.options = options || this.options;
-    this.octokit = new Octokit(this.options);
   }
 
   public update(

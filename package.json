@@ -12,15 +12,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.openCodeBlock",
-    "onCommand:extension.openFavoriteCodeBlock",
-    "onCommand:extension.createCodeBlock",
-    "onCommand:extension.openCodeBlockInBrowser",
-    "onCommand:extension.deleteCodeBlock",
-    "onCommand:extension.removeFileFromCodeBlock",
-    "onCommand:extension.addToCodeBlock",
-    "onCommand:extension.changeCodeBlockDescription",
-    "onCommand:extension.insertCode"
+    "*"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -69,6 +61,21 @@
         "command": "extension.insertCode",
         "title": "GIST: Insert Code Into Current File",
         "category": "Gist"
+      },
+      {
+        "command": "extension.toggleProfile",
+        "title": "GIST: Toggle Profile",
+        "category": "Gist"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.toggleProfile",
+        "key": "ctrl+alt+="
+      },
+      {
+        "command": "extension.clearProfiles",
+        "key": "ctrl+alt+0"
       }
     ]
   },

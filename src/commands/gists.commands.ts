@@ -1,8 +1,9 @@
 import { commands, window, workspace } from 'vscode';
 
-import { getGist, getGists, updateGist } from '../gists';
+import { configure, getGist, getGists, updateGist } from '../gists';
 import { insights } from '../insights';
 import { logger } from '../logger';
+import { profiles } from '../profiles';
 import { extractTextDocumentDetails, filesSync, notify } from '../utils';
 
 const _formatGistsForQuickPick = (gists: Gist[]): QuickPickGist[] =>
@@ -58,6 +59,8 @@ const openCodeBlock = async (): Promise<void> => {
         `Could Not Open Gist ${gistName}`,
         `Reason: ${error.message}`
       );
+    } else {
+      notify.error('Unable To Open Gists', error.message);
     }
   }
 };
@@ -65,13 +68,17 @@ const openCodeBlock = async (): Promise<void> => {
 const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
   let file = '';
   try {
-    const { id, filename, content } = extractTextDocumentDetails(doc);
+    const editor = window.activeTextEditor;
+    const { id, filename, content, language } = extractTextDocumentDetails(
+      doc,
+      editor
+    );
     file = `"${filename}" `;
     if (id) {
       logger.info(`Saving "${filename}"`);
       await updateGist(id, filename, content);
       notify.info(`Saved "${filename}"`);
-      insights.track('save');
+      insights.track('save', { language });
     } else {
       logger.info(`"${doc.fileName}" Not a Gist`);
     }
@@ -85,4 +92,10 @@ const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
   }
 };
 
-export { openCodeBlock, updateCodeBlock };
+const updateGistAccessKey = (): void => {
+  const { key, url } = profiles.get();
+  configure({ key, url });
+  insights.track('updateGistAccessKey', { url });
+};
+
+export { updateGistAccessKey, openCodeBlock, updateCodeBlock };

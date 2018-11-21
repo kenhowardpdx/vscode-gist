@@ -46,3 +46,13 @@ interface QuickPickGist {
    */
   picked?: boolean;
 }
+
+interface RawProfile {
+  active: boolean;
+  key: string;
+  url: string;
+}
+
+interface Profile extends RawProfile {
+  name: string;
+}

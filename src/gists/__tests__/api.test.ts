@@ -143,7 +143,9 @@ describe('Gists API Tests', () => {
       const response: any = gist ? gist : {};
 
       expect(response.id).toBe('abc123');
-      expect(response.files['foo-bar.md']).toBe('test-content-foo-bar.md');
+      expect(response.files['foo-bar.md']).toStrictEqual({
+        content: 'test-content-foo-bar.md'
+      });
     });
   });
 });

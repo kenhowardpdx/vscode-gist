@@ -13,11 +13,11 @@ describe('GistService tests', () => {
       baseUrl: 'https://api.github.com'
     });
   });
-  describe('#reset', () => {
+  describe('#configure', () => {
     test('sets baseUrl properly', () => {
       expect.assertions(1);
 
-      testGists.reset({ baseUrl: 'https://foo.bar/api' });
+      testGists.configure({ url: 'https://foo.bar/api' });
       expect(testGists.options).toStrictEqual({
         baseUrl: 'https://foo.bar/api'
       });

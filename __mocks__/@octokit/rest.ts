@@ -75,4 +75,7 @@ const mockedGists = {
   getStarred: jest.fn(gistsResponse)
 };
 
-module.exports = jest.fn(() => ({ gists: mockedGists }));
+module.exports = jest.fn(() => ({
+  authenticate: jest.fn(),
+  gists: mockedGists
+}));

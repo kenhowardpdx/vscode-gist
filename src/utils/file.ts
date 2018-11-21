@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as tmp from 'tmp';
+import { TextEditor } from 'vscode';
 
 import { TMP_DIRECTORY_PREFIX } from '../constants';
 
@@ -39,8 +40,15 @@ export const filesSync = (
 };
 
 export const extractTextDocumentDetails = (
-  doc: GistTextDocument
-): { content: string; filename: string; id: string; path: string } => {
+  doc: GistTextDocument,
+  editor?: TextEditor
+): {
+  content: string;
+  filename: string;
+  id: string;
+  language: string;
+  path: string;
+} => {
   const sep = path.sep === '\\' ? '\\\\' : path.sep;
   const regexp = new RegExp(
     `.*${TMP_DIRECTORY_PREFIX}_([^_]*)_[^${sep}]*${sep}(.*)`
@@ -48,5 +56,13 @@ export const extractTextDocumentDetails = (
   const [fullPath, id, filename] = doc.fileName.match(regexp) || ['', '', ''];
   const content = doc.getText();
 
-  return { content, filename, id, path: path.dirname(fullPath) };
+  const { languageId } = editor ? editor.document : { languageId: 'unknown' };
+
+  return {
+    content,
+    filename,
+    id,
+    language: languageId,
+    path: path.dirname(fullPath)
+  };
 };
