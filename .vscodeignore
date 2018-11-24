@@ -5,5 +5,11 @@ out/**/*.map
 src/**
 .gitignore
 tsconfig.json
+tsconfig.prod.json
 vsc-extension-quickstart.md
 tslint.json
+jest.config.js
+coverage/**
+bin/**
+.github/**
+__mocks__/**
