@@ -56,3 +56,7 @@ interface RawProfile {
 interface Profile extends RawProfile {
   name: string;
 }
+
+interface Extension {
+  packageJSON: { version: string };
+}

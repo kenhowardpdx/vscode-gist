@@ -7,10 +7,6 @@ import {
   TELEMETRY_WRITE_KEY
 } from '../constants';
 
-interface Extension {
-  packageJSON: { version: string };
-}
-
 const extensionId = 'kenhowardpdx.vscode-gist';
 const extension = extensions.getExtension(extensionId) as Extension;
 const extensionVersion =
