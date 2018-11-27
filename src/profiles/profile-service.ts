@@ -27,10 +27,10 @@ class ProfileService {
         [profile]: { key: p[profile].key, url: p[profile].url, active: false }
       }))
       .reduce((prev, curr) => ({ ...prev, ...curr }), {});
-    this.state.update(
-      'profiles',
-      JSON.stringify({ ...currentState, [name]: { active, key, url } })
-    );
+    this.state.update('profiles', {
+      ...currentState,
+      [name]: { active, key, url }
+    });
   }
 
   public configure(options: { state: Memento }): void {

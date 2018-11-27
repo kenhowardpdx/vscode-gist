@@ -12,6 +12,7 @@ import {
 import { DEBUG } from './constants';
 import { insights } from './insights';
 import { Levels, logger } from './logger';
+import { extensionMigrations, migrations } from './migrations';
 import { profiles } from './profiles';
 
 export function activate(context: ExtensionContext): void {
@@ -19,6 +20,10 @@ export function activate(context: ExtensionContext): void {
 
   logger.debug('extension activated');
 
+  migrations.configure({
+    migrations: extensionMigrations,
+    state: context.globalState
+  });
   profiles.configure({ state: context.globalState });
 
   /**
@@ -46,10 +51,18 @@ export function activate(context: ExtensionContext): void {
   /**
    * Execute Startup Commands
    */
-  commands.executeCommand('extension.updateStatusBar');
-  commands.executeCommand('extension.updateGistAccessKey');
+  migrations.up((err, results) => {
+    commands.executeCommand('extension.updateStatusBar');
+    commands.executeCommand('extension.updateGistAccessKey');
 
-  insights.track('activated');
+    if (err) {
+      insights.exception('migrations', { message: err.message });
+    }
+
+    insights.track('activated', undefined, {
+      migrationCount: results.migrated.length
+    });
+  });
 
   commands.registerCommand(
     'extension.openFavoriteCodeBlock',
