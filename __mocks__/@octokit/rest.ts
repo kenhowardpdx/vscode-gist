@@ -54,7 +54,14 @@ const gistsResponse = (): Promise<any> =>
   });
 
 const mockedGists = {
-  edit: jest.fn((options) =>
+  get: jest.fn((options) =>
+    Promise.resolve({
+      data: { ...gistsResponseData[0], id: options.gist_id }
+    })
+  ),
+  list: jest.fn(gistsResponse),
+  listStarred: jest.fn(gistsResponse),
+  update: jest.fn((options) =>
     Promise.resolve({
       data: {
         ...gistsResponseData[0],
@@ -65,14 +72,7 @@ const mockedGists = {
         id: options.gist_id || gistsResponseData[0].id
       }
     })
-  ),
-  get: jest.fn((options) =>
-    Promise.resolve({
-      data: { ...gistsResponseData[0], id: options.gist_id }
-    })
-  ),
-  getAll: jest.fn(gistsResponse),
-  getStarred: jest.fn(gistsResponse)
+  )
 };
 
 module.exports = jest.fn(() => ({

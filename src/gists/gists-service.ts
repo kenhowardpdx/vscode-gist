@@ -37,21 +37,21 @@ class GistsService {
   }
 
   public list(
-    params?: Octokit.GistsGetAllParams
-  ): Response<Octokit.GistsGetAllResponseItem[]> {
-    return this.octokit.gists.getAll({ ...params });
+    params?: Octokit.GistsListParams
+  ): Response<Octokit.GistsListResponseItem[]> {
+    return this.octokit.gists.list({ ...params });
   }
 
   public listStarred(
-    params?: Octokit.GistsGetStarredParams
-  ): Response<Octokit.GistsGetStarredResponseItem[]> {
-    return this.octokit.gists.getStarred({ ...params });
+    params?: Octokit.GistsListStarredParams
+  ): Response<Octokit.GistsListStarredResponseItem[]> {
+    return this.octokit.gists.listStarred({ ...params });
   }
 
   public update(
-    params: Octokit.GistsEditParams
-  ): Response<Octokit.GistsEditResponse> {
-    return this.octokit.gists.edit(params);
+    params: Octokit.GistsUpdateParams
+  ): Response<Octokit.GistsUpdateResponse> {
+    return this.octokit.gists.update(params);
   }
 }
 

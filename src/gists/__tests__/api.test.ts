@@ -47,7 +47,7 @@ const gistsResponseData = [
   }
 ];
 
-const edit = jest.fn((options) =>
+const update = jest.fn((options) =>
   Promise.resolve({
     data: {
       ...gistsResponseData[0],
@@ -64,12 +64,12 @@ const get = jest.fn((options) =>
     data: { ...gistsResponseData[0], id: options.gist_id }
   })
 );
-const getAll = jest.fn(() => Promise.resolve({ data: gistsResponseData }));
-const getStarred = jest.fn(() => Promise.resolve({ data: gistsResponseData }));
+const list = jest.fn(() => Promise.resolve({ data: gistsResponseData }));
+const listStarred = jest.fn(() => Promise.resolve({ data: gistsResponseData }));
 jest.genMockFromModule('@octokit/rest');
 jest.mock('@octokit/rest');
 (Octokit as any).mockImplementation(
-  (): any => ({ gists: { edit, get, getAll, getStarred } })
+  (): any => ({ gists: { update, get, list, listStarred } })
 );
 
 import { getGist, getGists, updateGist } from '../api';
@@ -82,7 +82,7 @@ describe('Gists API Tests', () => {
     test('handles error appropriately', async () => {
       expect.assertions(1);
 
-      getAll.mockRejectedValueOnce(new Error('Not Found'));
+      list.mockRejectedValueOnce(new Error('Not Found'));
 
       try {
         await getGists();
@@ -123,7 +123,7 @@ describe('Gists API Tests', () => {
     test('handles error appropriately', async () => {
       expect.assertions(1);
 
-      edit.mockRejectedValueOnce(new Error('Not Found'));
+      update.mockRejectedValueOnce(new Error('Not Found'));
 
       try {
         await updateGist('1', '2', '3');
