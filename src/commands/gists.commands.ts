@@ -1,10 +1,15 @@
 import { commands, window, workspace } from 'vscode';
 
-import { configure, getGist, getGists, updateGist } from '../gists';
+import { configure, createGist, getGist, getGists, updateGist } from '../gists';
 import { insights } from '../insights';
 import { logger } from '../logger';
 import { profiles } from '../profiles';
-import { extractTextDocumentDetails, filesSync, notify } from '../utils';
+import {
+  extractTextDocumentDetails,
+  filesSync,
+  notify,
+  prompt
+} from '../utils';
 
 const _formatGistsForQuickPick = (gists: Gist[]): QuickPickGist[] =>
   gists.map((item, i, j) => ({
@@ -27,6 +32,24 @@ const _openDocument = async (file: string): Promise<void> => {
   commands.executeCommand('workbench.action.keepEditor');
 };
 
+const _openCodeBlock = async (
+  gistId: string
+): Promise<{
+  fileCount: number;
+  files: { [x: string]: { content: string } };
+  id: string;
+}> => {
+  const { id, files, fileCount } = await getGist(gistId);
+  const filePaths = filesSync(id, files);
+
+  // await is not available not available in forEach
+  for (const filePath of filePaths) {
+    await _openDocument(filePath);
+  }
+
+  return { id, files, fileCount };
+};
+
 const openCodeBlock = async (favorite = false): Promise<void> => {
   let gistName = '';
   try {
@@ -41,13 +64,7 @@ const openCodeBlock = async (favorite = false): Promise<void> => {
       gistName = `"${selected.block.name}"`;
       logger.info(`User Selected Gist: "${selected.label}"`);
 
-      const { id, files, fileCount } = await getGist(selected.block.id);
-      const filePaths = filesSync(id, files);
-
-      // await is not available not available in forEach
-      for (const filePath of filePaths) {
-        await _openDocument(filePath);
-      }
+      const { fileCount } = await _openCodeBlock(selected.block.id);
 
       logger.info('Opened Gist');
       insights.track('open', undefined, {
@@ -105,7 +122,45 @@ const updateGistAccessKey = (): void => {
   insights.track('updateGistAccessKey', { url });
 };
 
+const createCodeBlock = async (): Promise<void> => {
+  let gistName = '';
+  try {
+    const editor = window.activeTextEditor;
+    if (!editor) {
+      throw new Error('Open a file before creating');
+    }
+    const selection = editor.selection;
+    const content = editor.document.getText(
+      selection.isEmpty ? undefined : selection
+    );
+    const details = extractTextDocumentDetails(editor.document);
+    const filename = (details && details.filename) || 'untitled.txt';
+    const description = await prompt('Enter description');
+    const isPublic =
+      ((await prompt('Public? Y = Yes, N = No', 'Y')) || 'Y') // TODO: add configuration for default value
+        .slice(0, 1)
+        .toLowerCase() === 'y';
+
+    gistName = description || filename;
+
+    const gist = await createGist(
+      { [filename]: { content } },
+      description,
+      isPublic
+    );
+
+    await _openCodeBlock(gist.id);
+  } catch (err) {
+    const context = gistName ? ` ${gistName}` : '';
+    const error: Error = err as Error;
+    logger.error(`createCodeBlock > ${error && error.message}`);
+    insights.exception('createCodeBlock', { messsage: error.message });
+    notify.error(`Could Not Create${context}`, `Reason: ${error.message}`);
+  }
+};
+
 export {
+  createCodeBlock,
   updateGistAccessKey,
   openCodeBlock,
   openFavoriteCodeBlock,

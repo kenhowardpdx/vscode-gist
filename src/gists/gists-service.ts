@@ -30,6 +30,12 @@ class GistsService {
     this.octokit.authenticate({ type: 'token', token: options.key });
   }
 
+  public create(
+    params: Octokit.GistsCreateParams
+  ): Response<Octokit.GistsCreateResponse> {
+    return this.octokit.gists.create(params);
+  }
+
   public get(
     params: Octokit.GistsGetParams
   ): Response<Octokit.GistsGetResponse> {

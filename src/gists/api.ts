@@ -118,3 +118,23 @@ export const configure = (options: { key: string; url: string }): void => {
   const url = options.url || GISTS_BASE_URL;
   gists.configure({ key, url });
 };
+
+export const createGist = async (
+  files: { [x: string]: { content: string } },
+  description?: string,
+  isPublic = true
+): Promise<Gist> => {
+  try {
+    const results = await gists.create({
+      description,
+      files,
+      public: isPublic
+    });
+
+    return formatGist(results.data);
+  } catch (err) {
+    const error: Error = prepareError(err as Error);
+
+    throw error;
+  }
+};
