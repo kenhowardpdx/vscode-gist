@@ -10,12 +10,13 @@ const executeCommandSpy = jest.spyOn(commands, 'executeCommand');
 const showQuickPickSpy = jest.spyOn(window, 'showQuickPick');
 const showInformationMessageSpy = jest.spyOn(window, 'showInformationMessage');
 const showInputBoxSpy = jest.spyOn(window, 'showInputBox');
+const getMock = jest.fn();
+const mockState: any = {
+  get: getMock,
+  update: jest.fn()
+};
 
-import {
-  clearProfiles,
-  createProfile,
-  selectProfile
-} from '../profile.commands';
+import { createProfile, selectProfile } from '../profile.commands';
 
 const mockProfile = {
   key: '111',
@@ -24,19 +25,11 @@ const mockProfile = {
 };
 
 describe('Profile Commands Tests', () => {
+  beforeEach(() => {
+    profiles.configure({ state: mockState });
+  });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-  describe('#clearProfiles', () => {
-    test('should clear profiles', () => {
-      expect.assertions(1);
-
-      clearProfiles();
-
-      expect(executeCommandSpy).toHaveBeenCalledWith(
-        'extension.updateStatusBar'
-      );
-    });
   });
   describe('#createProfile', () => {
     test('should show information message prompt', async () => {
@@ -161,7 +154,16 @@ describe('Profile Commands Tests', () => {
 
       getAllSpy.mockReturnValue([mockProfile]);
 
+      getMock.mockImplementation(() => ({
+        'test-profile': {
+          active: true,
+          key: 'foo',
+          url: 'foo'
+        }
+      }));
+
       showQuickPickSpy.mockResolvedValueOnce({
+        label: mockProfile.name,
         profile: mockProfile
       });
 

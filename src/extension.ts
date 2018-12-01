@@ -1,9 +1,9 @@
 import { commands, ExtensionContext, workspace } from 'vscode';
 
 import {
-  clearProfiles,
   createProfile,
   openCodeBlock,
+  openFavoriteCodeBlock,
   selectProfile,
   updateCodeBlock,
   updateGistAccessKey,
@@ -27,9 +27,24 @@ export function activate(context: ExtensionContext): void {
   profiles.configure({ state: context.globalState });
 
   /**
+   * General Commands
+   */
+  commands.registerCommand('extension.resetState', () => {
+    context.globalState.update('gisttoken', undefined);
+    context.globalState.update('gist_provider', undefined);
+    context.globalState.update('profiles', undefined);
+    context.globalState.update('migrations', undefined);
+    commands.executeCommand('extension.updateStatusBar');
+  });
+
+  /**
    * Gist Commands
    */
   commands.registerCommand('extension.openCodeBlock', openCodeBlock);
+  commands.registerCommand(
+    'extension.openFavoriteCodeBlock',
+    openFavoriteCodeBlock
+  );
   workspace.onDidSaveTextDocument(updateCodeBlock);
   commands.registerCommand(
     'extension.updateGistAccessKey',
@@ -41,7 +56,6 @@ export function activate(context: ExtensionContext): void {
    */
   commands.registerCommand('extension.toggleProfile', selectProfile);
   commands.registerCommand('extension.createProfile', createProfile);
-  commands.registerCommand('extension.clearProfiles', clearProfiles);
 
   /**
    * Status Bar
@@ -64,12 +78,6 @@ export function activate(context: ExtensionContext): void {
     });
   });
 
-  commands.registerCommand(
-    'extension.openFavoriteCodeBlock',
-    (): void => {
-      // intentionally left blank
-    }
-  );
   commands.registerCommand(
     'extension.createCodeBlock',
     (): void => {

@@ -4,18 +4,24 @@ import { commands, window } from 'vscode';
 import { TMP_DIRECTORY_PREFIX } from '../../constants';
 import { gists } from '../../gists/gists-service';
 import { logger } from '../../logger';
-import { openCodeBlock, updateCodeBlock } from '../gists.commands';
+import { profiles } from '../../profiles';
+import {
+  openCodeBlock,
+  openFavoriteCodeBlock,
+  updateCodeBlock,
+  updateGistAccessKey
+} from '../gists.commands';
 
 jest.mock('fs');
 jest.mock('path');
 
 const executeCommandSpy = jest.spyOn(commands, 'executeCommand');
+const configureSpy = jest.spyOn(gists, 'configure');
 const editSpy = jest.spyOn(gists, 'update');
 const errorSpy = jest.spyOn(logger, 'error');
-// const getSpy = jest.spyOn(gists, 'get');
 const infoSpy = jest.spyOn(logger, 'info');
-// const listSpy = jest.spyOn(gists, 'list');
 const showQuickPickSpy = jest.spyOn(window, 'showQuickPick');
+const getProfileSpy = jest.spyOn(profiles, 'get');
 
 describe('Gists Commands Tests', () => {
   afterEach(() => {
@@ -60,6 +66,15 @@ describe('Gists Commands Tests', () => {
       );
     });
   });
+  describe('#openFavoriteCodeBlock', () => {
+    test('should call openCodeBlock', async () => {
+      expect.assertions(1);
+
+      await openFavoriteCodeBlock();
+
+      expect(infoSpy.mock.calls[0][0]).toContain('openFavoriteCodeBlock');
+    });
+  });
   describe('#updateCodeBlock', () => {
     test('should save', async () => {
       expect.assertions(3);
@@ -100,6 +115,21 @@ describe('Gists Commands Tests', () => {
       await updateCodeBlock(codeBlock);
 
       expect(errorSpy).toHaveBeenCalledWith('updateCodeBlock > Not Found');
+    });
+  });
+  describe('#updateGistAccessKey', () => {
+    test('should update gist access key', () => {
+      expect.assertions(2);
+
+      getProfileSpy.mockReturnValue({ key: 'foo', url: 'bar' });
+
+      updateGistAccessKey();
+
+      expect(configureSpy.mock.calls).toHaveLength(1);
+      expect(configureSpy.mock.calls[0][0]).toStrictEqual({
+        key: 'foo',
+        url: 'bar'
+      });
     });
   });
 });
