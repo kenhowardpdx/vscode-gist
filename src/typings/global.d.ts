@@ -20,7 +20,7 @@ interface Gist {
 
 interface GistTextDocument {
   fileName: string;
-  getText(): string;
+  getText(range?: any): string;
 }
 interface QuickPickGist {
   block: Gist;

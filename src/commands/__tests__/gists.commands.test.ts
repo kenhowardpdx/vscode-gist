@@ -6,6 +6,7 @@ import { gists } from '../../gists/gists-service';
 import { logger } from '../../logger';
 import { profiles } from '../../profiles';
 import {
+  createCodeBlock,
   openCodeBlock,
   openFavoriteCodeBlock,
   updateCodeBlock,
@@ -14,6 +15,8 @@ import {
 
 jest.mock('fs');
 jest.mock('path');
+const promptMock: any = jest.genMockFromModule('../../utils/prompt');
+jest.mock('../../utils/prompt', promptMock);
 
 const executeCommandSpy = jest.spyOn(commands, 'executeCommand');
 const configureSpy = jest.spyOn(gists, 'configure');
@@ -130,6 +133,34 @@ describe('Gists Commands Tests', () => {
         key: 'foo',
         url: 'bar'
       });
+    });
+  });
+  describe('#createCodeBlock', () => {
+    test('should create a code block and open the files', async () => {
+      expect.assertions(2);
+
+      promptMock.prompt.mockImplementation(
+        (_msg: string, defaultValue: string) => Promise.resolve(defaultValue)
+      );
+
+      const codeBlock = {
+        fileName: `${TMP_DIRECTORY_PREFIX}_123456789abcdefg_random_string/test-file-name.md`,
+        getText: jest.fn(() => 'test-file-content')
+      };
+
+      const editor = {
+        document: codeBlock,
+        selection: { isEmpty: true }
+      };
+
+      (<any>window).activeTextEditor = editor;
+
+      await createCodeBlock();
+
+      expect(editor.document.getText.mock.calls).toHaveLength(2);
+      expect(executeCommandSpy.mock.calls[0][0]).toStrictEqual(
+        'workbench.action.keepEditor'
+      );
     });
   });
 });

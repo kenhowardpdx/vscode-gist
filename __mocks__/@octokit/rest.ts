@@ -1,5 +1,9 @@
-// tslint:disable:no-any no-unsafe-any
+// tslint:disable:no-any no-unsafe-any no-magic-numbers
 jest.genMockFromModule<object>('@octokit/rest');
+
+const gistId = Math.random()
+  .toString(36)
+  .slice(7);
 
 const gistsResponseData = [
   {
@@ -54,6 +58,18 @@ const gistsResponse = (): Promise<any> =>
   });
 
 const mockedGists = {
+  create: jest.fn((params) =>
+    Promise.resolve({
+      data: {
+        created_at: new Date().toString(),
+        description: params.description,
+        files: params.files,
+        id: gistId,
+        public: params.public,
+        updated_at: new Date().toString()
+      }
+    })
+  ),
   get: jest.fn((options) =>
     Promise.resolve({
       data: { ...gistsResponseData[0], id: options.gist_id }

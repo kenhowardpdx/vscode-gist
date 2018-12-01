@@ -1,6 +1,7 @@
 import { commands, ExtensionContext, workspace } from 'vscode';
 
 import {
+  createCodeBlock,
   createProfile,
   openCodeBlock,
   openFavoriteCodeBlock,
@@ -45,6 +46,7 @@ export function activate(context: ExtensionContext): void {
     'extension.openFavoriteCodeBlock',
     openFavoriteCodeBlock
   );
+  commands.registerCommand('extension.createCodeBlock', createCodeBlock);
   workspace.onDidSaveTextDocument(updateCodeBlock);
   commands.registerCommand(
     'extension.updateGistAccessKey',
@@ -78,12 +80,6 @@ export function activate(context: ExtensionContext): void {
     });
   });
 
-  commands.registerCommand(
-    'extension.createCodeBlock',
-    (): void => {
-      // intentionally left blank
-    }
-  );
   commands.registerCommand(
     'extension.openCodeBlockInBrowser',
     (): void => {

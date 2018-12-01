@@ -23,6 +23,22 @@ describe('GistService tests', () => {
       });
     });
   });
+  describe('#create', () => {
+    test('should creat a gist', (done) => {
+      expect.assertions(1);
+
+      testGists
+        .create({
+          description: 'test',
+          files: { 'fileone.txt': { content: 'test content' } },
+          public: true
+        })
+        .then((response: any) => {
+          expect(response.data.description).toStrictEqual('test');
+          done();
+        });
+    });
+  });
   describe('#list', () => {
     test('should have list function', (done) => {
       expect.assertions(1);

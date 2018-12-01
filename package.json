@@ -19,53 +19,53 @@
     "commands": [
       {
         "command": "extension.openCodeBlock",
-        "title": "GIST: Open Block",
-        "category": "Gist"
+        "title": "Open Block",
+        "category": "GIST"
       },
       {
         "command": "extension.openFavoriteCodeBlock",
-        "title": "GIST: Open Favorite Block",
-        "category": "Gist"
+        "title": "Open Favorite Block",
+        "category": "GIST"
       },
       {
         "command": "extension.createCodeBlock",
-        "title": "GIST: Create New Block",
-        "category": "Gist"
+        "title": "Create New Block",
+        "category": "GIST"
       },
       {
         "command": "extension.openCodeBlockInBrowser",
-        "title": "GIST: Open Block In Browser",
-        "category": "Gist"
+        "title": "Open Block In Browser",
+        "category": "GIST"
       },
       {
         "command": "extension.deleteCodeBlock",
-        "title": "GIST: Delete Block",
-        "category": "Gist"
+        "title": "Delete Block",
+        "category": "GIST"
       },
       {
         "command": "extension.removeFileFromCodeBlock",
-        "title": "GIST: Remove From Block",
-        "category": "Gist"
+        "title": "Remove From Block",
+        "category": "GIST"
       },
       {
         "command": "extension.addToCodeBlock",
-        "title": "GIST: Add To Block",
-        "category": "Gist"
+        "title": "Add To Block",
+        "category": "GIST"
       },
       {
         "command": "extension.changeCodeBlockDescription",
-        "title": "GIST: Change Block Description",
-        "category": "Gist"
+        "title": "Change Block Description",
+        "category": "GIST"
       },
       {
         "command": "extension.insertCode",
-        "title": "GIST: Insert Code Into Current File",
-        "category": "Gist"
+        "title": "Insert Code Into Current File",
+        "category": "GIST"
       },
       {
         "command": "extension.toggleProfile",
-        "title": "GIST: Toggle Profile",
-        "category": "Gist"
+        "title": "Toggle Profile",
+        "category": "GIST"
       }
     ],
     "keybindings": [
