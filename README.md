@@ -83,5 +83,15 @@ extension.changeCodeBlockDescription
 extension.insertCode
 ~~~
 
+## Show Your Support
+
+If you'd like to support Gist, please consider the following &mdash; feel free to choose more than one. &#x1F609;
+- [Become a Sponsor](https://www.patreon.com/kenhowardpdx "Become a sponsor on Patreon") &mdash; see [backers](https://github.com/kenhowardpdx/vscode-gist/blob/master/BACKERS.md)
+- [Donations via PayPal](https://www.paypal.me/kenhowardpdx "One-time donations via PayPal")
+- [Donations via Cash App](https://cash.me/$kenhowardpdx "One-time donations via Cash App")
+- [Write a Review](https://marketplace.visualstudio.com/items?itemName=kenhowardpdx.vscode-gist#review-details "Write a review")
+- [Star or Fork me on GitHub](https://github.com/kenhowardpdx/vscode-gist "Star or fork me on GitHub")
+- [Follow me on Twitter](https://twitter.com/kenhowardpdx "Follow me on Twitter")
+
 ## Maintainer
 vscode-gist is maintained by [Ken Howard](https://github.com/kenhowardpdx).
