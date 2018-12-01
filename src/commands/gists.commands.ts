@@ -27,12 +27,14 @@ const _openDocument = async (file: string): Promise<void> => {
   commands.executeCommand('workbench.action.keepEditor');
 };
 
-const openCodeBlock = async (): Promise<void> => {
+const openCodeBlock = async (favorite = false): Promise<void> => {
   let gistName = '';
   try {
-    logger.info('User Activated "openCodeBlock"');
+    logger.info(
+      `User Activated ${!favorite ? 'openCodeBlock' : 'openFavoriteCodeBlock'}`
+    );
 
-    const gists = await _getGists();
+    const gists = await _getGists(favorite);
 
     const selected = await window.showQuickPick(gists);
     if (selected) {
@@ -48,7 +50,10 @@ const openCodeBlock = async (): Promise<void> => {
       }
 
       logger.info('Opened Gist');
-      insights.track('open', undefined, { fileCount });
+      insights.track('open', undefined, {
+        fileCount,
+        isFavorite: Number(favorite)
+      });
     }
   } catch (err) {
     const error: Error = err as Error;
@@ -64,6 +69,8 @@ const openCodeBlock = async (): Promise<void> => {
     }
   }
 };
+
+const openFavoriteCodeBlock = async (): Promise<void> => openCodeBlock(true);
 
 const updateCodeBlock = async (doc: GistTextDocument): Promise<void> => {
   let file = '';
@@ -98,4 +105,9 @@ const updateGistAccessKey = (): void => {
   insights.track('updateGistAccessKey', { url });
 };
 
-export { updateGistAccessKey, openCodeBlock, updateCodeBlock };
+export {
+  updateGistAccessKey,
+  openCodeBlock,
+  openFavoriteCodeBlock,
+  updateCodeBlock
+};

@@ -74,7 +74,7 @@
         "key": "ctrl+alt+="
       },
       {
-        "command": "extension.clearProfiles",
+        "command": "extension.resetState",
         "key": "ctrl+alt+0"
       }
     ]

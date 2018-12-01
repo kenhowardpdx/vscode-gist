@@ -1,7 +1,7 @@
 // tslint:disable:no-any no-unsafe-any no-magic-numbers
 import { profiles } from '../profile-service';
 
-const mockState = { get: jest.fn(), update: jest.fn() };
+const mockState = { get: jest.fn(() => ({})), update: jest.fn() };
 const gh = { GitHub: { active: false, key: 'foo', url: 'http://foo.bar.com' } };
 const ghe = {
   'GitHub Enterprise': { active: false, key: 'bar', url: 'http://baz.bat.com' }
@@ -22,7 +22,7 @@ describe('Profile Service Tests', () => {
     test('should return array with two profiles', () => {
       expect.assertions(2);
 
-      mockState.get.mockReturnValue(JSON.stringify({ ...gh, ...ghe }));
+      mockState.get.mockReturnValue({ ...gh, ...ghe });
 
       expect(profiles.getAll().length).toBe(2);
       expect(profiles.getAll()[1]).toStrictEqual({
@@ -47,7 +47,7 @@ describe('Profile Service Tests', () => {
         'GitHub Enterprise': { ...ghe['GitHub Enterprise'], active: true }
       };
 
-      mockState.get.mockReturnValue(JSON.stringify({ ...gh, ...ghe2 }));
+      mockState.get.mockReturnValue({ ...gh, ...ghe2 });
 
       expect(() => profiles.get()).not.toThrowError();
       expect(profiles.get()).toStrictEqual({

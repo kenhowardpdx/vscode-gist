@@ -22,7 +22,7 @@ class ProfileService {
     active: boolean = false
   ): void {
     const p = this.getRawProfiles();
-    const currentState = Object.keys(this.getRawProfiles())
+    const currentState = Object.keys(p)
       .map((profile) => ({
         [profile]: { key: p[profile].key, url: p[profile].url, active: false }
       }))
@@ -61,9 +61,7 @@ class ProfileService {
   }
 
   private getRawProfiles(): { [x: string]: RawProfile } {
-    const currentValues = this.state.get<string>('profiles') || '{}';
-
-    return JSON.parse(currentValues);
+    return this.state.get('profiles', {});
   }
 }
 
