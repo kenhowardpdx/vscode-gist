@@ -18,18 +18,18 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.openCodeBlock",
-        "title": "Open Block",
+        "command": "extension.gist.open",
+        "title": "Open Gist",
         "category": "GIST"
       },
       {
-        "command": "extension.openFavoriteCodeBlock",
-        "title": "Open Favorite Block",
+        "command": "extension.gist.openFavorite",
+        "title": "Open Favorite Gist",
         "category": "GIST"
       },
       {
-        "command": "extension.createCodeBlock",
-        "title": "Create New Block",
+        "command": "extension.gist.create",
+        "title": "Create New Gist",
         "category": "GIST"
       },
       {
@@ -63,14 +63,14 @@
         "category": "GIST"
       },
       {
-        "command": "extension.toggleProfile",
-        "title": "Toggle Profile",
+        "command": "extension.profile.select",
+        "title": "Select Profile",
         "category": "GIST"
       }
     ],
     "keybindings": [
       {
-        "command": "extension.toggleProfile",
+        "command": "extension.profile.select",
         "key": "ctrl+alt+="
       },
       {

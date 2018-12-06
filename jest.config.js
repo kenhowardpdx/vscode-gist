@@ -7,7 +7,7 @@ module.exports = {
       branches: 70, // TODO: adjust this back to 80%
       functions: 80,
       lines: 80,
-      statements: -30 // TODO: adjust this back to 10
+      statements: 80
     }
   }
 };

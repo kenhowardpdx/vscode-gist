@@ -1,6 +1,5 @@
 // tslint:disable:no-any no-magic-numbers no-unsafe-any
-import { filesSync, fileSync } from '..';
-import { extractTextDocumentDetails } from '../file';
+import { extractTextDocumentDetails, filesSync, fileSync } from '../file';
 
 jest.mock('path');
 jest.mock('fs');

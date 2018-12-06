@@ -15,15 +15,10 @@ const _notify = (type: 'error' | 'info', ...messages: string[]): void => {
   }
 };
 
-const error = (...messages: string[]): void => {
+export const error = (...messages: string[]): void => {
   _notify('error', ...messages);
 };
 
-const info = (...messages: string[]): void => {
+export const info = (...messages: string[]): void => {
   _notify('info', ...messages);
-};
-
-export const notify = {
-  error,
-  info
 };

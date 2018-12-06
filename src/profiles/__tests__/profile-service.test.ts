@@ -1,7 +1,12 @@
 // tslint:disable:no-any no-unsafe-any no-magic-numbers
 import { profiles } from '../profile-service';
 
-const mockState = { get: jest.fn(() => ({})), update: jest.fn() };
+const mockState = {
+  get: jest.fn(() => ({
+    'existing profile': { active: true, key: '123', url: 'abc' }
+  })),
+  update: jest.fn()
+};
 const gh = { GitHub: { active: false, key: 'foo', url: 'http://foo.bar.com' } };
 const ghe = {
   'GitHub Enterprise': { active: false, key: 'bar', url: 'http://baz.bat.com' }
@@ -13,11 +18,27 @@ describe('Profile Service Tests', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+  describe('#add', () => {
+    test('should add a profile', () => {
+      expect.assertions(3);
+
+      profiles.add('test name', 'test key', 'test url', true);
+
+      expect(mockState.get).toHaveBeenCalledTimes(1);
+      expect(mockState.update).toHaveBeenCalledTimes(1);
+      expect(mockState.update).toHaveBeenCalledWith('profiles', {
+        'existing profile': { active: false, key: '123', url: 'abc' },
+        'test name': { active: true, key: 'test key', url: 'test url' }
+      });
+    });
+  });
   describe('#getAll', () => {
     test('should return array', () => {
       expect.assertions(1);
 
-      expect(profiles.getAll()).toStrictEqual([]);
+      expect(profiles.getAll()).toStrictEqual([
+        { active: true, key: '123', name: 'existing profile', url: 'abc' }
+      ]);
     });
     test('should return array with two profiles', () => {
       expect.assertions(2);
@@ -56,6 +77,15 @@ describe('Profile Service Tests', () => {
         name: 'GitHub Enterprise',
         url: ghe2['GitHub Enterprise'].url
       });
+    });
+  });
+  describe('#reset', () => {
+    test('should reset profiles', () => {
+      expect.assertions(1);
+
+      profiles.reset();
+
+      expect(mockState.update).toHaveBeenCalledWith('profiles', undefined);
     });
   });
 });
