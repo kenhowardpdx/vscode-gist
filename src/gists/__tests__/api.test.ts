@@ -1,10 +1,15 @@
 // tslint:disable:no-any no-magic-numbers no-unsafe-any
 
-import { createGist, getGist, getGists, updateGist } from '../api';
+import { configure, createGist, getGist, getGists, updateGist } from '../api';
 
 describe('Gists API Tests', () => {
   afterAll(() => {
     jest.clearAllMocks();
+  });
+  describe('#configure', () => {
+    test('should not throw an error', () => {
+      expect(() => configure({ key: 'foo', url: 'bar' })).not.toThrowError();
+    });
   });
   describe('#getGists', () => {
     test('list without params should return one block', async () => {

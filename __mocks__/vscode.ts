@@ -1,5 +1,8 @@
 // tslint:disable:no-any
 module.exports = {
+  StatusBarAlignment: {
+    Left: true
+  },
   commands: {
     executeCommand: jest.fn()
   },
@@ -10,6 +13,7 @@ module.exports = {
     getExtension: jest.fn(() => '1.0.0')
   },
   window: {
+    createStatusBarItem: jest.fn(),
     showErrorMessage: jest.fn(),
     showInformationMessage: jest.fn(),
     showInputBox: jest.fn(),

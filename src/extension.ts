@@ -1,20 +1,18 @@
-import { commands, ExtensionContext, workspace } from 'vscode';
+import { commands, Disposable, ExtensionContext } from 'vscode';
 
-import {
-  createCodeBlock,
-  createProfile,
-  openCodeBlock,
-  openFavoriteCodeBlock,
-  selectProfile,
-  updateCodeBlock,
-  updateGistAccessKey,
-  updateStatusBar
-} from './commands';
+import { init as initCommands } from './commands';
 import { DEBUG } from './constants';
+import * as gists from './gists';
 import { insights } from './insights';
+import { init as initListeners } from './listeners';
 import { Levels, logger } from './logger';
 import { extensionMigrations, migrations } from './migrations';
 import { profiles } from './profiles';
+
+const disposables: { commands: Disposable[]; listeners: Disposable[] } = {
+  commands: [],
+  listeners: []
+};
 
 export function activate(context: ExtensionContext): void {
   logger.setLevel(DEBUG ? Levels.DEBUG : Levels.ERROR);
@@ -27,6 +25,9 @@ export function activate(context: ExtensionContext): void {
   });
   profiles.configure({ state: context.globalState });
 
+  disposables.commands = initCommands({ gists, insights, logger, profiles });
+  disposables.listeners = initListeners({ gists, insights, logger, profiles });
+
   /**
    * General Commands
    */
@@ -35,41 +36,15 @@ export function activate(context: ExtensionContext): void {
     context.globalState.update('gist_provider', undefined);
     context.globalState.update('profiles', undefined);
     context.globalState.update('migrations', undefined);
-    commands.executeCommand('extension.updateStatusBar');
+    commands.executeCommand('extension.status.update');
   });
-
-  /**
-   * Gist Commands
-   */
-  commands.registerCommand('extension.openCodeBlock', openCodeBlock);
-  commands.registerCommand(
-    'extension.openFavoriteCodeBlock',
-    openFavoriteCodeBlock
-  );
-  commands.registerCommand('extension.createCodeBlock', createCodeBlock);
-  workspace.onDidSaveTextDocument(updateCodeBlock);
-  commands.registerCommand(
-    'extension.updateGistAccessKey',
-    updateGistAccessKey
-  );
-
-  /**
-   * Profile Commands
-   */
-  commands.registerCommand('extension.toggleProfile', selectProfile);
-  commands.registerCommand('extension.createProfile', createProfile);
-
-  /**
-   * Status Bar
-   */
-  commands.registerCommand('extension.updateStatusBar', updateStatusBar);
 
   /**
    * Execute Startup Commands
    */
   migrations.up((err, results) => {
-    commands.executeCommand('extension.updateStatusBar');
-    commands.executeCommand('extension.updateGistAccessKey');
+    commands.executeCommand('extension.status.update');
+    commands.executeCommand('extension.gist.updateAccessKey');
 
     if (err) {
       insights.exception('migrations', { message: err.message });
@@ -121,5 +96,7 @@ export function activate(context: ExtensionContext): void {
 }
 
 export function deactivate(): void {
-  // intentionally left blank
+  // TODO: close open gist editors
+  disposables.commands.forEach((d) => d.dispose());
+  disposables.listeners.forEach((d) => d.dispose());
 }
