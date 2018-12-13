@@ -3,6 +3,7 @@ module.exports = {
   StatusBarAlignment: {
     Left: true
   },
+  Uri: { parse: jest.fn((url: string) => url) },
   commands: {
     executeCommand: jest.fn()
   },
