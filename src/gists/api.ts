@@ -57,7 +57,8 @@ const formatGist = (gist: GistResponse): Gist => ({
     day: 'numeric',
     month: 'long',
     year: 'numeric'
-  }).format(new Date(gist.updated_at))
+  }).format(new Date(gist.updated_at)),
+  url: gist.html_url
 });
 
 const formatGists = (gistList: GistsResponse): Gist[] =>

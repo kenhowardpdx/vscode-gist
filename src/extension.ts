@@ -56,12 +56,6 @@ export function activate(context: ExtensionContext): void {
   });
 
   commands.registerCommand(
-    'extension.openCodeBlockInBrowser',
-    (): void => {
-      // intentionally left blank
-    }
-  );
-  commands.registerCommand(
     'extension.deleteCodeBlock',
     (): void => {
       // intentionally left blank

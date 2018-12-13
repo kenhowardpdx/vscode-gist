@@ -16,6 +16,7 @@ interface Gist {
   name: string;
   public: boolean;
   updatedAt: string;
+  url: string;
 }
 
 interface GistTextDocument {

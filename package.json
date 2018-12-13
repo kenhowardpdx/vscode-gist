@@ -33,8 +33,8 @@
         "category": "GIST"
       },
       {
-        "command": "extension.openCodeBlockInBrowser",
-        "title": "Open Block In Browser",
+        "command": "extension.gist.openInBrowser",
+        "title": "Open Gist In Browser",
         "category": "GIST"
       },
       {

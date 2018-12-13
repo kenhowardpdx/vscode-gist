@@ -10,6 +10,7 @@ const commandInitializers: CommandInitializer[] = [
   gists.create,
   gists.open,
   gists.openFavorite,
+  gists.openInBrowser,
   gists.updateAccessKey,
   profiles.create,
   profiles.select,
