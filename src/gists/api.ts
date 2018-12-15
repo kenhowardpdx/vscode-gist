@@ -64,7 +64,7 @@ const formatGist = (gist: GistResponse): Gist => ({
 const formatGists = (gistList: GistsResponse): Gist[] =>
   gistList.map(formatGist);
 
-export const getGist = async (id: string): Promise<Gist> => {
+const getGist = async (id: string): Promise<Gist> => {
   try {
     const results = await gists.get({ gist_id: id });
 
@@ -79,7 +79,7 @@ export const getGist = async (id: string): Promise<Gist> => {
 /**
  * Get a list of gists
  */
-export const getGists = async (starred = false): Promise<Gist[]> => {
+const getGists = async (starred = false): Promise<Gist[]> => {
   try {
     const results = await gists[starred ? 'listStarred' : 'list']({
       per_page: GISTS_PER_PAGE
@@ -95,7 +95,7 @@ export const getGists = async (starred = false): Promise<Gist[]> => {
   }
 };
 
-export const updateGist = async (
+const updateGist = async (
   id: string,
   filename: string,
   content: string
@@ -114,13 +114,13 @@ export const updateGist = async (
   }
 };
 
-export const configure = (options: { key: string; url: string }): void => {
+const configure = (options: { key: string; url: string }): void => {
   const key = options.key || '';
   const url = options.url || GISTS_BASE_URL;
   gists.configure({ key, url });
 };
 
-export const createGist = async (
+const createGist = async (
   files: { [x: string]: { content: string } },
   description?: string,
   isPublic = true
@@ -139,3 +139,15 @@ export const createGist = async (
     throw error;
   }
 };
+
+const deleteGist = async (id: string): Promise<void> => {
+  try {
+    await gists.delete({ gist_id: id });
+  } catch (err) {
+    const error: Error = prepareError(err as Error);
+
+    throw error;
+  }
+};
+
+export { configure, createGist, deleteGist, getGist, getGists, updateGist };

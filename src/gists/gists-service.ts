@@ -36,6 +36,12 @@ class GistsService {
     return this.octokit.gists.create(params);
   }
 
+  public delete(
+    params: Octokit.GistsDeleteParams
+  ): Response<Octokit.GistsDeleteResponse> {
+    return this.octokit.gists.delete(params);
+  }
+
   public get(
     params: Octokit.GistsGetParams
   ): Response<Octokit.GistsGetResponse> {

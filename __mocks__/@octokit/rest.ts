@@ -70,6 +70,7 @@ const mockedGists = {
       }
     })
   ),
+  delete: jest.fn(),
   get: jest.fn((options) =>
     Promise.resolve({
       data: { ...gistsResponseData[0], id: options.gist_id }
