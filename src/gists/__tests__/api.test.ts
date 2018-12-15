@@ -1,6 +1,13 @@
 // tslint:disable:no-any no-magic-numbers no-unsafe-any
 
-import { configure, createGist, getGist, getGists, updateGist } from '../api';
+import {
+  configure,
+  createGist,
+  deleteGist,
+  getGist,
+  getGists,
+  updateGist
+} from '../api';
 
 describe('Gists API Tests', () => {
   afterAll(() => {
@@ -73,6 +80,20 @@ describe('Gists API Tests', () => {
       expect(gist.files).toStrictEqual({
         'file-one.txt': { content: 'test-content' }
       });
+    });
+  });
+  describe('#deleteGist', () => {
+    test('deletes a gist', async () => {
+      expect.assertions(1);
+
+      let error: string | undefined;
+      try {
+        await deleteGist('1234');
+      } catch (err) {
+        error = err;
+      }
+
+      expect(error).toBeUndefined();
     });
   });
 });
