@@ -1,4 +1,4 @@
-import { commands, Disposable, ExtensionContext } from 'vscode';
+import { commands, Disposable, ExtensionContext, window } from 'vscode';
 
 import { init as initCommands } from './commands';
 import { DEBUG } from './constants';
@@ -16,6 +16,7 @@ const disposables: { commands: Disposable[]; listeners: Disposable[] } = {
 
 export function activate(context: ExtensionContext): void {
   logger.setLevel(DEBUG ? Levels.DEBUG : Levels.ERROR);
+  logger.setOutput(window.createOutputChannel('Gist'));
 
   logger.debug('extension activated');
 

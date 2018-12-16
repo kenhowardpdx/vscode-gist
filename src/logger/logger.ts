@@ -1,6 +1,7 @@
+import { OutputChannel } from 'vscode';
+
 import { LOGGER_LEVEL } from '../constants';
 
-// tslint:disable:no-console no-any
 export enum Levels {
   DEBUG = 0,
   INFO = 1,
@@ -14,38 +15,28 @@ class Logger {
       : new Logger(LOGGER_LEVEL))
 
   private static instance?: Logger;
-  private static readonly log = (
-    method: 'debug' | 'log' | 'info' | 'warn' | 'error',
-    ...args: any[]
-  ): void => {
-    const prefix = `vscode-gist>${method}:`;
-    if (method !== 'debug') {
-      console[method](prefix, ...args);
-    } else {
-      console.log(prefix, ...args);
-    }
-  }
   private level: Levels;
+  private output?: OutputChannel;
 
   private constructor(level: Levels) {
     this.level = level;
   }
 
-  public debug(...args: any[]): void {
+  public debug(...args: string[]): void {
     if (this.level === Levels.DEBUG) {
-      Logger.log('debug', ...args);
+      this.log('debug', ...args);
     }
   }
 
-  public error(...args: any[]): void {
+  public error(...args: string[]): void {
     if (this.level <= Levels.ERROR) {
-      Logger.log('error', ...args);
+      this.log('error', ...args);
     }
   }
 
-  public info(...args: any[]): void {
+  public info(...args: string[]): void {
     if (this.level <= Levels.INFO) {
-      Logger.log('info', ...args);
+      this.log('info', ...args);
     }
   }
 
@@ -53,9 +44,23 @@ class Logger {
     this.level = level;
   }
 
-  public warn(...args: any[]): void {
+  public setOutput(output: OutputChannel): void {
+    this.output = output;
+  }
+
+  public warn(...args: string[]): void {
     if (this.level <= Levels.WARN) {
-      Logger.log('warn', ...args);
+      this.log('warn', ...args);
+    }
+  }
+  private log(
+    method: 'debug' | 'log' | 'info' | 'warn' | 'error',
+    ...args: string[]
+  ): void {
+    const prefix = `vscode-gist>${method}:`;
+    const message = [...args].join(' > ');
+    if (this.output) {
+      this.output.appendLine(`${prefix} ${message}`);
     }
   }
 }
