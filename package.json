@@ -43,8 +43,8 @@
         "category": "GIST"
       },
       {
-        "command": "extension.removeFileFromCodeBlock",
-        "title": "Remove From Block",
+        "command": "extension.gist.deleteFile",
+        "title": "Delete File",
         "category": "GIST"
       },
       {
