@@ -98,7 +98,7 @@ const getGists = async (starred = false): Promise<Gist[]> => {
 const updateGist = async (
   id: string,
   filename: string,
-  content: string
+  content: string | null
 ): Promise<Gist> => {
   try {
     const results = await gists.update({
@@ -150,4 +150,26 @@ const deleteGist = async (id: string): Promise<void> => {
   }
 };
 
-export { configure, createGist, deleteGist, getGist, getGists, updateGist };
+const deleteFile = async (id: string, filename: string): Promise<void> => {
+  try {
+    await gists.update({
+      // tslint:disable-next-line:no-null-keyword
+      files: { [filename]: null },
+      gist_id: id
+    });
+  } catch (err) {
+    const error: Error = prepareError(err as Error);
+
+    throw error;
+  }
+};
+
+export {
+  configure,
+  createGist,
+  deleteFile,
+  deleteGist,
+  getGist,
+  getGists,
+  updateGist
+};

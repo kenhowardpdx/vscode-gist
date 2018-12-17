@@ -1,6 +1,7 @@
 enum GistCommands {
   Create = 'extension.gist.create',
   Delete = 'extension.gist.delete',
+  DeleteFile = 'extension.gist.deleteFile',
   Open = 'extension.gist.open',
   OpenFavorite = 'extension.gist.openFavorite',
   OpenInBrowser = 'extension.gist.openInBrowser',

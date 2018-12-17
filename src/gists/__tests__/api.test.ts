@@ -3,6 +3,7 @@
 import {
   configure,
   createGist,
+  deleteFile,
   deleteGist,
   getGist,
   getGists,
@@ -89,6 +90,20 @@ describe('Gists API Tests', () => {
       let error: string | undefined;
       try {
         await deleteGist('1234');
+      } catch (err) {
+        error = err;
+      }
+
+      expect(error).toBeUndefined();
+    });
+  });
+  describe('#deleteFile', () => {
+    test('deletes a file', async () => {
+      expect.assertions(1);
+
+      let error: string | undefined;
+      try {
+        await deleteFile('1234', 'foo.txt');
       } catch (err) {
         error = err;
       }

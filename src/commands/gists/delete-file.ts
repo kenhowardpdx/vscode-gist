@@ -2,25 +2,13 @@ import { commands, window } from 'vscode';
 
 import { GistCommands } from '../extension-commands';
 
-const deleteCommand: CommandInitializer = (
+const deleteFile: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
   const { gists, insights, logger } = services;
 
-  const command = GistCommands.Delete;
-
-  const closeGistEditors = (gistId: string): void => {
-    const editors = window.visibleTextEditors;
-
-    editors.forEach((e) => {
-      const { id } = utils.files.extractTextDocumentDetails(e.document);
-      if (gistId === id) {
-        window.showTextDocument(e.document);
-        commands.executeCommand('workbench.action.closeActiveEditor');
-      }
-    });
-  };
+  const command = GistCommands.DeleteFile;
 
   const commandFn = async (): Promise<void> => {
     try {
@@ -29,12 +17,20 @@ const deleteCommand: CommandInitializer = (
       if (!doc) {
         throw new Error('Document Missing');
       }
-      const { id } = utils.files.extractTextDocumentDetails(doc);
+      const { id, filename } = utils.files.extractTextDocumentDetails(doc);
       if (id) {
-        logger.info(`Deleting Gist "${id}"`);
-        await gists.deleteGist(id);
-        closeGistEditors(id);
-        utils.notify.info('Deleted Gist');
+        const canDelete =
+          (await utils.input.prompt('Enter "DELETE" to confirm')) === 'DELETE';
+        if (!canDelete) {
+          logger.info('User Aborted Deletion');
+
+          return;
+        }
+        logger.info(`Deleting File "${id}"`);
+        // tslint:disable-next-line:no-null-keyword
+        await gists.deleteFile(id, filename);
+        commands.executeCommand('workbench.action.closeActiveEditor');
+        utils.notify.info('Deleted File');
         insights.track(command);
       } else {
         logger.info(`"${doc.fileName}" Not a Gist`);
@@ -44,11 +40,11 @@ const deleteCommand: CommandInitializer = (
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
       insights.exception(command, { messsage: error.message });
-      utils.notify.error('Could Not Delete Gist', `Reason: ${error.message}`);
+      utils.notify.error('Could Not Delete File', `Reason: ${error.message}`);
     }
   };
 
   return [command, commandFn];
 };
 
-export { deleteCommand };
+export { deleteFile };

@@ -55,39 +55,6 @@ export function activate(context: ExtensionContext): void {
       migrationCount: results.migrated.length
     });
   });
-
-  commands.registerCommand(
-    'extension.deleteCodeBlock',
-    (): void => {
-      // intentionally left blank
-    }
-  );
-  commands.registerCommand(
-    'extension.removeFileFromCodeBlock',
-    (): void => {
-      // intentionally left blank
-    }
-  );
-  commands.registerCommand(
-    'extension.addToCodeBlock',
-    (): void => {
-      // intentionally left blank
-    }
-  );
-  commands.registerCommand(
-    'extension.changeCodeBlockDescription',
-    (): void => {
-      // intentionally left blank
-    }
-  );
-  commands.registerCommand(
-    'extension.insertCode',
-    (): void => {
-      // intentionally left blank
-    }
-  );
-
-  // context.subscriptions.push(disposable);
 }
 
 export function deactivate(): void {
