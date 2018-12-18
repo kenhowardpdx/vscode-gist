@@ -7,6 +7,7 @@ import * as profiles from './profiles';
 import * as status from './status-bar';
 
 const commandInitializers: CommandInitializer[] = [
+  gists.add,
   gists.create,
   gists.deleteCommand,
   gists.deleteFile,

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as tmp from 'tmp';
-import { TextEditor } from 'vscode';
+import { TextDocument, TextEditor } from 'vscode';
 
 import { TMP_DIRECTORY_PREFIX } from '../constants';
 
@@ -12,11 +12,7 @@ const dirSync = (token: string): string => {
   return directory.name;
 };
 
-export const fileSync = (
-  token: string,
-  filename: string,
-  content: string
-): string => {
+const fileSync = (token: string, filename: string, content: string): string => {
   const directory = dirSync(token);
   const filePath = path.join(directory, filename);
   fs.writeFileSync(filePath, content);
@@ -24,7 +20,7 @@ export const fileSync = (
   return filePath;
 };
 
-export const filesSync = (
+const filesSync = (
   token: string,
   files: { [x: string]: { content: string } }
 ): string[] => {
@@ -39,7 +35,7 @@ export const filesSync = (
   return filePaths;
 };
 
-export const extractTextDocumentDetails = (
+const extractTextDocumentDetails = (
   doc: GistTextDocument,
   editor?: TextEditor
 ): {
@@ -66,3 +62,11 @@ export const extractTextDocumentDetails = (
     path: path.dirname(fullPath)
   };
 };
+
+const getFileName = (doc: TextDocument, fallback?: string): string => {
+  const filepath = doc.fileName;
+
+  return path.basename(filepath) || fallback || 'unknown.txt';
+};
+
+export { fileSync, filesSync, extractTextDocumentDetails, getFileName };

@@ -1,5 +1,10 @@
 // tslint:disable:no-any no-magic-numbers no-unsafe-any
-import { extractTextDocumentDetails, filesSync, fileSync } from '../file';
+import {
+  extractTextDocumentDetails,
+  filesSync,
+  fileSync,
+  getFileName
+} from '../file';
 
 jest.mock('path');
 jest.mock('fs');
@@ -47,6 +52,15 @@ describe('File Tests', () => {
         path:
           '/var/folders/T/vscode_gist_1111_random_string/mocked-text-document.md'
       });
+    });
+  });
+  describe('#getFileName', () => {
+    test('should return the filename', () => {
+      const filePath: any = {
+        fileName: '/foo/bar/baz/test-file.txt'
+      };
+
+      expect(getFileName(filePath)).toStrictEqual('test-file.txt');
     });
   });
 });
