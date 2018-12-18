@@ -5,6 +5,7 @@ interface Notify {
 
 interface Input {
   prompt(message: string, defaultValue?: string): Promise<string>;
+  quickPick(list: Gist[]): Promise<QuickPickGist | undefined>;
 }
 
 interface GistDetails {
@@ -25,6 +26,7 @@ interface Files {
     files: { [x: string]: { content: string } }
   ): string[];
   fileSync(token: string, filename: string, content: string): string;
+  getFileName(doc: GistTextDocument): string;
 }
 
 interface Utils {

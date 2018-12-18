@@ -1,5 +1,5 @@
 import * as files from './file';
+import * as input from './input';
 import * as notify from './notify';
-import * as input from './prompt';
 
 export { files, input, notify };

@@ -48,8 +48,8 @@
         "category": "GIST"
       },
       {
-        "command": "extension.addToCodeBlock",
-        "title": "Add To Block",
+        "command": "extension.gist.add",
+        "title": "Add File",
         "category": "GIST"
       },
       {

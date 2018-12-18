@@ -1,5 +1,3 @@
-import { window } from 'vscode';
-
 import { GistCommands } from '../extension-commands';
 
 import { openGist } from './utils';
@@ -12,15 +10,6 @@ const open: CommandInitializer = (
 
   const command = GistCommands.Open;
 
-  const format = (list: Gist[]): QuickPickGist[] =>
-    list.map((item, i, j) => ({
-      block: item,
-      description: `${item.public ? 'PUBLIC' : 'PRIVATE'} - Files: ${
-        item.fileCount
-      } - Created: ${item.createdAt} - Updated: ${item.updatedAt}`,
-      label: `${j.length - i}. ${item.name}`
-    }));
-
   const commandFn = async (): Promise<void> => {
     let gistName = '';
     try {
@@ -28,7 +17,7 @@ const open: CommandInitializer = (
 
       const list = await gists.getGists();
 
-      const selected = await window.showQuickPick(format(list));
+      const selected = await utils.input.quickPick(list);
       if (selected) {
         gistName = `"${selected.block.name}"`;
         logger.info(`User Selected Gist: "${selected.label}"`);
