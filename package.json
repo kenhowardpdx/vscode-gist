@@ -58,8 +58,8 @@
         "category": "GIST"
       },
       {
-        "command": "extension.insertCode",
-        "title": "Insert Code Into Current File",
+        "command": "extension.gist.insert",
+        "title": "Insert Text From Gist File",
         "category": "GIST"
       },
       {

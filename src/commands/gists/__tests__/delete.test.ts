@@ -26,6 +26,14 @@ describe('open gist', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+  test('should log error when no editor', async () => {
+    expect.assertions(1);
+
+    (<any>window.activeTextEditor) = undefined;
+
+    await deleteFn();
+    expect(errorMock.mock.calls.length).toBe(1);
+  });
   test('what happens when errors occur', async () => {
     expect.assertions(1);
 

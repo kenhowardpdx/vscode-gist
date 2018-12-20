@@ -2,6 +2,7 @@ export * from './add';
 export * from './create';
 export * from './delete';
 export * from './delete-file';
+export * from './insert';
 export * from './open';
 export * from './open-favorite';
 export * from './open-in-browser';
