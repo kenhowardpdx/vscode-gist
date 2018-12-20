@@ -11,6 +11,7 @@ const commandInitializers: CommandInitializer[] = [
   gists.create,
   gists.deleteCommand,
   gists.deleteFile,
+  gists.insert,
   gists.open,
   gists.openFavorite,
   gists.openInBrowser,
