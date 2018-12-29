@@ -1,17 +1,12 @@
 {
   "name": "vscode-gist",
-  "displayName": "Gist Extension",
+  "displayName": "Gists",
   "description": "Create, open and edit Gists",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "publisher": "kenhowardpdx",
-  "licence": "MIT",
-  "homepage": "https://github.com/kenhowardpdx/vscode-gist/blob/master/README.md",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kenhowardpdx/vscode-gist.git"
-  },
+  "repository": "https://github.com/kenhowardpdx/vscode-gist",
   "engines": {
-    "vscode": "^1.9.0"
+    "vscode": "^1.28.0"
   },
   "categories": [
     "Other"
@@ -19,108 +14,124 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./out/src/extension",
+  "main": "./out/extension",
   "contributes": {
-    "commands": [
-      {
-        "command": "extension.openCodeBlock",
-        "title": "GIST: Open Block"
-      },
-      {
-        "command": "extension.openFavoriteCodeBlock",
-        "title": "GIST: Open Favorite Block"
-      },
-      {
-        "command": "extension.createCodeBlock",
-        "title": "GIST: Create New Block"
-      },
-      {
-        "command": "extension.openCodeBlockInBrowser",
-        "title": "GIST: Open Block In Browser"
-      },
-      {
-        "command": "extension.deleteCodeBlock",
-        "title": "GIST: Delete Block"
-      },
-      {
-        "command": "extension.removeFileFromCodeBlock",
-        "title": "GIST: Remove From Block"
-      },
-      {
-        "command": "extension.addToCodeBlock",
-        "title": "GIST: Add To Block"
-      },
-      {
-        "command": "extension.changeCodeBlockDescription",
-        "title": "GIST: Change Block Description"
-      },
-      {
-        "command": "extension.insertCode",
-        "title": "GIST: Insert Code Into Current File"
-      }
-    ],
     "configuration": {
       "type": "object",
-      "title": "Gist Configuration",
+      "title": "Gist configuration",
       "properties": {
-        "gist.oauth_token": {
-          "type": "string",
-          "default": "",
-          "description": "OAuth Github Token"
-        },
-        "gist.codeBlockFileNotificationThreshold": {
+        "gist.maxFiles": {
           "type": "number",
           "default": 10,
-          "description": "Will trigger dialog when opening code block which has more than this number of files."
+          "description": "The maximum number of files to open without a prompt."
+        },
+        "gist.defaultPrivate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Defaults all newly created Gists to PRIVATE."
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "extension.gist.open",
+        "title": "Open Gist",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.openFavorite",
+        "title": "Open Favorite Gist",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.create",
+        "title": "Create New Gist",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.openInBrowser",
+        "title": "Open Gist In Browser",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.delete",
+        "title": "Delete Gist",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.deleteFile",
+        "title": "Delete File",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.add",
+        "title": "Add File",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.gist.insert",
+        "title": "Insert Text From Gist File",
+        "category": "GIST"
+      },
+      {
+        "command": "extension.profile.select",
+        "title": "Select Profile",
+        "category": "GIST"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.profile.select",
+        "key": "ctrl+alt+="
+      },
+      {
+        "command": "extension.resetState",
+        "key": "ctrl+alt+0"
+      },
+      {
+        "command": "extension.gist.add",
+        "key": "ctrl+alt+a ctrl+alt+a"
+      },
+      {
+        "command": "extension.gist.openInBrowser",
+        "key": "ctrl+alt+b"
+      },
+      {
+        "command": "extension.gist.open",
+        "key": "ctrl+alt+o"
+      }
+    ]
   },
   "scripts": {
-    "add:changes": "git add package.json CHANGELOG.md",
-    "build": "gulp cover:disable && yarn compile",
-    "bump": "yarn bump:version && yarn changelog && yarn add:changes && yarn commit:changes",
-    "bump:version": "yarn version --no-git-tag-version",
-    "commit:changes": "node bin/commit-bump.js",
-    "vscode:prepublish": "tsc",
-    "compile": "tsc -w",
+    "compile": "tsc -p tsconfig.prod.json",
+    "lint": "tslint -p tsconfig.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test",
-    "test:coverage": "yarn coverage && yarn test",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
-    "coverage": "gulp cover:enable && tsc",
-    "clean": "del './out' './coverage'"
+    "prettier": "prettier --config .prettierrc.json --list-different 'src/**/*.ts'",
+    "release": "standard-version",
+    "test:integration": "npm run compile && node ./node_modules/vscode/bin/test",
+    "test:unit": "jest --coverage --silent",
+    "test:watch": "npm run test:unit -- --watchAll",
+    "test": "npm run lint && npm run prettier && npm run test:unit",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p tsconfig.prod.json"
   },
   "devDependencies": {
-    "@types/istanbul": "^0.4.30",
-    "@types/mocha": "^5.2.1",
-    "@types/node": "^10.3.2",
-    "@types/open": "^0.0.29",
-    "@types/request": "^2.47.0",
-    "@types/shelljs": "^0.8.0",
-    "@types/tmp": "^0.0.33",
-    "conventional-changelog-cli": "^2.0.1",
-    "coveralls": "^3.0.1",
-    "decache": "^4.4.0",
-    "del": "^3.0.0",
-    "del-cli": "^1.1.0",
-    "gulp": "^3.9.1",
-    "gulp-json-editor": "^2.4.1",
-    "istanbul": "^0.4.5",
-    "remap-istanbul": "^0.11.1",
-    "testdouble": "^3.8.1",
-    "tslint": "^5.8.0",
-    "typescript": "^2.9.1",
-    "vscode": "^1.1.18"
+    "@types/jest": "^23.3.9",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.10.25",
+    "@types/tmp": "0.0.33",
+    "coveralls": "^3.0.2",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.3",
+    "standard-version": "^4.4.0",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "vscode": "^1.1.21"
   },
   "dependencies": {
-    "@octokit/rest": "^15.8.1",
-    "node-git-utils": "^1.4.1",
-    "open": "^0.0.5",
-    "request": "^2.87.0",
-    "shelljs": "^0.8.2",
-    "tmp": "^0.0.33"
-  },
-  "icon": "icon.png"
+    "@octokit/rest": "^16.1.0",
+    "tmp": "0.0.33",
+    "vscode-extension-telemetry": "^0.1.0"
+  }
 }

@@ -1,6 +1,6 @@
 sudo: false
 language: node_js
-cache: yarn
+cache: npm
 node_js:
 - '8'
 os:
@@ -9,8 +9,8 @@ before_install:
 - if [ $TRAVIS_OS_NAME == "linux" ]; then export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
   sh -e /etc/init.d/xvfb start; sleep 3; fi
 install:
-- yarn
-- yarn vscode:prepublish
+- npm install
+- npm run vscode:prepublish
 script:
-- yarn test:coverage
+- npm test
 - node_modules/.bin/coveralls < coverage/lcov.info;

@@ -1,4 +1,6 @@
+coverage
 out
 node_modules
-.vscode-test
-coverage/
+.vscode-test/
+*.vsix
+.DS_STORE
