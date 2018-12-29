@@ -16,7 +16,10 @@ describe('Gists API Tests', () => {
   });
   describe('#configure', () => {
     test('should not throw an error', () => {
-      expect(() => configure({ key: 'foo', url: 'bar' })).not.toThrowError();
+      expect(
+        // tslint:disable:next-line: no-void-expression
+        () => configure({ key: 'foo', url: 'bar' })
+      ).not.toThrowError();
     });
   });
   describe('#getGists', () => {

@@ -40,7 +40,7 @@ class ProfileService {
   }
 
   public get(): Profile {
-    const currentProfile = this.getAll().filter((p) => p.active === true);
+    const currentProfile = this.getAll().filter((p) => p.active);
 
     return currentProfile[0] || undefined;
   }
@@ -61,7 +61,7 @@ class ProfileService {
   }
 
   private getRawProfiles(): { [x: string]: RawProfile } {
-    return this.state.get('profiles', {});
+    return this.state.get<{}>('profiles', {});
   }
 }
 

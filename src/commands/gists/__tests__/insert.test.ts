@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers
+// tslint:disable:no-any no-magic-numbers no-unsafe-any
 import { window } from 'vscode';
 
 import { insert } from '../insert';
@@ -92,7 +92,7 @@ describe('open gist', () => {
 
     await insertFn();
 
-    expect(utilsMock.input.quickPick).toHaveBeenCalledWith([
+    expect((<any>utilsMock).input.quickPick).toHaveBeenCalledWith([
       expect.any(Object),
       expect.any(Object)
     ]);

@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers
+// tslint:disable:no-any no-magic-numbers no-unsafe-any
 import { window } from 'vscode';
 
 import { add } from '../add';
@@ -82,8 +82,8 @@ describe('open gist', () => {
 
     await addFn();
 
-    expect(<any>utilsMock.input.prompt).toHaveBeenCalledTimes(1);
-    expect(<any>utilsMock.input.quickPick).toHaveBeenCalledTimes(1);
+    expect((<any>utilsMock).input.prompt).toHaveBeenCalledTimes(1);
+    expect((<any>utilsMock).input.quickPick).toHaveBeenCalledTimes(1);
 
     expect((<any>utilsMock.input.quickPick).mock.calls.length).toBe(1);
 

@@ -358,7 +358,8 @@
       "avoid-template"
     ],
     "return-undefined": true,
-    "semicolon": "always",
+    "no-unnecessary-semicolons": false,
+    "semicolon": [true, "always"],
     "space-before-function-paren": [
       true,
       {

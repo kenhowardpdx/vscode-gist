@@ -18,6 +18,27 @@ const _openDocument = async (file: string): Promise<void> => {
   commands.executeCommand('workbench.action.keepEditor');
 };
 
+const selectFile = async (gist: {
+  files: { [name: string]: { content: string } };
+}): Promise<{ content: string; filename: string } | undefined> => {
+  const files = Object.keys(gist.files).map((key) => ({
+    description: '',
+    [key]: gist.files[key],
+    label: key
+  }));
+  const selectedFile =
+    files.length > 1
+      ? await window.showQuickPick(files)
+      : await Promise.resolve(files[0]);
+
+  return selectedFile
+    ? {
+        content: gist.files[selectedFile.label].content,
+        filename: selectedFile.label
+      }
+    : undefined;
+};
+
 const openGist = async (
   gist: Gist,
   maxFiles = 10
@@ -45,25 +66,6 @@ const openGist = async (
   }
 
   return { id, files, fileCount };
-};
-
-const selectFile = async (gist: {
-  files: { [name: string]: { content: string } };
-}): Promise<{ content: string; filename: string } | undefined> => {
-  const files = Object.keys(gist.files).map((key) => ({
-    description: '',
-    [key]: gist.files[key],
-    label: key
-  }));
-  const selectedFile =
-    files.length > 1 ? await window.showQuickPick(files) : await files[0];
-
-  return selectedFile
-    ? {
-        content: gist.files[selectedFile.label].content,
-        filename: selectedFile.label
-      }
-    : undefined;
 };
 
 const insertText = async (

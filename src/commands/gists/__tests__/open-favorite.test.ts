@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers
+// tslint:disable:no-any no-magic-numbers no-unsafe-any
 import { commands, window } from 'vscode';
 
 import { openFavorite } from '../open-favorite';
