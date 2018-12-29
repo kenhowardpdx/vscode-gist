@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers no-unsafe-any
+// tslint:disable:no-any no-magic-numbers no-unsafe-any no-unbound-method
 import { commands, window } from 'vscode';
 
 import { TMP_DIRECTORY_PREFIX } from '../../../constants';
@@ -24,6 +24,9 @@ const createGistMock = jest.fn(
   })
 );
 const utilsMock = jest.genMockFromModule<Utils>('../../../utils');
+(utilsMock.files.getFileName as jest.Mock).mockImplementation(
+  (doc: { fileName: string }): any => doc.fileName.split('/').pop()
+);
 const errorMock = jest.fn();
 
 const executeCommandSpy = jest.spyOn(commands, 'executeCommand');
@@ -44,6 +47,36 @@ describe('create gist', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
+  test('a prompt is called to enter a filename', async () => {
+    expect.assertions(2);
+
+    (utilsMock.input.prompt as jest.Mock).mockImplementation(
+      (_msg: string, defaultValue: string) => Promise.resolve(defaultValue)
+    );
+
+    const codeBlock = {
+      fileName: `${TMP_DIRECTORY_PREFIX}_123456789abcdefg_random_string/test-file-name.md`,
+      getText: jest.fn(() => 'test-file-content')
+    };
+
+    const editor = {
+      document: codeBlock,
+      selection: { isEmpty: true }
+    };
+
+    (<any>window).activeTextEditor = editor;
+
+    await createFn();
+
+    expect(utilsMock.input.prompt).toHaveBeenCalledTimes(3);
+    expect(utilsMock.input.prompt).toHaveBeenNthCalledWith(
+      1,
+      expect.stringMatching('Enter filename'),
+      expect.stringMatching('test-file-name.md')
+    );
+  });
+
   test('should create a code block and open the files', async () => {
     expect.assertions(2);
 
