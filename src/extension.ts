@@ -2,12 +2,13 @@ import {
   commands,
   Disposable,
   ExtensionContext,
+  extensions,
   window,
   workspace
 } from 'vscode';
 
 import { init as initCommands } from './commands';
-import { DEBUG } from './constants';
+import { DEBUG, EXTENSION_ID } from './constants';
 import * as gists from './gists';
 import { insights } from './insights';
 import { init as initListeners } from './listeners';
@@ -33,6 +34,9 @@ export function activate(context: ExtensionContext): void {
   profiles.configure({ state: context.globalState });
 
   const config = workspace.getConfiguration('gist');
+  const extension = extensions.getExtension(EXTENSION_ID) as Extension;
+  const previousVersion = context.globalState.get('version');
+  const currentVersion = extension.packageJSON.version;
 
   disposables.commands = initCommands(config, {
     gists,
@@ -67,6 +71,11 @@ export function activate(context: ExtensionContext): void {
 
     if (err) {
       insights.exception('migrations', { message: err.message });
+    }
+
+    if (previousVersion !== currentVersion) {
+      // TODO: show what's new
+      context.globalState.update('version', currentVersion);
     }
 
     insights.track('activated', undefined, {
