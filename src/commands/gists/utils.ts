@@ -20,7 +20,7 @@ const _openDocument = async (file: string): Promise<void> => {
 
 const openGist = async (
   gist: Gist,
-  maxFiles = 10 // TODO: make this a config option
+  maxFiles = 10
 ): Promise<{
   fileCount: number;
   files: { [x: string]: { content: string } };

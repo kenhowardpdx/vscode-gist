@@ -16,6 +16,22 @@
   ],
   "main": "./out/extension",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Gist configuration",
+      "properties": {
+        "gist.maxFiles": {
+          "type": "number",
+          "default": 10,
+          "description": "The maximum number of files to open without a prompt."
+        },
+        "gist.defaultPrivate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Defaults all newly created Gists to PRIVATE."
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.gist.open",
@@ -53,11 +69,6 @@
         "category": "GIST"
       },
       {
-        "command": "extension.changeCodeBlockDescription",
-        "title": "Change Block Description",
-        "category": "GIST"
-      },
-      {
         "command": "extension.gist.insert",
         "title": "Insert Text From Gist File",
         "category": "GIST"
@@ -76,6 +87,18 @@
       {
         "command": "extension.resetState",
         "key": "ctrl+alt+0"
+      },
+      {
+        "command": "extension.gist.add",
+        "key": "ctrl+alt+a ctrl+alt+a"
+      },
+      {
+        "command": "extension.gist.openInBrowser",
+        "key": "ctrl+alt+b"
+      },
+      {
+        "command": "extension.gist.open",
+        "key": "ctrl+alt+o"
       }
     ]
   },

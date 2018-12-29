@@ -14,6 +14,7 @@ describe('open gist', () => {
     const insights = { exception: jest.fn() };
     const logger = { error: errorMock, info: jest.fn() };
     deleteFileFn = deleteFile(
+      { get: jest.fn() },
       { gists, insights, logger } as any,
       utilsMock as any
     )[1];

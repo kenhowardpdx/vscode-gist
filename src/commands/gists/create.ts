@@ -5,6 +5,7 @@ import { GistCommands } from '../extension-commands';
 import { openGist } from './utils';
 
 const create: CommandInitializer = (
+  config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
@@ -26,8 +27,12 @@ const create: CommandInitializer = (
       const details = utils.files.extractTextDocumentDetails(editor.document);
       const filename = (details && details.filename) || 'untitled.txt';
       const description = await utils.input.prompt('Enter description');
+      const defaultValue = config.get<boolean>('defaultPrivate') ? 'N' : 'Y';
       const isPublic =
-        ((await utils.input.prompt('Public? Y = Yes, N = No', 'Y')) || 'Y') // TODO: add configuration for default value
+        (
+          (await utils.input.prompt('Public? Y = Yes, N = No', defaultValue)) ||
+          defaultValue
+        )
           .slice(0, 1)
           .toLowerCase() === 'y';
 
@@ -39,7 +44,7 @@ const create: CommandInitializer = (
         isPublic
       );
 
-      await openGist(gist);
+      await openGist(gist, config.get<number>('maxFiles'));
     } catch (err) {
       const context = gistName ? ` ${gistName}` : '';
       const error: Error = err as Error;

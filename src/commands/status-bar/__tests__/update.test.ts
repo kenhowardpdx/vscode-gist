@@ -23,7 +23,11 @@ describe('update status bar', () => {
     const profiles = { get: getMock };
     const insights = { exception: jest.fn() };
     const logger = { debug: debugMock, error: errorMock };
-    updateFn = update({ insights, logger, profiles } as any, utilsMock)[1];
+    updateFn = update(
+      { get: jest.fn() },
+      { insights, logger, profiles } as any,
+      utilsMock
+    )[1];
   });
   afterEach(() => {
     jest.clearAllMocks();

@@ -8,13 +8,14 @@ import { onDidSaveTextDocument } from './on-did-save-text-document';
 const listenerInitializers: ListenerInitializer[] = [onDidSaveTextDocument];
 
 const init = (
+  config: Configuration,
   services: Services,
   initializers: ListenerInitializer[] = listenerInitializers
 ): Disposable[] => {
   const { insights, logger } = services;
 
   const registerListener = (listenerInit: ListenerInitializer): Disposable => {
-    const [listenerIndex, listenerFn] = listenerInit(services, utils);
+    const [listenerIndex, listenerFn] = listenerInit(config, services, utils);
 
     const listener = getListener(listenerIndex);
 

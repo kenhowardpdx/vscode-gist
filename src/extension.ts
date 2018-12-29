@@ -1,7 +1,13 @@
-import { commands, Disposable, ExtensionContext, window } from 'vscode';
+import {
+  commands,
+  Disposable,
+  ExtensionContext,
+  window,
+  workspace
+} from 'vscode';
 
 import { init as initCommands } from './commands';
-import { DEBUG } from './constants';
+import { DEBUG, EXTENSION_ID } from './constants';
 import * as gists from './gists';
 import { insights } from './insights';
 import { init as initListeners } from './listeners';
@@ -26,8 +32,20 @@ export function activate(context: ExtensionContext): void {
   });
   profiles.configure({ state: context.globalState });
 
-  disposables.commands = initCommands({ gists, insights, logger, profiles });
-  disposables.listeners = initListeners({ gists, insights, logger, profiles });
+  const config = workspace.getConfiguration('gist');
+
+  disposables.commands = initCommands(config, {
+    gists,
+    insights,
+    logger,
+    profiles
+  });
+  disposables.listeners = initListeners(config, {
+    gists,
+    insights,
+    logger,
+    profiles
+  });
 
   /**
    * General Commands

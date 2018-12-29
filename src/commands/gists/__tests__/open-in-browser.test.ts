@@ -54,6 +54,7 @@ describe('open favorite gist', () => {
     const insights = { exception: jest.fn() };
     const logger = { error: errorMock, info: jest.fn() };
     openInBrowserFn = openInBrowser(
+      { get: jest.fn() },
       { gists, insights, logger } as any,
       utilsMock as any
     )[1];

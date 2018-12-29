@@ -3,6 +3,7 @@ import { StatusBarAlignment, window } from 'vscode';
 import { ProfileCommands, StatusBarCommands } from '../extension-commands';
 
 const update: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   _utils: Utils
 ): [Command, CommandFn] => {

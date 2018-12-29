@@ -7,6 +7,7 @@ import {
 } from '../extension-commands';
 
 const create: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {

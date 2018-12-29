@@ -3,6 +3,7 @@ import { commands, window } from 'vscode';
 import { GistCommands } from '../extension-commands';
 
 const deleteFile: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {

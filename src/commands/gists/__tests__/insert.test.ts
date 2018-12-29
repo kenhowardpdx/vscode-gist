@@ -58,7 +58,11 @@ describe('open gist', () => {
     };
     const insights = { exception: jest.fn() };
     const logger = { debug: jest.fn(), error: errorMock, info: jest.fn() };
-    insertFn = insert({ gists, insights, logger } as any, utilsMock as any)[1];
+    insertFn = insert(
+      { get: jest.fn() },
+      { gists, insights, logger } as any,
+      utilsMock as any
+    )[1];
     window.activeTextEditor = <any>{
       document: { getText: jest.fn() },
       selection: { isEmpty: true }

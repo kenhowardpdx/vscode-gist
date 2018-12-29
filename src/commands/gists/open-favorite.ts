@@ -5,6 +5,7 @@ import { GistCommands } from '../extension-commands';
 import { openGist } from './utils';
 
 const openFavorite: CommandInitializer = (
+  config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
@@ -34,7 +35,8 @@ const openFavorite: CommandInitializer = (
         logger.info(`User Selected Gist: "${selected.label}"`);
 
         const { fileCount } = await openGist(
-          await gists.getGist(selected.block.id)
+          await gists.getGist(selected.block.id),
+          config.get<number>('maxFiles')
         );
 
         logger.info('Opened Gist');

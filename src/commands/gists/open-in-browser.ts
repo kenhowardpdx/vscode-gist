@@ -3,6 +3,7 @@ import { commands, Uri, window } from 'vscode';
 import { GistCommands } from '../extension-commands';
 
 const openInBrowser: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {

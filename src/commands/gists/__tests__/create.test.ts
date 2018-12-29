@@ -34,7 +34,11 @@ describe('create gist', () => {
     const gists = { createGist: createGistMock };
     const insights = { exception: jest.fn() };
     const logger = { error: errorMock };
-    createFn = create({ gists, insights, logger } as any, utilsMock as any)[1];
+    createFn = create(
+      { get: jest.fn() },
+      { gists, insights, logger } as any,
+      utilsMock as any
+    )[1];
     (<any>window).activeTextEditor = undefined;
   });
   afterEach(() => {
