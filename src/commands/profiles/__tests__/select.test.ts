@@ -20,6 +20,7 @@ describe('select profile', () => {
     const logger = { error: errorMock };
     const profiles = { add: addMock, getAll: getAllMock };
     selectFn = select(
+      { get: jest.fn() },
       { insights, logger, profiles } as any,
       utilsMock as any
     )[1];

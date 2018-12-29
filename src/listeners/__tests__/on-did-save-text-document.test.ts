@@ -21,6 +21,7 @@ describe('onDidSaveTextDocument', () => {
     const insights = { exception: exceptionMock, track: trackMock };
     const logger = { error: errorMock, info: infoMock };
     onDidSaveTextDocumentFn = onDidSaveTextDocument(
+      { get: jest.fn() },
       { gists, insights, logger } as any,
       utilsMock as any
     )[1];

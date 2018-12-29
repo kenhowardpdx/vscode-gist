@@ -49,7 +49,11 @@ describe('open gist', () => {
     const gists = { getGists: getGistsMock, getGist: getGistMock };
     const insights = { exception: jest.fn() };
     const logger = { error: errorMock, info: jest.fn() };
-    openFn = open({ gists, insights, logger } as any, utilsMock as any)[1];
+    openFn = open(
+      { get: jest.fn() },
+      { gists, insights, logger } as any,
+      utilsMock as any
+    )[1];
     (<any>window).activeTextEditor = undefined;
   });
   afterEach(() => {

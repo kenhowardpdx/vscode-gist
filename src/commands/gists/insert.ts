@@ -5,6 +5,7 @@ import { GistCommands } from '../extension-commands';
 import { insertText, selectFile } from './utils';
 
 const insert: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {

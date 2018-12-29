@@ -14,6 +14,7 @@ describe('update access key', () => {
     const insights = { track: jest.fn() };
     const logger = { debug: jest.fn() };
     updateAccessKeyFn = updateAccessKey(
+      { get: jest.fn() },
       { gists, insights, logger, profiles } as any,
       utilsMock as any
     )[1];

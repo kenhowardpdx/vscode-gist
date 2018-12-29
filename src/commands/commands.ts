@@ -22,13 +22,14 @@ const commandInitializers: CommandInitializer[] = [
 ];
 
 const init = (
+  config: Configuration,
   services: Services,
   initializers: CommandInitializer[] = commandInitializers
 ): Disposable[] => {
   const { insights, logger } = services;
 
   const registerCommand = (commandInit: CommandInitializer): Disposable => {
-    const [command, commandFn] = commandInit(services, utils);
+    const [command, commandFn] = commandInit(config, services, utils);
 
     return commands.registerCommand(command, commandFn);
   };

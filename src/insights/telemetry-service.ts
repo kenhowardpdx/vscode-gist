@@ -3,11 +3,12 @@ import TelemetryReporter from 'vscode-extension-telemetry';
 
 import {
   DEBUG,
+  EXTENSION_ID,
   TELEMETRY_COHORT_RANGE,
   TELEMETRY_WRITE_KEY
 } from '../constants';
 
-const extensionId = 'kenhowardpdx.vscode-gist';
+const extensionId = EXTENSION_ID;
 const extension = extensions.getExtension(extensionId) as Extension;
 const extensionVersion =
   (extension && extension.packageJSON && extension.packageJSON.version) || '';

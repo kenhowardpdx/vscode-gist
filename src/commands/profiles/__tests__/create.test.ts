@@ -17,6 +17,7 @@ describe('create profile', () => {
     const logger = { error: errorMock };
     const profiles = { add: addMock };
     createFn = create(
+      { get: jest.fn() },
       { insights, logger, profiles } as any,
       utilsMock as any
     )[1];

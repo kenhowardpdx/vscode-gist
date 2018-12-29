@@ -3,6 +3,7 @@ import { window } from 'vscode';
 import { GistCommands } from '../extension-commands';
 
 const add: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {

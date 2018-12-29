@@ -1,6 +1,7 @@
 import { GistCommands } from '../extension-commands';
 
 const updateAccessKey: CommandInitializer = (
+  _config: Configuration,
   services: Services,
   _utils: Utils
 ): [Command, CommandFn] => {
