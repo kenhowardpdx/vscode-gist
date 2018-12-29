@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/kenhowardpdx/vscode-gist/compare/v2.1.0...v2.1.1) (2018-12-29)
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.2.1...v2.1.0) (2018-12-29)
 
@@ -9,32 +14,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * create gist prompts for filename ([e82f2cd](https://github.com/kenhowardpdx/vscode-gist/commit/e82f2cd))
-
-
-### Features
-
-* adds ability to open remote gists ([663a386](https://github.com/kenhowardpdx/vscode-gist/commit/663a386))
-* adds add file/selection ([9965742](https://github.com/kenhowardpdx/vscode-gist/commit/9965742))
-* adds configuration options ([30d1e31](https://github.com/kenhowardpdx/vscode-gist/commit/30d1e31))
-* adds create gist ([0265bdf](https://github.com/kenhowardpdx/vscode-gist/commit/0265bdf))
-* adds debug flag when debugging ([20a6d61](https://github.com/kenhowardpdx/vscode-gist/commit/20a6d61))
-* adds delete file from gist ([9d6afea](https://github.com/kenhowardpdx/vscode-gist/commit/9d6afea))
-* adds delete gist ([37447b5](https://github.com/kenhowardpdx/vscode-gist/commit/37447b5))
-* adds gists service ([7bec570](https://github.com/kenhowardpdx/vscode-gist/commit/7bec570))
-* adds insert text from gist ([7e7c359](https://github.com/kenhowardpdx/vscode-gist/commit/7e7c359))
-* adds logger ([4db0d27](https://github.com/kenhowardpdx/vscode-gist/commit/4db0d27))
-* adds migrations ([7c9518e](https://github.com/kenhowardpdx/vscode-gist/commit/7c9518e))
-* adds notify ([3c9c0d7](https://github.com/kenhowardpdx/vscode-gist/commit/3c9c0d7))
-* adds open favorite ([29b9cb3](https://github.com/kenhowardpdx/vscode-gist/commit/29b9cb3))
-* adds open in browser ([d3666e8](https://github.com/kenhowardpdx/vscode-gist/commit/d3666e8))
-* adds output channel ([22ede07](https://github.com/kenhowardpdx/vscode-gist/commit/22ede07))
-* adds profiles ([40a4f86](https://github.com/kenhowardpdx/vscode-gist/commit/40a4f86))
-* adds quickpick list for gists ([c60e787](https://github.com/kenhowardpdx/vscode-gist/commit/c60e787))
-* adds telemetry ([9b91159](https://github.com/kenhowardpdx/vscode-gist/commit/9b91159))
-* adds temporary file sync ([6009e1b](https://github.com/kenhowardpdx/vscode-gist/commit/6009e1b))
-* adds updateCodeBlock ([0865240](https://github.com/kenhowardpdx/vscode-gist/commit/0865240))
-* store package version for future updates ([6c91211](https://github.com/kenhowardpdx/vscode-gist/commit/6c91211))
-
 
 
 <a name="2.0.0"></a>
