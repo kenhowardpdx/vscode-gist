@@ -24,8 +24,10 @@ const create: CommandInitializer = (
       const content = editor.document.getText(
         selection.isEmpty ? undefined : selection
       );
-      const details = utils.files.extractTextDocumentDetails(editor.document);
-      const filename = (details && details.filename) || 'untitled.txt';
+      const tmpFilename = utils.files.getFileName(editor.document);
+      const filename =
+        (await utils.input.prompt('Enter filename', tmpFilename)) ||
+        tmpFilename;
       const description = await utils.input.prompt('Enter description');
       const defaultValue = config.get<boolean>('defaultPrivate') ? 'N' : 'Y';
       const isPublic =
