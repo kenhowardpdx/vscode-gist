@@ -34,12 +34,13 @@ class TelemetryService {
   public static getInstance = (): TelemetryService =>
     TelemetryService.instance
       ? TelemetryService.instance
-      : new TelemetryService()
+      : // tslint:disable-next-line:semicolon
+        new TelemetryService();
 
   private static readonly instance?: TelemetryService;
 
   private readonly enabled = enabled(DEBUG);
-  private reporter: TelemetryReporter;
+  private readonly reporter: TelemetryReporter;
 
   private constructor() {
     this.reporter = new TelemetryReporter(

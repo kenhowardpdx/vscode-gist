@@ -12,7 +12,8 @@ class Logger {
   public static getInstance = (): Logger =>
     (Logger.instance = Logger.instance
       ? Logger.instance
-      : new Logger(LOGGER_LEVEL))
+      : // tslint:disable-next-line:semicolon
+        new Logger(LOGGER_LEVEL));
 
   private static instance?: Logger;
   private level: Levels;

@@ -7,7 +7,7 @@ import {
 } from 'vscode';
 
 import { init as initCommands } from './commands';
-import { DEBUG, EXTENSION_ID } from './constants';
+import { DEBUG } from './constants';
 import * as gists from './gists';
 import { insights } from './insights';
 import { init as initListeners } from './listeners';
@@ -77,6 +77,8 @@ export function activate(context: ExtensionContext): void {
 
 export function deactivate(): void {
   // TODO: close open gist editors
+  // tslint:disable-next-line:no-unsafe-any
   disposables.commands.forEach((d) => d.dispose());
+  // tslint:disable-next-line:no-unsafe-any
   disposables.listeners.forEach((d) => d.dispose());
 }

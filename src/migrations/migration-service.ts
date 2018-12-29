@@ -11,7 +11,8 @@ class MigrationService {
   public static getInstance = (): MigrationService =>
     (MigrationService.instance = MigrationService.instance
       ? MigrationService.instance
-      : new MigrationService())
+      : // tslint:disable-next-line:semicolon
+        new MigrationService());
 
   private static instance?: MigrationService;
 
@@ -47,6 +48,7 @@ class MigrationService {
         }
       });
     } catch (err) {
+      // tslint:disable-next-line: no-unsafe-any
       error = err;
     }
 

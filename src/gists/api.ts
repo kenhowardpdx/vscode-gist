@@ -32,7 +32,10 @@ const prepareError = (err: Error): Error => {
   let httpError: Error | undefined;
 
   try {
-    httpError = new Error(JSON.parse(err.message).message);
+    httpError = new Error(
+      // tslint:disable-next-line: no-unsafe-any
+      (JSON.parse(err && err.message) || { message: 'unkown' }).message
+    );
   } catch (exc) {
     // empty
   }

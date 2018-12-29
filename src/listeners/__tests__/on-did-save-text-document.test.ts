@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers
+// tslint:disable:no-any no-magic-numbers no-unsafe-any
 
 import { TMP_DIRECTORY_PREFIX } from '../../constants';
 
