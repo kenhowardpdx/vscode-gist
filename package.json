@@ -133,5 +133,6 @@
     "@octokit/rest": "^16.1.0",
     "tmp": "0.0.33",
     "vscode-extension-telemetry": "^0.1.0"
-  }
+  },
+  "icon": "icon.png"
 }
