@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/kenhowardpdx/vscode-gist/compare/v2.1.1...v2.1.2) (2019-01-12)
+
+
+### Bug Fixes
+
+* change telemetry write key ([5e6fd13](https://github.com/kenhowardpdx/vscode-gist/commit/5e6fd13))
+* changes reset profiles keyboard mapping ([e5e9521](https://github.com/kenhowardpdx/vscode-gist/commit/e5e9521)), closes [#84](https://github.com/kenhowardpdx/vscode-gist/issues/84)
+
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/kenhowardpdx/vscode-gist/compare/v2.1.0...v2.1.1) (2018-12-29)
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/kenhowardpdx/vscode-gist/compare/v1.2.1...v2.1.0) (2018-12-29)
 

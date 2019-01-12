@@ -25,8 +25,8 @@ const init = (
   config: Configuration,
   services: Services,
   initializers: CommandInitializer[] = commandInitializers
-): Disposable[] => {
-  const { insights, logger } = services;
+): { commandCount: number; commands: Disposable[] } => {
+  const { logger } = services;
 
   const registerCommand = (commandInit: CommandInitializer): Disposable => {
     const [command, commandFn] = commandInit(config, services, utils);
@@ -37,9 +37,8 @@ const init = (
   const registered = initializers.map(registerCommand);
 
   logger.debug('initializing commands');
-  insights.track('commands', undefined, { commandCount: registered.length });
 
-  return registered;
+  return { commandCount: registered.length, commands: registered };
 };
 
 export { init };

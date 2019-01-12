@@ -39,7 +39,7 @@ interface Profile extends RawProfile {
 class Profiles {
   public add(name: string, key: string, url?: string, active?: boolean): void;
   public configure(options: { state: Memento }): void;
-  public get(): Profile;
+  public get(): Profile | undefined;
   public getAll(): Profile[];
   public reset(): void;
 }

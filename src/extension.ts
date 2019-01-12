@@ -8,6 +8,7 @@ import {
 } from 'vscode';
 
 import { init as initCommands } from './commands';
+import { GistCommands, StatusBarCommands } from './commands/extension-commands';
 import { DEBUG, EXTENSION_ID } from './constants';
 import * as gists from './gists';
 import { insights } from './insights';
@@ -38,18 +39,21 @@ export function activate(context: ExtensionContext): void {
   const previousVersion = context.globalState.get('version');
   const currentVersion = extension.packageJSON.version;
 
-  disposables.commands = initCommands(config, {
+  const extCommands = initCommands(config, {
     gists,
     insights,
     logger,
     profiles
   });
-  disposables.listeners = initListeners(config, {
+  const extListeners = initListeners(config, {
     gists,
     insights,
     logger,
     profiles
   });
+
+  disposables.commands = extCommands.commands;
+  disposables.listeners = extListeners.listeners;
 
   /**
    * General Commands
@@ -59,15 +63,17 @@ export function activate(context: ExtensionContext): void {
     context.globalState.update('gist_provider', undefined);
     context.globalState.update('profiles', undefined);
     context.globalState.update('migrations', undefined);
-    commands.executeCommand('extension.status.update');
+
+    commands.executeCommand(StatusBarCommands.Update);
+    commands.executeCommand(GistCommands.UpdateAccessKey);
   });
 
   /**
    * Execute Startup Commands
    */
   migrations.up((err, results) => {
-    commands.executeCommand('extension.status.update');
-    commands.executeCommand('extension.gist.updateAccessKey');
+    commands.executeCommand(StatusBarCommands.Update);
+    commands.executeCommand(GistCommands.UpdateAccessKey);
 
     if (err) {
       insights.exception('migrations', { message: err.message });
@@ -79,6 +85,8 @@ export function activate(context: ExtensionContext): void {
     }
 
     insights.track('activated', undefined, {
+      commandCount: extCommands.commandCount,
+      listenerCount: extListeners.listenerCount,
       migrationCount: results.migrated.length
     });
   });

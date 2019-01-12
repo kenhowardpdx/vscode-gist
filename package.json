@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gists",
   "description": "Create, open and edit Gists",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "publisher": "kenhowardpdx",
   "repository": "https://github.com/kenhowardpdx/vscode-gist",
   "engines": {
@@ -86,7 +86,7 @@
       },
       {
         "command": "extension.resetState",
-        "key": "ctrl+alt+0"
+        "key": "ctrl+shift+0"
       },
       {
         "command": "extension.gist.add",
