@@ -23,11 +23,15 @@ class GistsService {
     this.octokit = new Octokit(this.options);
   }
 
-  public configure(options: { key: string; url: string }): void {
-    const config = { baseUrl: options.url };
+  public configure(options: { key?: string; url?: string }): void {
+    const key = options.key || '';
+    const url = options.url || 'https://api.github.com';
+    const config = { baseUrl: url };
     this.options = config || this.options;
     this.octokit = new Octokit(this.options);
-    this.octokit.authenticate({ type: 'token', token: options.key });
+    if (key) {
+      this.octokit.authenticate({ type: 'token', token: key });
+    }
   }
 
   public create(
