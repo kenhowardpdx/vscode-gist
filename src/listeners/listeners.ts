@@ -11,8 +11,8 @@ const init = (
   config: Configuration,
   services: Services,
   initializers: ListenerInitializer[] = listenerInitializers
-): Disposable[] => {
-  const { insights, logger } = services;
+): { listenerCount: number; listeners: Disposable[] } => {
+  const { logger } = services;
 
   const registerListener = (listenerInit: ListenerInitializer): Disposable => {
     const [listenerIndex, listenerFn] = listenerInit(config, services, utils);
@@ -41,10 +41,9 @@ const init = (
 
   const registered = initializers.map(registerListener);
 
-  logger.debug('initializing commands');
-  insights.track('commands', undefined, { commandCount: registered.length });
+  logger.debug('initializing listeners');
 
-  return registered;
+  return { listenerCount: registered.length, listeners: registered };
 };
 
 export { init };

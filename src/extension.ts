@@ -38,18 +38,21 @@ export function activate(context: ExtensionContext): void {
   const previousVersion = context.globalState.get('version');
   const currentVersion = extension.packageJSON.version;
 
-  disposables.commands = initCommands(config, {
+  const extCommands = initCommands(config, {
     gists,
     insights,
     logger,
     profiles
   });
-  disposables.listeners = initListeners(config, {
+  const extListeners = initListeners(config, {
     gists,
     insights,
     logger,
     profiles
   });
+
+  disposables.commands = extCommands.commands;
+  disposables.listeners = extListeners.listeners;
 
   /**
    * General Commands
@@ -79,6 +82,8 @@ export function activate(context: ExtensionContext): void {
     }
 
     insights.track('activated', undefined, {
+      commandCount: extCommands.commandCount,
+      listenerCount: extListeners.listenerCount,
       migrationCount: results.migrated.length
     });
   });
