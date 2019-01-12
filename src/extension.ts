@@ -8,6 +8,7 @@ import {
 } from 'vscode';
 
 import { init as initCommands } from './commands';
+import { GistCommands, StatusBarCommands } from './commands/extension-commands';
 import { DEBUG, EXTENSION_ID } from './constants';
 import * as gists from './gists';
 import { insights } from './insights';
@@ -62,15 +63,17 @@ export function activate(context: ExtensionContext): void {
     context.globalState.update('gist_provider', undefined);
     context.globalState.update('profiles', undefined);
     context.globalState.update('migrations', undefined);
-    commands.executeCommand('extension.status.update');
+
+    commands.executeCommand(StatusBarCommands.Update);
+    commands.executeCommand(GistCommands.UpdateAccessKey);
   });
 
   /**
    * Execute Startup Commands
    */
   migrations.up((err, results) => {
-    commands.executeCommand('extension.status.update');
-    commands.executeCommand('extension.gist.updateAccessKey');
+    commands.executeCommand(StatusBarCommands.Update);
+    commands.executeCommand(GistCommands.UpdateAccessKey);
 
     if (err) {
       insights.exception('migrations', { message: err.message });

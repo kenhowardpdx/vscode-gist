@@ -1,5 +1,5 @@
 interface GistService {
-  configure(options: { key: string; url: string }): void;
+  configure(options: { key?: string; url?: string }): void;
   createGist(
     files: { [x: string]: { content: string } },
     description?: string,

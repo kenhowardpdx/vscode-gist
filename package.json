@@ -86,7 +86,7 @@
       },
       {
         "command": "extension.resetState",
-        "key": "ctrl+alt+0"
+        "key": "ctrl+shift+0"
       },
       {
         "command": "extension.gist.add",

@@ -39,7 +39,7 @@ class ProfileService {
     this.state = state;
   }
 
-  public get(): Profile {
+  public get(): Profile | undefined {
     const currentProfile = this.getAll().filter((p) => p.active);
 
     return currentProfile[0] || undefined;

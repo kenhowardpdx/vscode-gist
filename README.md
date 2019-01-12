@@ -76,7 +76,7 @@ Here is a list of commands and their mapped keyboard shortcuts
 |extension.gist.add|Add File|ctrl+alt+a ctrl+alt+a|
 |extension.gist.insert|Insert Text From Gist File|not mapped|
 |extension.profile.select|Select Profile|ctrl+alt+=|
-|extension.resetState|n/a|ctrl+alt+0|Delete All Extension Memory (removes auth tokens)|
+|extension.resetState|n/a|ctrl+shift+0|Delete All Extension Memory (removes auth tokens)|
 
 ## Show Your Support
 
