@@ -1,4 +1,4 @@
-import { window } from 'vscode';
+import { window, env } from 'vscode';
 
 import { GistCommands } from '../extension-commands';
 
@@ -47,6 +47,8 @@ const create: CommandInitializer = (
       );
 
       await openGist(gist, config.get<number>('maxFiles'));
+      env.clipboard.writeText(gist.url);
+
     } catch (err) {
       const context = gistName ? ` ${gistName}` : '';
       const error: Error = err as Error;
