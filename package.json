@@ -6,7 +6,7 @@
   "publisher": "kenhowardpdx",
   "repository": "https://github.com/kenhowardpdx/vscode-gist",
   "engines": {
-    "vscode": "^1.28.0"
+    "vscode": "^1.30.0"
   },
   "categories": [
     "Other"
@@ -127,7 +127,7 @@
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6",
-    "vscode": "^1.1.21"
+    "vscode": "^1.1.26"
   },
   "dependencies": {
     "@octokit/rest": "^16.1.0",
