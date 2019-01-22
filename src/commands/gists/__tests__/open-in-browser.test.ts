@@ -31,17 +31,19 @@ const getGistsMock = jest.fn(() => [
     url: 'gist-two-url'
   }
 ]);
-const getGistMock = jest.fn((id: string) => ({
-  createdAt: new Date(),
-  description: 'some markdown file',
-  fileCount: 1,
-  files: { 'file-one.md': { content: 'test' } },
-  id,
-  name: 'test',
-  public: true,
-  updatedAt: new Date(),
-  url: 'test-url'
-}));
+const getGistMock = jest.fn((id: string) =>
+  Promise.resolve({
+    createdAt: new Date(),
+    description: 'some markdown file',
+    fileCount: 1,
+    files: { 'file-one.md': { content: 'test' } },
+    id,
+    name: 'test',
+    public: true,
+    updatedAt: new Date(),
+    url: 'test-url'
+  })
+);
 const utilsMock = jest.genMockFromModule<Utils>('../../../utils');
 const errorMock = jest.fn();
 
@@ -63,13 +65,13 @@ describe('open favorite gist', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  test('that a notification is shown when no open documents', async () => {
+  test('that a error is shown when no open documents', async () => {
     expect.assertions(1);
 
-    const infoSpy = jest.spyOn(utilsMock.notify, 'info');
+    const errorSpy = jest.spyOn(utilsMock.notify, 'error');
 
     await openInBrowserFn();
-    expect(infoSpy.mock.calls.length).toBe(1);
+    expect(errorSpy.mock.calls.length).toBe(1);
   });
   test('it opens a browser', async () => {
     expect.assertions(2);
