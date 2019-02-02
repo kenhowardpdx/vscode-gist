@@ -30,6 +30,7 @@ describe('update access key', () => {
     expect(configureGistsMock.mock.calls).toHaveLength(1);
     expect(configureGistsMock.mock.calls[0][0]).toStrictEqual({
       key: '123',
+      rejectUnauthorized: true,
       url: 'https://test.com'
     });
   });
@@ -52,6 +53,7 @@ describe('update access key', () => {
     expect(configureGistsMock.mock.calls).toHaveLength(1);
     expect(configureGistsMock.mock.calls[0][0]).toStrictEqual({
       key: undefined,
+      rejectUnauthorized: undefined,
       url: undefined
     });
   });

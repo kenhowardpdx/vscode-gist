@@ -1,7 +1,7 @@
 import { GistCommands } from '../extension-commands';
 
 const updateAccessKey: CommandInitializer = (
-  _config: Configuration,
+  config: Configuration,
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
@@ -12,14 +12,31 @@ const updateAccessKey: CommandInitializer = (
   const commandFn = (): void => {
     try {
       const profile = profiles.get();
-      let gistUrl: string;
+      let gistUrl = 'unknown';
       if (profile) {
-        const key = profile.key;
-        const url = (gistUrl = profile.url);
-        gists.configure({ key, url });
+        let optionOverride: GistServiceOptions = {};
+        const profileOptionOverride = config.get<{
+          [profile: string]: GistServiceOptions;
+        }>('profileOptions');
+
+        if (profileOptionOverride) {
+          // is it an object?
+          if (typeof profileOptionOverride === 'object') {
+            // does it have the profile as a key?
+            optionOverride = { ...profileOptionOverride[profile.name] };
+          }
+        }
+        const key = optionOverride.key || profile.key;
+        const url = optionOverride.url || (gistUrl = profile.url);
+        const rejectUnauthorized = optionOverride.rejectUnauthorized || true;
+        gists.configure({ key, url, rejectUnauthorized });
       } else {
         gistUrl = 'reset';
-        gists.configure({ key: undefined, url: undefined });
+        gists.configure({
+          key: undefined,
+          rejectUnauthorized: undefined,
+          url: undefined
+        });
       }
       insights.track(command, { url: gistUrl });
       logger.debug('updated access key');

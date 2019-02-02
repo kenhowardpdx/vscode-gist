@@ -61,6 +61,35 @@ GIST: Open Gist In Browser
 GIST: Insert Text From Gist File
 ~~~
 
+## Extension Settings
+
+Mostly you will not need to change these settings.
+
+| Setting | Type | Default Value | Purpose |
+|:--------|:-----|:--------------|:--------|
+| maxFiles | Number | 10 | The maximum number of files to open without a prompt. |
+| defaultPrivate | Boolean | false | Defaults all newly created Gists to PRIVATE. |
+| profileOptions | Object | {} | Override profile configuration options. |
+
+`profileOptions` gives you some debugging capabilities. You can provide a profile name along with `key`, `url`, and `rejectUnauthorized` values. Before you can use `profileOptions` you \*MUST\* have the profile created.
+
+```js
+interface ProfileOptions {
+    key?: string; // the personal access token to use
+    url?: string; // the REST endpoint to use
+    rejectUnauthorized?: boolean; // set this to false if you are having ssl issues with your enterprise REST endpoint
+}
+```
+
+An example value for `profileOptions` would be something like this:
+```js
+{
+    "GHE": { // "GHE" MUST correspond with the name used when originally configuring the profile
+        "rejectUnauthorized": false
+    }
+}
+```
+
 ## All Commands & Keyboard Mappings
 
 Here is a list of commands and their mapped keyboard shortcuts
