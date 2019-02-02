@@ -57,7 +57,7 @@ You can also use the following commands:
 GIST: Delete Gist
 GIST: Delete File
 GIST: Add File
-GIST: Open Block In Browser
+GIST: Open Gist In Browser
 GIST: Insert Text From Gist File
 ~~~
 
