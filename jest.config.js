@@ -2,6 +2,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/(*.)+(spec|test).ts?(x)'],
+  coveragePathIgnorePatterns: ["/node_modules/", "/src\/migrations/"],
   coverageThreshold: {
     global: {
       branches: 66, // TODO: adjust this back to 80%
