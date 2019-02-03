@@ -32,7 +32,7 @@ const onDidSaveTextDocument: ListenerInitializer = (
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${listenerStr} > ${error && error.message}`);
-      insights.exception(listenerStr, { messsage: error.message });
+      insights.exception(listenerStr, { message: error.message });
       if (error && error.message === 'Not Found') {
         utils.notify.error(
           `Could Not Save ${file}`,
