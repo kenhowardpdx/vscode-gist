@@ -2,7 +2,7 @@
   "name": "vscode-gist",
   "displayName": "Gists",
   "description": "Create, open and edit Gists",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "publisher": "kenhowardpdx",
   "repository": "https://github.com/kenhowardpdx/vscode-gist",
   "engines": {
@@ -11,6 +11,11 @@
   "categories": [
     "Other"
   ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#387cc0",
+    "theme": "dark"
+  },
   "activationEvents": [
     "*"
   ],
