@@ -55,7 +55,7 @@ const formatGist = (gist: GistResponse): Gist => ({
   files: gist.files,
   id: gist.id,
   name: gist.description || Object.keys(gist.files)[0],
-  public: !gist.public,
+  public: gist.public,
   updatedAt: new Intl.DateTimeFormat(env.language, {
     day: 'numeric',
     month: 'long',
