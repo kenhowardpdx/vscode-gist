@@ -25,7 +25,9 @@ const gistsResponseData = [
         type: 'text'
       }
     },
+    html_url: 'https://foo.bar',
     id: 'test123',
+    public: true,
     updated_at: new Date().toString()
   },
   {
@@ -47,7 +49,9 @@ const gistsResponseData = [
         type: 'text'
       }
     },
+    html_url: 'https://foo.bar',
     id: 'test123',
+    public: false,
     updated_at: new Date().toString()
   }
 ];
