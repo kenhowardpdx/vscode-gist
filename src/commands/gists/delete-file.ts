@@ -40,7 +40,7 @@ const deleteFile: CommandInitializer = (
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { messsage: error.message });
+      insights.exception(command, { message: error.message });
       utils.notify.error('Could Not Delete File', `Reason: ${error.message}`);
     }
   };

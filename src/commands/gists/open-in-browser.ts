@@ -35,7 +35,7 @@ const openInBrowser: CommandInitializer = (
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
       if (knownErrors.indexOf(error && error.message) === -1) {
-        insights.exception(command, { messsage: error.message });
+        insights.exception(command, { message: error.message });
       }
       if (error && error.message === 'Not Found') {
         utils.notify.error(

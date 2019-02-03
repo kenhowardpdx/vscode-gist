@@ -52,7 +52,7 @@ const create: CommandInitializer = (
       const context = gistName ? ` ${gistName}` : '';
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { messsage: error.message });
+      insights.exception(command, { message: error.message });
       utils.notify.error(
         `Could Not Create${context}`,
         `Reason: ${error.message}`
