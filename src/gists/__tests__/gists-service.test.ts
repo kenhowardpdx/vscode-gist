@@ -19,6 +19,7 @@ describe('GistService tests', () => {
 
       testGists.configure({ url: 'https://foo.bar/api' });
       expect(testGists.options).toStrictEqual({
+        agent: expect.anything(),
         baseUrl: 'https://foo.bar/api'
       });
     });

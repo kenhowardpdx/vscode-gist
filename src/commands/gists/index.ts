@@ -1,5 +1,6 @@
 export * from './add';
 export * from './create';
+export * from './create-confirmation';
 export * from './delete';
 export * from './delete-file';
 export * from './insert';

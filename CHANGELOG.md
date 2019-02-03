@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/kenhowardpdx/vscode-gist/compare/v2.1.2...v3.0.0) (2019-02-03)
+
+
+### Bug Fixes
+
+* public and private gist labels match reality ([9b74fea](https://github.com/kenhowardpdx/vscode-gist/commit/9b74fea)), closes [#96](https://github.com/kenhowardpdx/vscode-gist/issues/96)
+* **insights:** use proper message key for exceptions ([2af8946](https://github.com/kenhowardpdx/vscode-gist/commit/2af8946)), closes [#90](https://github.com/kenhowardpdx/vscode-gist/issues/90)
+
+
+### Features
+
+* **create gist:** adds dialog when gist is created ([08c1bdf](https://github.com/kenhowardpdx/vscode-gist/commit/08c1bdf))
+* **settings:** adds profileOptions to override profile values ([dc74e38](https://github.com/kenhowardpdx/vscode-gist/commit/dc74e38)), closes [#83](https://github.com/kenhowardpdx/vscode-gist/issues/83)
+
+
+### BREAKING CHANGES
+
+* **create gist:** uprev required vscode version to 1.30
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/kenhowardpdx/vscode-gist/compare/v2.1.1...v2.1.2) (2019-01-12)
 

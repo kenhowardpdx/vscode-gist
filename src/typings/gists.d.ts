@@ -1,5 +1,10 @@
+interface GistServiceOptions {
+  key?: string;
+  rejectUnauthorized?: boolean;
+  url?: string;
+}
 interface GistService {
-  configure(options: { key?: string; url?: string }): void;
+  configure(options: GistServiceOptions): void;
   createGist(
     files: { [x: string]: { content: string } },
     description?: string,

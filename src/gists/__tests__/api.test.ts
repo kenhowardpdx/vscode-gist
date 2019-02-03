@@ -41,6 +41,24 @@ describe('Gists API Tests', () => {
 
       expect(gists[0].description).toBe('gist one');
     });
+    test('public gists should remain public', async () => {
+      expect.assertions(2);
+
+      const gists: any = await getGists();
+
+      expect(gists[1].public).toBe(false);
+      expect(gists[0]).toStrictEqual({
+        createdAt: expect.any(String),
+        description: 'gist one',
+        fileCount: expect.any(Number),
+        files: expect.any(Object),
+        id: expect.any(String),
+        name: 'gist one',
+        public: true,
+        updatedAt: expect.any(String),
+        url: expect.any(String)
+      });
+    });
   });
   describe('#getGist', () => {
     test('retrieves a gist by id', async () => {

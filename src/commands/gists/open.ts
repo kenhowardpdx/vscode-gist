@@ -37,7 +37,7 @@ const open: CommandInitializer = (
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { messsage: error.message });
+      insights.exception(command, { message: error.message });
       if (error && error.message === 'Not Found') {
         utils.notify.error(
           `Could Not Open Gist ${gistName}`,

@@ -1,4 +1,4 @@
-import { window } from 'vscode';
+import { commands, window } from 'vscode';
 
 import { GistCommands } from '../extension-commands';
 
@@ -47,11 +47,12 @@ const create: CommandInitializer = (
       );
 
       await openGist(gist, config.get<number>('maxFiles'));
+      await commands.executeCommand(GistCommands.CreateConfirmation, gist);
     } catch (err) {
       const context = gistName ? ` ${gistName}` : '';
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { messsage: error.message });
+      insights.exception(command, { message: error.message });
       utils.notify.error(
         `Could Not Create${context}`,
         `Reason: ${error.message}`

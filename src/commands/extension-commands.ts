@@ -1,6 +1,7 @@
 enum GistCommands {
   Add = 'extension.gist.add',
   Create = 'extension.gist.create',
+  CreateConfirmation = 'extension.gist.createConfirmation',
   Delete = 'extension.gist.delete',
   DeleteFile = 'extension.gist.deleteFile',
   Insert = 'extension.gist.insert',

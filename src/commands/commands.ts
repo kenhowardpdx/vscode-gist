@@ -9,6 +9,7 @@ import * as status from './status-bar';
 const commandInitializers: CommandInitializer[] = [
   gists.add,
   gists.create,
+  gists.createConfirmation,
   gists.deleteCommand,
   gists.deleteFile,
   gists.insert,
