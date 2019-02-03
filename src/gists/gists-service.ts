@@ -1,4 +1,5 @@
 import * as Octokit from '@octokit/rest';
+import * as https from 'https';
 
 import { GISTS_BASE_URL } from '../constants';
 
@@ -23,10 +24,16 @@ class GistsService {
     this.octokit = new Octokit(this.options);
   }
 
-  public configure(options: { key?: string; url?: string }): void {
+  public configure(options: {
+    key?: string;
+    rejectUnauthorized?: boolean;
+    url?: string;
+  }): void {
     const key = options.key || '';
     const url = options.url || 'https://api.github.com';
-    const config = { baseUrl: url };
+    const rejectUnauthorized = options.rejectUnauthorized || true;
+    const agent = new https.Agent({ rejectUnauthorized });
+    const config = { baseUrl: url, agent };
     this.options = config || this.options;
     this.octokit = new Octokit(this.options);
     if (key) {

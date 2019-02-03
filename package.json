@@ -29,6 +29,11 @@
           "type": "boolean",
           "default": false,
           "description": "Defaults all newly created Gists to PRIVATE."
+        },
+        "gist.profileOptions": {
+          "type": "object",
+          "default": {},
+          "description": "Override profile configuration options."
         }
       }
     },
