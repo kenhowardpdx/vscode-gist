@@ -11,6 +11,11 @@
   "categories": [
     "Other"
   ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "rgb(5, 45, 73)",
+    "theme": "dark"
+  },
   "activationEvents": [
     "*"
   ],
