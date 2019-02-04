@@ -1,8 +1,8 @@
 {
   "name": "vscode-gist",
-  "displayName": "Gists",
+  "displayName": "Gist",
   "description": "Create, open and edit Gists",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "publisher": "kenhowardpdx",
   "repository": "https://github.com/kenhowardpdx/vscode-gist",
   "engines": {
