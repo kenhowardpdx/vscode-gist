@@ -110,7 +110,23 @@
         "command": "extension.gist.open",
         "key": "ctrl+alt+o"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gist-explorer",
+          "title": "Gist Explorer",
+          "icon": "images/gist-explorer-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gist-explorer": [{
+          "id": "gists",
+          "name": "Gists"
+        }
+      ]
+    }
   },
   "scripts": {
     "compile": "tsc -p tsconfig.prod.json",
