@@ -18,14 +18,14 @@ describe('Gist Command Utils Tests', () => {
     test('it should open a gist in an editor', async () => {
       expect.assertions(3);
 
-      const mockDoc = {
+      const mockDoc: any = {
         getText(): string {
           return 'test-file-one';
         }
       };
 
-      openTextDocumentMock.mockImplementationOnce((_filePath: string) =>
-        Promise.resolve(mockDoc)
+      openTextDocumentMock.mockImplementationOnce(
+        (): Promise<typeof mockDoc> => Promise.resolve(mockDoc)
       );
 
       await openGist({
@@ -56,7 +56,7 @@ describe('Gist Command Utils Tests', () => {
     });
     test('it returns a single file when the user selects one', async () => {
       expect.assertions(2);
-      showQuickPickSpy.mockImplementationOnce((items: any[]) =>
+      showQuickPickSpy.mockImplementationOnce((items: any) =>
         Promise.resolve(items[0])
       );
 

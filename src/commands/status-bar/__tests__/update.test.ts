@@ -13,7 +13,7 @@ const createStatusBarItemMock = {
 const utilsMock = jest.genMockFromModule<Utils>('../../../utils');
 const debugMock = jest.fn();
 const errorMock = jest.fn();
-const getMock = jest.fn(() => ({ name: 'foo' }));
+const getMock = jest.fn(() => ({ name: 'foo' } as any));
 
 createStatusBarItem.mockImplementation(() => createStatusBarItemMock as any);
 

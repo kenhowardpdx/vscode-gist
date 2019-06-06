@@ -126,22 +126,22 @@
     "watch": "tsc -watch -p tsconfig.prod.json"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^8.10.25",
+    "@types/jest": "^24.0.13",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.14.8",
     "@types/tmp": "0.0.33",
-    "coveralls": "^3.0.2",
-    "jest": "^23.6.0",
-    "prettier": "^1.15.3",
-    "standard-version": "^4.4.0",
-    "ts-jest": "^23.10.4",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.6",
-    "vscode": "^1.1.26"
+    "coveralls": "^3.0.4",
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1",
+    "standard-version": "^6.0.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1",
+    "vscode": "^1.1.34"
   },
   "dependencies": {
-    "@octokit/rest": "^16.1.0",
+    "@octokit/rest": "^16.27.3",
     "tmp": "0.0.33",
-    "vscode-extension-telemetry": "^0.1.0"
+    "vscode-extension-telemetry": "^0.1.1"
   }
 }

@@ -21,7 +21,7 @@ describe('Logger tests', () => {
       debugLogger.debug('foo on the debug');
 
       expect(appendLineMock.mock.calls.length).toBe(1);
-      expect(appendLineMock.mock.calls[0]).toStrictEqual([
+      expect(appendLineMock.mock.calls[0]).toMatchObject([
         'vscode-gist>debug: foo on the debug'
       ]);
     });
@@ -31,7 +31,7 @@ describe('Logger tests', () => {
       debugLogger.error('foo on the error');
 
       expect(appendLineMock.mock.calls.length).toBe(1);
-      expect(appendLineMock.mock.calls[0]).toStrictEqual([
+      expect(appendLineMock.mock.calls[0]).toMatchObject([
         'vscode-gist>error: foo on the error'
       ]);
     });
@@ -41,7 +41,7 @@ describe('Logger tests', () => {
       debugLogger.info('foo on the info');
 
       expect(appendLineMock.mock.calls.length).toBe(1);
-      expect(appendLineMock.mock.calls[0]).toStrictEqual([
+      expect(appendLineMock.mock.calls[0]).toMatchObject([
         'vscode-gist>info: foo on the info'
       ]);
     });
@@ -51,7 +51,7 @@ describe('Logger tests', () => {
       debugLogger.warn('foo on the warn');
 
       expect(appendLineMock.mock.calls.length).toBe(1);
-      expect(appendLineMock.mock.calls[0]).toStrictEqual([
+      expect(appendLineMock.mock.calls[0]).toMatchObject([
         'vscode-gist>warn: foo on the warn'
       ]);
     });

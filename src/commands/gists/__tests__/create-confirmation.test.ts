@@ -38,7 +38,7 @@ describe('create gist', () => {
 
     await createConfirmationFn(gistMock);
 
-    expect((<any>window).showInformationMessage.mock.calls[0]).toStrictEqual([
+    expect((<any>window).showInformationMessage.mock.calls[0]).toMatchObject([
       'Gist Created',
       {
         title: 'Open in Browser'
