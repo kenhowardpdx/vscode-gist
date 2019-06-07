@@ -1,3 +1,4 @@
+
 import {
   commands,
   Disposable,
@@ -11,6 +12,7 @@ import { init as initCommands } from './commands';
 import { GistCommands, StatusBarCommands } from './commands/extension-commands';
 import { DEBUG, EXTENSION_ID } from './constants';
 import * as gists from './gists';
+import { GistsExplorer } from './gists-explorer';
 import { insights } from './insights';
 import { init as initListeners } from './listeners';
 import { Levels, logger } from './logger';
@@ -39,6 +41,20 @@ export function activate(context: ExtensionContext): void {
   const previousVersion = context.globalState.get('version');
   const currentVersion = extension.packageJSON.version;
 
+  // tslint:disable-next-line:no-unused-expression
+  new GistsExplorer(context, gists);
+
+  // Gist Provider
+  // const gistsProvider = new GistsProvider();
+  // window.registerTreeDataProvider('gists', gistsProvider);
+  // commands.registerCommand('gists.onDidExpandElement', () => window.showInformationMessage('Yup!'));
+  // commands.registerCommand('gists.onDidCollapseElement', () => window.showInformationMessage('RGR!'));
+
+  // Starred Gist Provider
+  // const starredGistsProvider = new GistsProvider({ starred: true });
+  // window.registerTreeDataProvider('starred-gists', starredGistsProvider);
+
+  // Command Pallette Commands
   const extCommands = initCommands(config, {
     gists,
     insights,

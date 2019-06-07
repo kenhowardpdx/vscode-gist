@@ -87,8 +87,30 @@
         "command": "extension.profile.select",
         "title": "Select Profile",
         "category": "GIST"
-      }
+      },
+			{
+				"command": "gistsExplorer.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "images/refresh-light.svg",
+          "dark": "images/refresh-dark.svg"
+        }
+			}
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extension.gist.open"
+        }
+      ],
+      "view/title": [
+        {
+					"command": "gistsExplorer.refresh",
+					"when": "view == gistsExplorer",
+					"group": "navigation"
+				}
+      ]
+    },
     "keybindings": [
       {
         "command": "extension.profile.select",
@@ -121,8 +143,9 @@
       ]
     },
     "views": {
-      "gist-explorer": [{
-          "id": "gists",
+      "gist-explorer": [
+        {
+          "id": "gistsExplorer",
           "name": "Gists"
         }
       ]

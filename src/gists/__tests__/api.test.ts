@@ -10,7 +10,7 @@ import {
   updateGist
 } from '../api';
 
-describe('Gists API Tests', () => {
+xdescribe('Gists API Tests', () => {
   afterAll(() => {
     jest.clearAllMocks();
   });

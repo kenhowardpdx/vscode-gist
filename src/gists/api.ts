@@ -82,15 +82,18 @@ const getGist = async (id: string): Promise<Gist> => {
 /**
  * Get a list of gists
  */
-const getGists = async (starred = false): Promise<Gist[]> => {
+const getGists = async (starred = false, _limit = GISTS_PER_PAGE): Promise<Gist[]> => {
   try {
-    const results = await gists[starred ? 'listStarred' : 'list']({
-      per_page: GISTS_PER_PAGE
-    });
+    const results = await gists.paginate(starred, (response) =>
+        response.data);
+
+    // const results = await gists[starred ? 'listStarred' : 'list']({
+    //   per_page: limit
+    // });
 
     // TODO: Octokit type definitions need updating.
     // tslint:disable-next-line:no-any
-    return formatGists(results.data as any);
+    return formatGists(results as any);
   } catch (err) {
     const error: Error = prepareError(err as Error);
 

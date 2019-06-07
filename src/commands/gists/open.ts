@@ -11,20 +11,16 @@ const open: CommandInitializer = (
 
   const command = GistCommands.Open;
 
-  const commandFn = async (): Promise<void> => {
-    let gistName = '';
+  const commandFn = async (gistId?: string): Promise<void> => {
     try {
       logger.info(`User Activated ${command}`);
 
-      const list = await gists.getGists();
+      // tslint:disable-next-line:no-any
+      const selected = gistId ? { id: gistId } : { id: (await utils.input.quickPick(await gists.getGists()) as any).block.id };
 
-      const selected = await utils.input.quickPick(list);
       if (selected) {
-        gistName = `"${selected.block.name}"`;
-        logger.info(`User Selected Gist: "${selected.label}"`);
-
         const { fileCount } = await openGist(
-          await gists.getGist(selected.block.id),
+          await gists.getGist(selected.id),
           config.get<number>('maxFiles')
         );
 
@@ -40,7 +36,7 @@ const open: CommandInitializer = (
       insights.exception(command, { message: error.message });
       if (error && error.message === 'Not Found') {
         utils.notify.error(
-          `Could Not Open Gist ${gistName}`,
+          'Could Not Open Gist',
           `Reason: ${error.message}`
         );
       } else {

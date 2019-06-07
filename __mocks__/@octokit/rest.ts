@@ -98,5 +98,10 @@ const mockedGists = {
 
 module.exports = jest.fn(() => ({
   authenticate: jest.fn(),
-  gists: mockedGists
+  gists: mockedGists,
+  paginate: jest.fn((options) =>
+    Promise.resolve({
+      data: { ...gistsResponseData[0], id: options.gist_id }
+    })
+  )
 }));

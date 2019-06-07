@@ -71,6 +71,11 @@ class GistsService {
     return this.octokit.gists.listStarred({ ...params });
   }
 
+  // tslint:disable-next-line:no-any
+  public paginate<T>(starred: boolean, filter?: (response: Octokit.Response<any>, done?: () => T) => any): Promise<T[]> {
+    return this.octokit.paginate(`GET /gists${starred ? '/starred' : ''}`, undefined, filter);
+  }
+
   public update(
     params: Octokit.GistsUpdateParams
   ): Response<Octokit.GistsUpdateResponse> {
