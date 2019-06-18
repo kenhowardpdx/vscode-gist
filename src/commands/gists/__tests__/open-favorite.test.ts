@@ -1,5 +1,5 @@
 // tslint:disable:no-any no-magic-numbers no-unsafe-any
-import { commands, window } from 'vscode';
+import { commands, QuickPickItem, window } from 'vscode';
 
 import { openFavorite } from '../open-favorite';
 
@@ -75,8 +75,9 @@ describe('open favorite gist', () => {
 
     expect(showQuickPickSpy.mock.calls.length).toBe(1);
 
-    const firstGist = showQuickPickSpy.mock.calls[0][0][0];
-    const secondGist = showQuickPickSpy.mock.calls[0][0][1];
+    const [firstCall] = showQuickPickSpy.mock.calls;
+    const [firstParam] = firstCall;
+    const [firstGist, secondGist] = firstParam as QuickPickItem[];
 
     expect(firstGist.label).toBe('2. gist one');
     expect(secondGist.label).toBe('1. gist two');
@@ -89,7 +90,7 @@ describe('open favorite gist', () => {
         id: '123'
       },
       label: 'foo'
-    });
+    } as any);
 
     await openFavoriteFn();
 

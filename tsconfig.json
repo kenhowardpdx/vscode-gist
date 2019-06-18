@@ -77,7 +77,7 @@
     "stripInternal": false,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
-    "target": "es5",
+    "target": "es2016",
     "traceResolution": false
   },
   "exclude": [

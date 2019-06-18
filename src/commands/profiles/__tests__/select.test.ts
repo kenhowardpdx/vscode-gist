@@ -1,4 +1,4 @@
-// tslint:disable:no-any no-magic-numbers
+// tslint:disable:no-any no-magic-numbers no-unsafe-any
 import { commands, window } from 'vscode';
 
 import { select } from '../select';
@@ -31,7 +31,7 @@ describe('select profile', () => {
   test('should select an existing profile', async () => {
     expect.assertions(3);
 
-    showQuickPickSpy.mockImplementationOnce((items: any[]) => {
+    showQuickPickSpy.mockImplementationOnce((items: any) => {
       const item = items[items.length - 1];
 
       return Promise.resolve(item);
