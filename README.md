@@ -5,7 +5,17 @@
 
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/kenhowardpdx.vscode-gist.svg)](https://marketplace.visualstudio.com/items?itemName=kenhowardpdx.vscode-gist) [![Coverage Status](https://coveralls.io/repos/github/kenhowardpdx/vscode-gist/badge.svg?branch=master)](https://coveralls.io/github/kenhowardpdx/vscode-gist?branch=master)
 
-Access your GitHub Gists within Visual Studio Code. You can add, edit, and delete public and private gists.
+Access your [GitHub Gists](http://gist.github.com/) within [Visual Studio Code](https://code.visualstudio.com/). You can add, edit, and delete public and private gists.
+
+## Security of Github Gists
+
+Treat Gists as public code.  Secret gists aren't necessarily private.  
+If you send the URL of a secret gist to a friend, they'll be able to see it.  
+However, if someone you don't know discovers the URL, they'll also be able to see your gist.  
+
+If you need to keep your code away from prying eyes, you may want to [create a private repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-new-repository) instead.
+
+Please review the [Security Policy](SECURITY.md).
 
 ## Installation
 
@@ -13,6 +23,8 @@ Press <kbd>F1</kbd> and narrow down the list commands by typing `extension`. Pic
 Select the `Gist Extension` extension from the list.
 
 ## GitHub Profiles
+
+On installation, Gist Extension shows a public feed of gists.  Associate a Github Personal Access Token (PAT) to see only your gists.
 
 _**NOTE:** You must provide a personal access token to be authenticated with GitHub or a GitHub Enterprise instance._
 
@@ -118,4 +130,5 @@ If you'd like to support Gist, please consider the following &mdash; feel free t
 - [Follow me on Twitter](https://twitter.com/kenhowardpdx "Follow me on Twitter")
 
 ## Maintainer
+
 vscode-gist is maintained by [Ken Howard](https://github.com/kenhowardpdx).

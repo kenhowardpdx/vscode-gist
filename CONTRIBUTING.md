@@ -9,13 +9,31 @@ updated.
 
 # Maintaining
 
+Gist Extension is written using Typescript.  [TypeScript in Visual Studio Code](https://code.visualstudio.com/docs/languages/typescript).
+
+See [Your First Extension](https://code.visualstudio.com/api/get-started/your-first-extension) to learn how to write a VSCode Extension.
+
+
 ## Compiling
 
-There's no need to manually compile. The launch tasks trigger the 'compile' script from the package.json file which continuously watches TypeScript files for changes.
+There's no need to manually compile. The launch tasks trigger the 'compile' script from the package.json file which continuously watches TypeScript files for changes.  
+
+Run the following to restore dependencies.
+
+```sh
+npm install
+```
 
 ## Test
 
-Run the 'Launch Tests' task from the Debug pane (Ctrl+Shift+D) to execute tests.
+Run the 'Launch Tests' task from the Debug pane (Ctrl+Shift+D) to execute tests, or click ▶️ vscode-jest-tests.
+
+Jest is used for tests.
+
+```sh
+npm install --save-dev jest
+```
+
 
 ## Debug
 
@@ -42,4 +60,12 @@ Please be sure to lint and fix any formatting errors before submitting a pull re
 You can fix formatting errors automatically by running:
 ```
 npm run lint -- --fix
+```
+
+## Dependencies
+
+Dependencies may become stale.
+
+```sh
+npm outdated
 ```
