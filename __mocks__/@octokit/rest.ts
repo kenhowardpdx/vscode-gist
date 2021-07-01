@@ -1,5 +1,5 @@
 // tslint:disable:no-any no-unsafe-any no-magic-numbers
-jest.genMockFromModule<object>('@octokit/rest');
+jest.createMockFromModule<object>('@octokit/rest');
 
 const gistId = Math.random()
   .toString(36)
@@ -96,7 +96,9 @@ const mockedGists = {
   )
 };
 
-module.exports = jest.fn(() => ({
-  authenticate: jest.fn(),
-  gists: mockedGists
-}));
+module.exports = {
+  Octokit: jest.fn(() => ({
+    auth: jest.fn(),
+    gists: mockedGists
+  }))
+}

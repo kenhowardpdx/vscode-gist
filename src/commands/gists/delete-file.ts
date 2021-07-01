@@ -7,7 +7,7 @@ const deleteFile: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { gists, insights, logger } = services;
+  const { gists, logger } = services;
 
   const command = GistCommands.DeleteFile;
 
@@ -32,7 +32,6 @@ const deleteFile: CommandInitializer = (
         await gists.deleteFile(id, filename);
         commands.executeCommand('workbench.action.closeActiveEditor');
         utils.notify.info('Deleted File');
-        insights.track(command);
       } else {
         logger.info(`"${doc.fileName}" Not a Gist`);
         utils.notify.info('Document Is Not a Gist');
@@ -40,7 +39,6 @@ const deleteFile: CommandInitializer = (
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error('Could Not Delete File', `Reason: ${error.message}`);
     }
   };

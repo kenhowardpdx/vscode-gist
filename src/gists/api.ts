@@ -29,40 +29,42 @@ type GistsResponse = GistResponse[];
 
 // tslint:disable:no-any
 const prepareError = (err: Error): Error => {
-  let httpError: Error | undefined;
-
   try {
-    httpError = new Error(
-      // tslint:disable-next-line: no-unsafe-any
+    return new Error(
       (JSON.parse(err && err.message) || { message: 'unkown' }).message
     );
-  } catch (exc) {
-    // empty
+  } catch (_) {
+    return err;
   }
-
-  return httpError || err;
 };
 // tslint:enable:no-any
 
-const formatGist = (gist: GistResponse): Gist => ({
-  createdAt: new Intl.DateTimeFormat(env.language, {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }).format(new Date(gist.created_at)),
-  description: gist.description,
-  fileCount: Object.keys(gist.files).length,
-  files: gist.files,
-  id: gist.id,
-  name: gist.description || Object.keys(gist.files)[0],
-  public: gist.public,
-  updatedAt: new Intl.DateTimeFormat(env.language, {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }).format(new Date(gist.updated_at)),
-  url: gist.html_url
-});
+const formatGist = (gist: unknown): Gist => {
+  if (typeof gist != 'object') {
+    // TODO: consider throwing an error
+    return <Gist>{};
+  }
+  const g = <GistResponse>gist;
+  return {
+    createdAt: new Intl.DateTimeFormat(env.language, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(g.created_at)),
+    description: g.description,
+    fileCount: Object.keys(g.files).length,
+    files: g.files,
+    id: g.id,
+    name: g.description || Object.keys(g.files)[0],
+    public: g.public,
+    updatedAt: new Intl.DateTimeFormat(env.language, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(g.updated_at)),
+    url: g.html_url
+  };
+};
 
 const formatGists = (gistList: GistsResponse): Gist[] =>
   gistList.map(formatGist);
@@ -73,9 +75,7 @@ const getGist = async (id: string): Promise<Gist> => {
 
     return formatGist(results.data);
   } catch (err) {
-    const error: Error = prepareError(err as Error);
-
-    throw error;
+    throw prepareError(err as Error);
   }
 };
 
@@ -92,9 +92,7 @@ const getGists = async (starred = false): Promise<Gist[]> => {
     // tslint:disable-next-line:no-any
     return formatGists(results.data as any);
   } catch (err) {
-    const error: Error = prepareError(err as Error);
-
-    throw error;
+    throw prepareError(err as Error);
   }
 };
 
@@ -104,6 +102,9 @@ const updateGist = async (
   content: string | null
 ): Promise<Gist> => {
   try {
+    if (!content) {
+      content = ' ';
+    }
     const results = await gists.update({
       files: { [filename]: { content } },
       gist_id: id
@@ -111,9 +112,7 @@ const updateGist = async (
 
     return formatGist(results.data);
   } catch (err) {
-    const error: Error = prepareError(err as Error);
-
-    throw error;
+    throw prepareError(err as Error);
   }
 };
 
@@ -137,9 +136,7 @@ const createGist = async (
 
     return formatGist(results.data);
   } catch (err) {
-    const error: Error = prepareError(err as Error);
-
-    throw error;
+    throw prepareError(err as Error);
   }
 };
 
@@ -147,9 +144,7 @@ const deleteGist = async (id: string): Promise<void> => {
   try {
     await gists.delete({ gist_id: id });
   } catch (err) {
-    const error: Error = prepareError(err as Error);
-
-    throw error;
+    throw prepareError(err as Error);
   }
 };
 
@@ -157,13 +152,11 @@ const deleteFile = async (id: string, filename: string): Promise<void> => {
   try {
     await gists.update({
       // tslint:disable-next-line:no-null-keyword
-      files: { [filename]: null },
+      files: { [filename]: { content: '' } },
       gist_id: id
     });
   } catch (err) {
-    const error: Error = prepareError(err as Error);
-
-    throw error;
+    throw prepareError(err as Error);
   }
 };
 

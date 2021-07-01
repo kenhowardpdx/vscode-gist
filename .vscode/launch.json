@@ -11,6 +11,8 @@
             "request": "launch",
             "program": "${workspaceFolder}/node_modules/jest/bin/jest",
             "args": [
+                "--config",
+                "${workspaceFolder}/jest.config.js",
                 "--runInBand"
             ],
             "cwd": "${workspaceFolder}",

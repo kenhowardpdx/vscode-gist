@@ -11,7 +11,7 @@ const select: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { insights, logger, profiles } = services;
+  const { logger, profiles } = services;
 
   const command = ProfileCommands.Select;
 
@@ -52,14 +52,12 @@ const select: CommandInitializer = (
         profiles.add(name, key, url, true);
         commands.executeCommand(StatusBarCommands.Update);
         commands.executeCommand(GistCommands.UpdateAccessKey);
-        insights.track(command);
       } else {
         commands.executeCommand(ProfileCommands.Create);
       }
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error(
         'Could Not Select Profile',
         `Reason: ${error.message}`

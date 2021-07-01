@@ -7,7 +7,7 @@ const update: CommandInitializer = (
   services: Services,
   _utils: Utils
 ): [Command, CommandFn] => {
-  const { insights, logger, profiles } = services;
+  const { logger, profiles } = services;
 
   const statusBar = window.createStatusBarItem(StatusBarAlignment.Left);
   statusBar.show();
@@ -28,7 +28,6 @@ const update: CommandInitializer = (
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
     }
   };
 

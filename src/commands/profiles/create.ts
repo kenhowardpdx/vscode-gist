@@ -11,7 +11,7 @@ const create: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { insights, logger, profiles } = services;
+  const { logger, profiles } = services;
 
   const command = ProfileCommands.Create;
 
@@ -54,13 +54,11 @@ const create: CommandInitializer = (
       profiles.add(name, key, url, true);
       await commands.executeCommand(StatusBarCommands.Update);
       await commands.executeCommand(GistCommands.UpdateAccessKey);
-      insights.track(command);
 
       logger.debug('Profile Created');
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error(
         'Could Not Create Profile',
         `Reason: ${error.message}`

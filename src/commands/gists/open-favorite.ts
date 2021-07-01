@@ -9,7 +9,7 @@ const openFavorite: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { gists, insights, logger } = services;
+  const { gists, logger } = services;
 
   const command = GistCommands.OpenFavorite;
 
@@ -34,21 +34,16 @@ const openFavorite: CommandInitializer = (
         gistName = `"${selected.block.name}"`;
         logger.info(`User Selected Gist: "${selected.label}"`);
 
-        const { fileCount } = await openGist(
+        await openGist(
           await gists.getGist(selected.block.id),
           config.get<number>('maxFiles')
         );
 
         logger.info('Opened Gist');
-        insights.track('open', undefined, {
-          fileCount,
-          isFavorite: 0
-        });
       }
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       if (error && error.message === 'Not Found') {
         utils.notify.error(
           `Could Not Open Gist ${gistName}`,

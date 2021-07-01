@@ -14,7 +14,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#configure', () => {
-    test('sets baseUrl properly', () => {
+    test('configure api', () => {
       expect.assertions(1);
 
       testGists.configure({ url: 'https://foo.bar/api' });
@@ -25,7 +25,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#create', () => {
-    test('should creat a gist', (done) => {
+    test('create a gist', (done) => {
       expect.assertions(1);
 
       testGists
@@ -41,7 +41,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#list', () => {
-    test('should have list function', (done) => {
+    test('list gists', (done) => {
       expect.assertions(1);
 
       testGists.list().then((response: any) => {
@@ -51,7 +51,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#listStarred', () => {
-    test('should have listStarred function', (done) => {
+    test('list starred gists', (done) => {
       expect.assertions(1);
 
       testGists.listStarred().then((response: any) => {
@@ -61,7 +61,7 @@ describe('GistService tests', () => {
     });
   });
   describe('#get', () => {
-    test('should have get function', async () => {
+    test('get a gist', async () => {
       const results = await testGists.get({ gist_id: 'one-really-cool-id' });
       expect(results.data.id).toBe('one-really-cool-id');
     });
