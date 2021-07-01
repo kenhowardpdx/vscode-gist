@@ -7,7 +7,7 @@ const deleteCommand: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { gists, insights, logger } = services;
+  const { gists, logger } = services;
 
   const command = GistCommands.Delete;
 
@@ -36,7 +36,6 @@ const deleteCommand: CommandInitializer = (
         await gists.deleteGist(id);
         closeGistEditors(id);
         utils.notify.info('Deleted Gist');
-        insights.track(command);
       } else {
         logger.info(`"${doc.fileName}" Not a Gist`);
         utils.notify.info('Document Is Not a Gist');
@@ -44,7 +43,6 @@ const deleteCommand: CommandInitializer = (
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error('Could Not Delete Gist', `Reason: ${error.message}`);
     }
   };

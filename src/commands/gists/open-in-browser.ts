@@ -7,7 +7,7 @@ const openInBrowser: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { gists, insights, logger } = services;
+  const { gists, logger } = services;
 
   const command = GistCommands.OpenInBrowser;
 
@@ -28,15 +28,9 @@ const openInBrowser: CommandInitializer = (
     try {
       const url = (gist && gist.url) || (await getGistUrlFromOpenEditor());
       commands.executeCommand('vscode.open', Uri.parse(url));
-
-      insights.track(command, { new: gist ? 'true' : 'false' });
     } catch (err) {
-      const knownErrors = ['Not Found', 'No Open Editor'];
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      if (knownErrors.indexOf(error && error.message) === -1) {
-        insights.exception(command, { message: error.message });
-      }
       if (error && error.message === 'Not Found') {
         utils.notify.error(
           `Could Not Open Gist ${gistName}`,

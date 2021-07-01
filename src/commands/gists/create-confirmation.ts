@@ -7,7 +7,7 @@ const createConfirmation: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { insights, logger } = services;
+  const { logger } = services;
 
   const command = GistCommands.CreateConfirmation;
 
@@ -36,16 +36,13 @@ const createConfirmation: CommandInitializer = (
       if (selection.title === CommandActions.OpenInBrowser) {
         commands.executeCommand(GistCommands.OpenInBrowser, gist);
         logger.info('Opening Gist in Browser');
-        insights.track(command, { type: 'browser' });
       } else if (selection.title === CommandActions.CopyGistURL) {
         env.clipboard.writeText(url);
         logger.info('Copying Gist URL to Clipboard');
-        insights.track(command, { type: 'clipboard' });
       }
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error(error.message);
     }
   };

@@ -11,7 +11,6 @@ import { init as initCommands } from './commands';
 import { GistCommands, StatusBarCommands } from './commands/extension-commands';
 import { DEBUG, EXTENSION_ID } from './constants';
 import * as gists from './gists';
-import { insights } from './insights';
 import { init as initListeners } from './listeners';
 import { Levels, logger } from './logger';
 import { extensionMigrations, migrations } from './migrations';
@@ -41,13 +40,11 @@ export function activate(context: ExtensionContext): void {
 
   const extCommands = initCommands(config, {
     gists,
-    insights,
     logger,
     profiles
   });
   const extListeners = initListeners(config, {
     gists,
-    insights,
     logger,
     profiles
   });
@@ -71,24 +68,18 @@ export function activate(context: ExtensionContext): void {
   /**
    * Execute Startup Commands
    */
-  migrations.up((err, results) => {
+  migrations.up((err) => {
     commands.executeCommand(StatusBarCommands.Update);
     commands.executeCommand(GistCommands.UpdateAccessKey);
 
     if (err) {
-      insights.exception('migrations', { message: err.message });
+      logger.error(err.message);
     }
 
     if (previousVersion !== currentVersion) {
       // TODO: show what's new
       context.globalState.update('version', currentVersion);
     }
-
-    insights.track('activated', undefined, {
-      commandCount: extCommands.commandCount,
-      listenerCount: extListeners.listenerCount,
-      migrationCount: results.migrated.length
-    });
   });
 }
 

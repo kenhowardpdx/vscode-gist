@@ -40,6 +40,39 @@ describe('Gist Command Utils Tests', () => {
       );
       expect(showTextDocumentSpy).toHaveBeenCalledWith(mockDoc);
     });
+    test('it should ask user to select file of multiple file gist', async () => {
+      expect.assertions(1);
+      showQuickPickSpy.mockImplementationOnce((items: any) =>
+        Promise.resolve(items[0])
+      );
+
+      await openGist(
+        {
+          fileCount: 2,
+          files: {
+            'file-one.md': { content: 'test-file-one' },
+            'file-two.md': { content: 'test-file-two' }
+          },
+          id: '123test'
+        } as any,
+        1
+      );
+
+      expect(showQuickPickSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining([
+          {
+            description: '',
+            'file-one.md': { content: 'test-file-one' },
+            label: 'file-one.md'
+          },
+          {
+            description: '',
+            'file-two.md': { content: 'test-file-two' },
+            label: 'file-two.md'
+          }
+        ])
+      );
+    });
   });
   describe('#selectFile', () => {
     test('it accepts a list of gist files', async () => {

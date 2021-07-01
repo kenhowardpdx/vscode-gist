@@ -9,7 +9,7 @@ const create: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { gists, insights, logger } = services;
+  const { gists, logger } = services;
 
   const command = GistCommands.Create;
 
@@ -52,7 +52,6 @@ const create: CommandInitializer = (
       const context = gistName ? ` ${gistName}` : '';
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error(
         `Could Not Create${context}`,
         `Reason: ${error.message}`

@@ -7,7 +7,7 @@ const add: CommandInitializer = (
   services: Services,
   utils: Utils
 ): [Command, CommandFn] => {
-  const { gists, insights, logger } = services;
+  const { gists, logger } = services;
 
   const command = GistCommands.Add;
 
@@ -38,11 +38,9 @@ const add: CommandInitializer = (
       await services.gists.updateGist(selected.block.id, filename, content);
 
       utils.notify.info(`Added "${filename}" to "${selected.block.name}" Gist`);
-      services.insights.track(command);
     } catch (err) {
       const error: Error = err as Error;
       logger.error(`${command} > ${error && error.message}`);
-      insights.exception(command, { message: error.message });
       utils.notify.error('Could Not Add File', `Reason: ${error.message}`);
     }
   };

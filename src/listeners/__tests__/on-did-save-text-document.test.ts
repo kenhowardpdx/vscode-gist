@@ -31,15 +31,14 @@ describe('onDidSaveTextDocument', () => {
   test('should save', async () => {
     expect.assertions(3);
 
-    (utilsMock.files
-      .extractTextDocumentDetails as jest.Mock).mockImplementation(
-      (_doc: any) => ({
-        content: 'test-file-content',
-        filename: 'test-file-name.md',
-        id: '123',
-        language: 'unkown'
-      })
-    );
+    (
+      utilsMock.files.extractTextDocumentDetails as jest.Mock
+    ).mockImplementation((_doc: any) => ({
+      content: 'test-file-content',
+      filename: 'test-file-name.md',
+      id: '123',
+      language: 'unkown'
+    }));
 
     await onDidSaveTextDocumentFn({
       fileName: `${TMP_DIRECTORY_PREFIX}_123456789abcdefg_random_string/test-file-name.md`,
