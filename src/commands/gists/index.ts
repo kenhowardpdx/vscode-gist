@@ -4,6 +4,7 @@ export * from './create-confirmation';
 export * from './delete';
 export * from './delete-file';
 export * from './insert';
+export * from './insert-favorite';
 export * from './open';
 export * from './open-favorite';
 export * from './open-in-browser';
