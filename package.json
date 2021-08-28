@@ -84,6 +84,11 @@
         "category": "GIST"
       },
       {
+        "command": "extension.gist.insertFavorite",
+        "title": "Insert Text From Favorite Gist File",
+        "category": "GIST"
+      },
+      {
         "command": "extension.profile.select",
         "title": "Select Profile",
         "category": "GIST"

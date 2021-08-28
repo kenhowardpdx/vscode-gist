@@ -59,6 +59,7 @@ GIST: Delete File
 GIST: Add File
 GIST: Open Gist In Browser
 GIST: Insert Text From Gist File
+GIST: Insert Text From Favorite Gist File
 ~~~
 
 ## Extension Settings
@@ -104,6 +105,7 @@ Here is a list of commands and their mapped keyboard shortcuts
 |extension.gist.deleteFile|Delete File|not mapped|
 |extension.gist.add|Add File|ctrl+alt+a ctrl+alt+a|
 |extension.gist.insert|Insert Text From Gist File|not mapped|
+|extension.gist.insertFavorite|Insert Text From Favorite Gist File|not mapped|
 |extension.profile.select|Select Profile|ctrl+alt+=|
 |extension.resetState|n/a|ctrl+shift+0|Delete All Extension Memory (removes auth tokens)|
 
